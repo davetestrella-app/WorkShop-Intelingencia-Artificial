@@ -300,7 +300,7 @@ export default function App() {
             </div>
 
             {/* Countdown timer embedded directly inside the content flow */}
-            <div className="pt-6 border-t border-white/10 w-full flex justify-start">
+            <div className="pt-6 border-t border-white/10 w-full flex justify-center sm:justify-start">
               <BannerCounter targetDate={config.launchDate} />
             </div>
           </div>

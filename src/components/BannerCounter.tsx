@@ -64,7 +64,7 @@ export default function BannerCounter({ targetDate }: BannerCounterProps) {
   ];
 
   return (
-    <div className="flex flex-col items-start">
+    <div className="flex flex-col items-center sm:items-start">
       <div className="flex items-center space-x-1.5 text-xs text-slate-300 font-semibold tracking-wider uppercase mb-3.5">
         <Clock className="w-4 h-4 text-emerald-400 animate-pulse" />
         <span>El grupo VIP se cierra antes del Lanzamiento oficial:</span>

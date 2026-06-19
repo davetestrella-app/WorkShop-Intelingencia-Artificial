@@ -1,0 +1,8 @@
+{
+  "name": "Growth Spring Workshop Capture",
+  "description": "Página de captura optimizada para la Clase Maestra y Workshop Growth Spring de Content Creativo, diseñada para guiar visitas registradas al grupo VIP de WhatsApp.",
+  "requestFramePermissions": [],
+  "majorCapabilities": [
+    "MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"
+  ]
+}

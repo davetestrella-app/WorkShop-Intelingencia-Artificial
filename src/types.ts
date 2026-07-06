@@ -16,4 +16,5 @@ export interface LaunchConfig {
   leadCountOffset: number; // Seed number to show as social proof
   emailRequired: boolean;
   phoneRequired: boolean;
+  hotmartLink: string; // Added link to Hotmart
 }

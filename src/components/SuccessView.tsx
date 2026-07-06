@@ -26,7 +26,7 @@ export default function SuccessView({ name, whatsappLink }: SuccessViewProps) {
             ¡Felicidades, {name}!
           </h2>
           <p className="text-sm font-semibold text-emerald-400">
-            Tu plaza para la Clase Maestra y Workshop Especial está pre-reservada.
+            Tu pago de $5 USD fue aprobado. Tu entrada al Workshop de IA está confirmada.
           </p>
         </div>
 

@@ -47,6 +47,7 @@ export default function AdminPanel({
   const [leadOffset, setLeadOffset] = useState<number>(config.leadCountOffset);
   const [emailRequired, setEmailRequired] = useState(config.emailRequired);
   const [phoneRequired, setPhoneRequired] = useState(config.phoneRequired);
+  const [hotmartLink, setHotmartLink] = useState(config.hotmartLink || "https://pay.hotmart.com/example");
   const [showSavedMsg, setShowSavedMsg] = useState(false);
 
   if (!isOpen) return null;
@@ -63,6 +64,7 @@ export default function AdminPanel({
       leadCountOffset: Number(leadOffset) || 0,
       emailRequired,
       phoneRequired,
+      hotmartLink,
     });
     setShowSavedMsg(true);
     setTimeout(() => setShowSavedMsg(false), 3000);
@@ -182,7 +184,25 @@ export default function AdminPanel({
                     onChange={(e) => setWhatsappLink(e.target.value)}
                     className="w-full px-4 py-2.5 rounded-lg border border-white/10 focus:outline-none focus:ring-2 focus:ring-emerald-500/50 bg-white/5 text-sm text-white placeholder-slate-450"
                   />
-                  <p className="text-xs text-slate-400">Un enlace real que redirigirá al prospecto al registrarse.</p>
+                  <p className="text-xs text-slate-400">Un enlace real que redirigirá al prospecto al unirse.</p>
+                </div>
+
+                {/* HOTMART LINK */}
+                <div className="space-y-2">
+                  <label className="block text-sm font-semibold text-slate-300 flex items-center">
+                    <Sparkles className="w-4 h-4 mr-1.5 text-emerald-400" />
+                    Enlace de Compra en Hotmart (Botón de Pago)
+                  </label>
+                  <input
+                    id="input-hotmart-link"
+                    type="url"
+                    required
+                    placeholder="https://pay.hotmart.com/..."
+                    value={hotmartLink}
+                    onChange={(e) => setHotmartLink(e.target.value)}
+                    className="w-full px-4 py-2.5 rounded-lg border border-white/10 focus:outline-none focus:ring-2 focus:ring-emerald-500/50 bg-white/5 text-sm text-white placeholder-slate-450"
+                  />
+                  <p className="text-xs text-slate-400">Enlace de Hotmart donde se completará la compra del programa.</p>
                 </div>
 
                 {/* LAUNCH TARGET DATE */}

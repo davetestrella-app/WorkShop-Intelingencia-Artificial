@@ -20,7 +20,6 @@ import {
 import AdminPanel from "./components/AdminPanel";
 import BannerCounter from "./components/BannerCounter";
 import LeadForm from "./components/LeadForm";
-import SuccessView from "./components/SuccessView";
 import { Lead, LaunchConfig } from "./types";
 
 // Default launch setup matching "Growth Spring" and the owner Content Creativo
@@ -28,12 +27,13 @@ const DEFAULT_CONFIG: LaunchConfig = {
   whatsappLink: "https://chat.whatsapp.com/CIRi15gFaaZDueOhDnHK2y",
   launchDate: "2026-07-24T19:00", // Viernes 24 de Julio, 7 PM Hora Colombia
   title: "Workshop Clase Maestra: Inteligencia Artificial para Negocios y Marcas Personales",
-  subtitle: "Un entrenamiento práctico 100% gratuito para emprendedores y profesionales. Aprende a automatizar procesos, delegar tareas operativas a la IA, multiplicar tu creación de contenido y acelerar tus metas comerciales. Viernes 24 de Julio, 7:00 PM (Hora Colombia).",
-  description: "Reserva tu plaza gratuita hoy. Al registrarte te daremos el enlace del Grupo VIP de WhatsApp exclusivo para recibir la Guía de Trabajo de IA interactiva en PDF con Prompts listos para copiar, y el enlace de Zoom.",
+  subtitle: "Automatiza tus procesos diarios, delega tareas operativas a la IA y multiplica tu contenido en tiempo récord. Entrada por solo $5 USD.",
+  description: "Adquiere tu cupo hoy y recibe acceso inmediato al entrenamiento por Zoom, el Kit de Prompts y el Grupo VIP de WhatsApp.",
   videoEmbed: "", // Leave blank by default to show the high-converting spring visual infocard
   leadCountOffset: 348,
   emailRequired: true,
   phoneRequired: true,
+  hotmartLink: "https://pay.hotmart.com/example", // Default Hotmart URL
 };
 
 const DEFAULT_LEADS: Lead[] = [
@@ -50,6 +50,20 @@ export default function App() {
   const [registeredLead, setRegisteredLead] = useState<Lead | null>(null);
   const [isAdminOpen, setIsAdminOpen] = useState(false);
   const [activeFaq, setActiveFaq] = useState<number | null>(null);
+  const [showFloating, setShowFloating] = useState(false);
+
+  // Scroll detection for floating buy button
+  useEffect(() => {
+    const handleScroll = () => {
+      if (window.scrollY > 450) {
+        setShowFloating(true);
+      } else {
+        setShowFloating(false);
+      }
+    };
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
 
   // Load configs and leads from localStorage on mount
   useEffect(() => {
@@ -168,55 +182,51 @@ export default function App() {
   const challengePhases = [
     {
       week: "BLOQUE 1",
-      title: "IA y Automatización de Procesos",
-      desc: "Cómo integrar agentes y asistentes inteligentes en tu flujo diario para procesar datos, delegar lo operativo y liberar el 70% de tu tiempo.",
+      title: "Sistemas y Automatización",
+      desc: "Integra asistentes inteligentes para delegar tareas repetitivas y liberar hasta un 70% de tu tiempo operativo.",
       icon: BookOpen,
       color: "bg-emerald-50 text-emerald-700 border-emerald-100",
     },
     {
       week: "BLOQUE 2",
-      title: "IA para Marca Personal y Contenido",
-      desc: "Estrategias de redacción y diseño con IA generativa para crear contenidos de alto impacto para redes sociales e imantar clientes potenciales.",
+      title: "Contenido de Alto Impacto",
+      desc: "Crea contenido magnético para tus redes sociales en segundos usando Inteligencia Artificial generativa.",
       icon: Zap,
       color: "bg-teal-50 text-teal-700 border-teal-100",
     },
     {
       week: "BLOQUE 3",
-      title: "Captación y Cierre de Ventas con IA",
-      desc: "Cómo usar asistentes automatizados de prospección y chat inteligente para responder al instante, agendar citas y cerrar acuerdos en piloto automático.",
+      title: "Prospección y Cierre",
+      desc: "Usa agentes para agendar citas, responder dudas frecuentes y cerrar más ventas en piloto automático.",
       icon: Trophy,
       color: "bg-amber-50 text-amber-700 border-amber-100",
     },
     {
       week: "BLOQUE 4",
-      title: "Plan de Implementación Avanzado",
-      desc: "Al cierre, presentaremos de forma exclusiva el programa premium de mentoría personalizada para ayudarte a desplegar IA en tu negocio.",
+      title: "Plan de Acción Directo",
+      desc: "Construye tu hoja de ruta personalizada para implantar sistemas de IA en tu negocio desde el día uno.",
       icon: Users2,
       color: "bg-indigo-50 text-indigo-700 border-indigo-100",
     },
   ];
 
-  // High converting FAQ questions
+  // High converting FAQ questions (conciertas y precisas)
   const faqs = [
     {
-      q: "¿Tiene algún costo reservar mi plaza para la Clase Maestra / Workshop?",
-      a: "No, la participación en este Workshop especial es 100% gratuita. Está diseñado y financiado por Content Creativo para introducir herramientas prácticas de Inteligencia Artificial para tus proyectos y presentar al final nuestro programa avanzado completo para quienes deseen ir más allá."
+      q: "¿Tiene algún costo el acceso al Workshop?",
+      a: "Sí, el acceso completo tiene un costo simbólico de solo $5 USD hoy por oferta de lanzamiento especial."
     },
     {
-      q: "¿Es obligatorio unirme al grupo de WhatsApp?",
-      a: "Sí, es un requisito de registro y logística. Debido a la saturación del correo electrónico, todos los enlaces de acceso de Zoom de la transmisión del Viernes 24 de Julio, las alertas en vivo y la descarga de la Guía de Trabajo de IA interactiva en PDF se entregarán únicamente en el Grupo VIP silencioso."
+      q: "¿Cómo recibiré los accesos y bonos?",
+      a: "Inmediatamente después del pago en Hotmart, recibirás por email las credenciales de Zoom y el enlace al Grupo VIP de WhatsApp para descargar las guías PDF."
     },
     {
-      q: "¿De qué trata el programa de mentoría completo que se mencionará al final?",
-      a: "Al finalizar el entrenamiento técnico de Inteligencia Artificial, presentaremos de forma exclusiva el programa premium de mentoría avanzada y personalizada para la implantación de sistemas digitales e IA en tu negocio. Compartiremos un descuento por preventa de lanzamiento y bonos únicos únicamente para los asistentes en vivo."
+      q: "¿Qué pasa si no puedo asistir en vivo?",
+      a: "No te preocupes. La grabación del entrenamiento completo se compartirá exclusivamente por tiempo limitado dentro del Grupo VIP de WhatsApp."
     },
     {
-      q: "¿Habrá grabación disponible si no puedo asistir a las 7:00 PM?",
-      a: "Te recomendamos asistir en vivo para hacer preguntas a los mentores e interactuar. No obstante, compartiremos una grabación por tiempo sumamente restringido a través del Grupo VIP de WhatsApp para aquellos que tengan imprevistos."
-    },
-    {
-      q: "¿Qué herramientas necesito para participar?",
-      a: "Te recomendamos conectarte desde una computadora o tableta para apreciar las demostraciones en vivo de herramientas de IA, y tener a la mano la Guía de Trabajo interactiva en PDF que te daremos gratis en el grupo de WhatsApp para rellenar tus apuntes."
+      q: "¿Existe alguna garantía de satisfacción?",
+      a: "Por supuesto. Tienes garantía incondicional de 7 días. Si sientes que no aporta valor a tu negocio, te devolvemos el 100% de tu dinero sin preguntas."
     }
   ];
 
@@ -307,30 +317,69 @@ export default function App() {
 
           {/* Right Squeeze / Action Form Column */}
           <div id="capture-card-container" className="lg:col-span-5 w-full">
-            {registeredLead ? (
-              <SuccessView 
-                name={registeredLead.name} 
-                whatsappLink={config.whatsappLink} 
-              />
-            ) : (
-              <LeadForm 
-                config={config} 
-                onSubmit={handleNewSignUp} 
-                registeredCount={leads.length}
-              />
-            )}
+            <LeadForm 
+              config={config} 
+              registeredCount={leads.length}
+            />
+          </div>
+        </section>
 
-            {registeredLead && (
-              <div className="text-center mt-3">
-                <button
-                  id="reset-form-test-btn"
-                  onClick={handleResetRegistration}
-                  className="text-xs text-sage-500 hover:text-emerald-700 underline font-medium cursor-pointer transition-colors"
-                >
-                  Regresar al Formulario (Ideal para pruebas del Lanzamiento)
-                </button>
+        {/* PAIN POINTS SECTION / "¿TE HAS SENTIDO ASÍ ALGUNA VEZ?" */}
+        <section id="pain-points-section" className="space-y-12">
+          <div className="max-w-3xl mx-auto text-center space-y-3.5">
+            <span className="text-xs font-bold uppercase tracking-widest text-emerald-400">¿El Contexto Actual te Abruma?</span>
+            <h3 className="text-3xl sm:text-4xl font-extrabold font-display text-white tracking-tight">
+              ¿Te has sentido estancado o frustrado así?
+            </h3>
+            <p className="text-sm sm:text-base text-slate-300">
+              La llegada masiva de la Inteligencia Artificial está cambiando el juego. No te quedes atrás en la era digital.
+            </p>
+          </div>
+
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
+            {[
+              {
+                title: "Pierdes tiempo",
+                desc: "Pasas horas redactando correos, estructurando ideas o creando contenido que la IA resolvería en segundos.",
+                color: "border-emerald-500/25 shadow-[0_0_20px_rgba(16,185,129,0.03)]",
+              },
+              {
+                title: "Inseguridad",
+                desc: "Sientes que todos avanzan rápido con la Inteligencia Artificial, pero tú no sabes por dónde arrancar.",
+                color: "border-blue-500/25 shadow-[0_0_20px_rgba(59,130,246,0.03)]",
+              },
+              {
+                title: "Prompts Genéricos",
+                desc: "Te frustra que ChatGPT o Claude te den respuestas genéricas, vacías o inútiles para tu negocio.",
+                color: "border-indigo-500/25 shadow-[0_0_20px_rgba(99,102,241,0.03)]",
+              },
+              {
+                title: "Operación Manual",
+                desc: "Buscas un método directo para delegar tu carga de trabajo y enfocarte en multiplicar tus resultados.",
+                color: "border-teal-500/25 shadow-[0_0_20px_rgba(20,184,166,0.03)]",
+              }
+            ].map((pain, i) => (
+              <div 
+                key={i} 
+                className={`bg-[#0a0d0b]/80 backdrop-blur-md rounded-2xl border ${pain.color} p-5 hover:scale-[1.02] hover:border-emerald-500/50 transition-all group relative overflow-hidden`}
+              >
+                <div className="absolute -top-3 -right-3 w-10 h-10 bg-white/5 rounded-full flex items-center justify-center font-mono font-bold text-xs text-slate-500 group-hover:text-emerald-400 group-hover:bg-emerald-500/10 transition-all border border-white/5">
+                  0{i+1}
+                </div>
+                <h4 className="font-extrabold text-xs sm:text-sm text-white group-hover:text-emerald-400 transition-colors uppercase tracking-tight">
+                  {pain.title}
+                </h4>
+                <p className="text-[11px] text-slate-350 leading-relaxed mt-2.5">
+                  {pain.desc}
+                </p>
               </div>
-            )}
+            ))}
+          </div>
+
+          <div className="text-center pt-2">
+            <p className="text-xs sm:text-sm text-slate-400 italic">
+              No estás solo en este camino. Es precisamente para ayudarte a erradicar estos bloqueos que creamos el <span className="text-emerald-400 font-bold">Workshop de IA</span>.
+            </p>
           </div>
         </section>
 
@@ -480,6 +529,296 @@ export default function App() {
           </div>
         </section>
 
+        {/* NEW BENTO GRID SHOWCASE LIKE PORTUGUESE DESIGN */}
+        <section id="bento-learning-showcase" className="space-y-10">
+          <div className="max-w-3xl mx-auto text-center space-y-3.5">
+            <span className="text-xs font-bold uppercase tracking-widest text-emerald-400">Habilidades Prácticas de Creación Visual</span>
+            <h3 className="text-3xl font-extrabold font-display text-white tracking-tight">
+              ¿Qué vas a aprender a crear con Inteligencia Artificial?
+            </h3>
+            <p className="text-sm sm:text-base text-slate-300">
+              Aprende el método paso a paso para dominar la generación visual y la automatización creativa, logrando resultados profesionales desde el primer día.
+            </p>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+            
+            {/* Card 1: Wide portraits */}
+            <div className="bg-gradient-to-br from-[#0c140f] to-[#040805] rounded-2xl border border-emerald-500/15 p-6 hover:border-emerald-500/40 hover:shadow-[0_0_25px_rgba(16,185,129,0.05)] transition-all group relative overflow-hidden flex flex-col justify-between md:col-span-2">
+              <div className="space-y-4 mb-6">
+                <p className="text-sm sm:text-base text-slate-350 leading-relaxed font-sans">
+                  Crear <span className="text-white font-extrabold">retratos y sesiones fotográficas ultrarealistas</span> y transformarlas en composiciones de cine con <span className="text-emerald-400 font-extrabold">calidad surreal</span>.
+                </p>
+              </div>
+              <div className="relative aspect-[16/9] w-full overflow-hidden rounded-xl border border-white/5 bg-black/40">
+                <img 
+                  src="/src/assets/images/cinematic_portraits_1783353257734.jpg" 
+                  alt="Retratos ultrarealistas" 
+                  className="w-full h-full object-cover group-hover:scale-[1.03] transition-transform duration-500"
+                  referrerPolicy="no-referrer"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-[#040805]/85 via-transparent to-transparent"></div>
+              </div>
+            </div>
+
+            {/* Card 2: Prompts */}
+            <div className="bg-gradient-to-br from-[#0c140f] to-[#040805] rounded-2xl border border-emerald-500/15 p-6 hover:border-emerald-500/40 hover:shadow-[0_0_25px_rgba(16,185,129,0.05)] transition-all group relative overflow-hidden flex flex-col justify-between md:col-span-1">
+              <div className="space-y-4 mb-6">
+                <p className="text-sm sm:text-base text-slate-350 leading-relaxed font-sans">
+                  Utilizar prompts avanzados para generar <span className="text-white font-extrabold">imágenes y recursos visuales</span> de nivel <span className="text-emerald-400 font-extrabold">cinematográfico</span>.
+                </p>
+              </div>
+              <div className="relative aspect-square w-full overflow-hidden rounded-xl border border-white/5 bg-black/40 flex items-center justify-center">
+                <img 
+                  src="/src/assets/images/ai_prompt_icon_1783353268310.jpg" 
+                  alt="Prompts e imágenes" 
+                  className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                  referrerPolicy="no-referrer"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-[#040805]/85 via-transparent to-transparent"></div>
+              </div>
+            </div>
+
+            {/* Card 3: Photoshop/Integrations */}
+            <div className="bg-gradient-to-br from-[#0c140f] to-[#040805] rounded-2xl border border-emerald-500/15 p-6 hover:border-emerald-500/40 hover:shadow-[0_0_25px_rgba(16,185,129,0.05)] transition-all group relative overflow-hidden flex flex-col justify-between md:col-span-1">
+              <div className="space-y-4 mb-6">
+                <p className="text-sm sm:text-base text-slate-350 leading-relaxed font-sans">
+                  Cómo <span className="text-white font-extrabold">perfeccionar tus imágenes</span> e integrarlas con herramientas avanzadas para tu negocio.
+                </p>
+              </div>
+              <div className="relative aspect-square w-full overflow-hidden rounded-xl border border-white/5 bg-black/40 flex items-center justify-center">
+                <img 
+                  src="/src/assets/images/connected_tools_1783353280892.jpg" 
+                  alt="Integraciones de diseño" 
+                  className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                  referrerPolicy="no-referrer"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-[#040805]/85 via-transparent to-transparent"></div>
+              </div>
+            </div>
+
+            {/* Card 4: Main IAs */}
+            <div className="bg-gradient-to-br from-[#0c140f] to-[#040805] rounded-2xl border border-emerald-500/15 p-6 hover:border-emerald-500/40 hover:shadow-[0_0_25px_rgba(16,185,129,0.05)] transition-all group relative overflow-hidden flex flex-col justify-between md:col-span-1">
+              <div className="space-y-4 mb-6">
+                <p className="text-sm sm:text-base text-slate-350 leading-relaxed font-sans">
+                  Dominar las <span className="text-white font-extrabold">principales I.A.s</span> de generación visual y automatización aplicadas a <span className="text-emerald-400 font-extrabold">tu rutina</span>.
+                </p>
+              </div>
+              <div className="relative aspect-square w-full overflow-hidden rounded-xl border border-white/5 bg-black/40 flex items-center justify-center">
+                <img 
+                  src="/src/assets/images/ai_ecosystem_1783353297106.jpg" 
+                  alt="Ecosistema de I.A.s" 
+                  className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                  referrerPolicy="no-referrer"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-[#040805]/85 via-transparent to-transparent"></div>
+              </div>
+            </div>
+
+            {/* Card 5: Reference and Prompt */}
+            <div className="bg-gradient-to-br from-[#0c140f] to-[#040805] rounded-2xl border border-emerald-500/15 p-6 hover:border-emerald-500/40 hover:shadow-[0_0_25px_rgba(16,185,129,0.05)] transition-all group relative overflow-hidden flex flex-col justify-between md:col-span-1">
+              <div className="space-y-4 mb-6">
+                <p className="text-sm sm:text-base text-slate-350 leading-relaxed font-sans">
+                  Generar <span className="text-white font-extrabold">imágenes y mockups impactantes</span> a partir de imágenes de <span className="text-emerald-400 font-extrabold">referencia y descripciones</span>.
+                </p>
+              </div>
+              <div className="relative aspect-square w-full overflow-hidden rounded-xl border border-white/5 bg-black/40 flex items-center justify-center">
+                <img 
+                  src="/src/assets/images/prompt_input_box_1783353307316.jpg" 
+                  alt="Generación por referencia" 
+                  className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                  referrerPolicy="no-referrer"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-[#040805]/85 via-transparent to-transparent"></div>
+              </div>
+            </div>
+
+            {/* Card 6: Creative assets */}
+            <div className="bg-gradient-to-br from-[#0c140f] to-[#040805] rounded-2xl border border-emerald-500/15 p-6 hover:border-emerald-500/40 hover:shadow-[0_0_25px_rgba(16,185,129,0.05)] transition-all group relative overflow-hidden flex flex-col justify-between md:col-span-3">
+              <div className="space-y-4 mb-6">
+                <p className="text-sm sm:text-base text-slate-350 leading-relaxed font-sans">
+                  Crear en la práctica <span className="text-white font-extrabold">creativos visuales de alto impacto</span> para tus redes, anuncios y <span className="text-emerald-400 font-extrabold">páginas web</span>.
+                </p>
+              </div>
+              <div className="relative aspect-[21/9] w-full overflow-hidden rounded-xl border border-white/5 bg-black/40">
+                <img 
+                  src="/src/assets/images/creative_assets_1783353319563.jpg" 
+                  alt="Diseños de alto impacto" 
+                  className="w-full h-full object-cover group-hover:scale-[1.02] transition-transform duration-500"
+                  referrerPolicy="no-referrer"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-[#040805]/85 via-transparent to-transparent"></div>
+              </div>
+            </div>
+
+          </div>
+        </section>
+
+        {/* EXCLUSIVE BONUSES SECTION / "BONOS EXCLUSIVOS INCLUIDOS" */}
+        <section id="exclusive-bonuses-section" className="space-y-12">
+          <div className="max-w-2xl mx-auto text-center space-y-3.5">
+            <span className="text-xs font-bold uppercase tracking-widest text-emerald-400">Oferta Especial de Lanzamiento</span>
+            <h3 className="text-3xl font-extrabold font-display text-white tracking-tight">
+              Recibe estos Bonos Exclusivos al Unirte Hoy
+            </h3>
+            <p className="text-sm sm:text-base text-slate-300">
+              Queremos darte todo el soporte para que implementes la IA de inmediato. Si te inscribes hoy por solo <span className="text-emerald-400 font-extrabold">$5 USD</span>, te llevas todo esto gratis:
+            </p>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+            {[
+              {
+                bonus: "BONO #1",
+                title: "Prompt Builder PRO (Agente GPT)",
+                value: "$97.00 USD",
+                desc: "Un asistente de IA inteligente pre-configurado para redactar prompts avanzados, específicos y personalizados para tu negocio u oferta comercial en segundos.",
+                icon: Sparkles,
+                badge: "¡GRATIS HOY!",
+                img: "/src/assets/images/prompt_builder_1783350386392.jpg"
+              },
+              {
+                bonus: "BONO #2",
+                title: "Central de Prompts Maestros IA",
+                value: "$49.00 USD",
+                desc: "Una biblioteca exclusiva con más de 200 copypastes de prompts validados por creadores de marca para automatizar emails, guiones de video y post de venta.",
+                icon: BookOpen,
+                badge: "¡GRATIS HOY!",
+                img: "/src/assets/images/library_prompts_1783350401839.jpg"
+              },
+              {
+                bonus: "BONO #3",
+                title: "Comunidad VIP y Enlace de Zoom",
+                value: "$49.00 USD",
+                desc: "Acceso inmediato al grupo exclusivo silencioso de WhatsApp para descargar las guías PDF, networking, resolver dudas y recibir el enlace privado de Zoom.",
+                icon: Users2,
+                badge: "¡GRATIS HOY!",
+                img: "/src/assets/images/vip_community_1783350413454.jpg"
+              },
+            ].map((bonus, idx) => {
+              const Icon = bonus.icon;
+              return (
+                <div 
+                  key={idx}
+                  className="bg-gradient-to-br from-[#0c140f] to-[#040805] rounded-2xl border border-emerald-500/15 p-5 hover:border-emerald-500/40 hover:shadow-[0_0_25px_rgba(16,185,129,0.05)] transition-all group relative overflow-hidden flex flex-col justify-between"
+                >
+                  {/* Neon tag */}
+                  <span className="absolute top-4 right-4 z-10 text-[10px] bg-emerald-500/20 text-emerald-300 border border-emerald-500/30 px-2.5 py-0.5 rounded-full font-extrabold tracking-wider">
+                    {bonus.badge}
+                  </span>
+
+                  <div className="space-y-4">
+                    {/* Styled Image Frame */}
+                    {bonus.img && (
+                      <div className="relative aspect-[4/3] w-full overflow-hidden rounded-xl border border-white/10 bg-black/40">
+                        <img 
+                          src={bonus.img} 
+                          alt={bonus.title} 
+                          className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                          referrerPolicy="no-referrer"
+                        />
+                        <div className="absolute inset-0 bg-gradient-to-t from-[#040805]/70 via-transparent to-transparent"></div>
+                      </div>
+                    )}
+
+                    <span className="text-xs font-bold text-emerald-400 tracking-wider block">
+                      {bonus.bonus}
+                    </span>
+                    <div className="space-y-2">
+                      <h4 className="text-lg font-bold text-white group-hover:text-emerald-400 transition-colors">
+                        {bonus.title}
+                      </h4>
+                      <p className="text-xs text-slate-350 leading-relaxed">
+                        {bonus.desc}
+                      </p>
+                    </div>
+                  </div>
+
+                  <div className="pt-5 border-t border-white/5 mt-5 flex items-center justify-between">
+                    <div className="flex items-center text-xs font-bold text-slate-400">
+                      <Icon className="w-4 h-4 mr-1.5 text-emerald-400" />
+                      <span>Material Digital</span>
+                    </div>
+                    <span className="text-[11px] font-semibold text-slate-500 line-through">
+                      Valorado en {bonus.value}
+                    </span>
+                  </div>
+                </div>
+              );
+            })}
+          </div>
+        </section>
+
+        {/* 7-DAY UNCONDITIONAL GUARANTEE SECTION */}
+        <section id="unconditional-guarantee-section" className="bg-gradient-to-r from-[#0c130e] to-black rounded-3xl border border-emerald-500/25 p-6 sm:p-10 relative overflow-hidden shadow-xl">
+          <div className="absolute top-1/2 left-0 -translate-y-1/2 w-48 h-48 bg-emerald-500/5 rounded-full blur-3xl pointer-events-none"></div>
+          
+          <div className="grid grid-cols-1 md:grid-cols-12 gap-8 items-center relative z-10">
+            {/* Guarantee Badge */}
+            <div className="md:col-span-3 flex justify-center">
+              <div className="relative group cursor-default">
+                {/* Ambient gold glow */}
+                <div className="absolute inset-0 bg-amber-500/20 rounded-full blur-xl group-hover:bg-amber-500/30 transition-all duration-500 pointer-events-none"></div>
+                
+                {/* Golden Stamp Seal */}
+                <div className="w-32 h-32 sm:w-36 sm:h-36 relative flex items-center justify-center">
+                  {/* Scalloped vector-like circle stroke simulating a stamp */}
+                  <svg className="absolute w-full h-full animate-[spin_60s_linear_infinite] text-amber-500" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <defs>
+                      <linearGradient id="gold-stamp-gradient" x1="0%" y1="0%" x2="100%" y2="100%">
+                        <stop offset="0%" stopColor="#fbbf24" />
+                        <stop offset="50%" stopColor="#f59e0b" />
+                        <stop offset="100%" stopColor="#b45309" />
+                      </linearGradient>
+                    </defs>
+                    <circle cx="50" cy="50" r="45" stroke="url(#gold-stamp-gradient)" strokeWidth="2.5" strokeDasharray="5 3" />
+                    <circle cx="50" cy="50" r="41" stroke="url(#gold-stamp-gradient)" strokeWidth="1" opacity="0.6" />
+                  </svg>
+
+                  {/* Inner Golden Seal Plate */}
+                  <div className="w-26 h-26 sm:w-30 sm:h-30 rounded-full bg-gradient-to-b from-[#1e1509] to-[#0a0703] border-2 border-amber-500/50 shadow-[inset_0_0_15px_rgba(245,158,11,0.25)] flex flex-col items-center justify-center p-3 text-center relative z-10">
+                    
+                    {/* Curved Stars at the top */}
+                    <div className="flex items-center gap-0.5 mb-1.5 text-amber-400">
+                      <Star className="w-3 h-3 fill-amber-400 text-amber-400" />
+                      <Star className="w-3.5 h-3.5 fill-amber-400 text-amber-400 -translate-y-0.5" />
+                      <Star className="w-4 h-4 fill-amber-400 text-amber-400 -translate-y-1" />
+                      <Star className="w-3.5 h-3.5 fill-amber-400 text-amber-400 -translate-y-0.5" />
+                      <Star className="w-3 h-3 fill-amber-400 text-amber-400" />
+                    </div>
+
+                    {/* Main Number 7 */}
+                    <span className="text-3xl sm:text-4xl font-extrabold font-display leading-none bg-gradient-to-r from-amber-200 via-yellow-100 to-amber-500 bg-clip-text text-transparent filter drop-shadow-[0_2px_4px_rgba(0,0,0,0.5)]">
+                      7
+                    </span>
+                    
+                    {/* Main text: DÍAS */}
+                    <span className="text-[10px] sm:text-[11px] font-black tracking-widest text-amber-200/90 uppercase leading-none mt-1">
+                      DÍAS
+                    </span>
+
+                    {/* Curved Guarantee banner ribbon style */}
+                    <div className="absolute -bottom-1 px-3.5 py-0.5 bg-gradient-to-r from-amber-600 via-amber-500 to-amber-700 text-black text-[8px] sm:text-[9px] font-black rounded-md shadow-md border border-amber-300/40 tracking-wider uppercase">
+                      GARANTÍA
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            {/* Guarantee Info */}
+            <div className="md:col-span-9 space-y-3.5 text-center md:text-left">
+              <span className="text-[10px] sm:text-xs font-bold text-emerald-300 tracking-widest uppercase">PAGO 100% GARANTIZADO — CERO RIESGO</span>
+              <h3 className="text-2xl sm:text-3xl font-extrabold font-display text-white tracking-tight leading-tight">
+                Garantía Incondicional de Satisfacción de 7 Días
+              </h3>
+              <p className="text-xs sm:text-sm text-slate-350 leading-relaxed">
+                Queremos que tomes esta decisión con absoluta tranquilidad. Inscríbete hoy, accede a la clase maestra en vivo el Viernes 24 de Julio, descarga la Guía PDF y utiliza el Kit de Prompts en tu negocio. Si por cualquier motivo dentro de los primeros 7 días sientes que el workshop no cumplió tus expectativas, solo escríbenos y te devolvemos el 100% de tus $5 USD de forma inmediata. Sin preguntas ni complicaciones.
+              </p>
+            </div>
+          </div>
+        </section>
+
         {/* TESTIMONY / SOCIAL PROOF */}
         <section id="testimonials-section" className="space-y-10">
           <div className="text-center max-w-xl mx-auto space-y-2">
@@ -575,12 +914,12 @@ export default function App() {
           <div className="absolute top-0 left-0 w-32 h-32 bg-emerald-500/10 rounded-full blur-xl"></div>
           
           <div className="relative z-10 max-w-2xl mx-auto space-y-6">
-            <span className="text-[10px] sm:text-xs font-bold text-emerald-300 tracking-widest uppercase">REGÍSTRATE ANTES DE QUE ACABE EL TIEMPO</span>
+            <span className="text-[10px] sm:text-xs font-bold text-emerald-300 tracking-widest uppercase">COMPRA TU ENTRADA ANTES DE QUE SE AGOTEN LOS CUPOS</span>
             <h3 className="text-2xl sm:text-4xl font-extrabold font-display leading-tight tracking-tight">
               ¿Listo para dar el siguiente gran salto en tu carrera?
             </h3>
             <p className="text-xs sm:text-sm text-slate-300 leading-relaxed">
-              Reserva tu plaza gratuita para la Clase Maestra Workshop Growth Spring hoy mismo. Únete al Grupo VIP de WhatsApp exclusivo para recibir las credenciales de Zoom y descargar tu Guía de Trabajo PDF interactiva.
+              Adquiere tu Entrada al Workshop de IA por solo $5 USD hoy mismo. Recibe acceso inmediato al Grupo VIP de WhatsApp exclusivo para descargar tu Guía interactiva PDF, el Kit de Prompts y recibir las credenciales de conexión de Zoom para el entrenamiento en vivo.
             </p>
 
             <div className="pt-2 flex flex-col sm:flex-row gap-3.5 justify-center">
@@ -592,14 +931,17 @@ export default function App() {
                     captureEl.scrollIntoView({ behavior: "smooth" });
                   }
                 }}
-                className="px-6 py-3.5 bg-gradient-to-r from-emerald-500 to-emerald-600 hover:from-emerald-600 hover:to-emerald-750 text-white font-extrabold rounded-xl text-xs sm:text-sm transition-all shadow-[0_0_20px_rgba(16,185,129,0.3)] hover:shadow-[0_0_25px_rgba(16,185,129,0.45)] active:scale-98 cursor-pointer"
+                className="px-6 py-3.5 bg-gradient-to-r from-emerald-500 to-emerald-600 hover:from-emerald-600 hover:to-emerald-750 text-white font-extrabold rounded-xl text-xs sm:text-sm transition-all shadow-[0_0_20px_rgba(16,185,129,0.3)] hover:shadow-[0_0_25px_rgba(16,185,129,0.45)] active:scale-98 cursor-pointer relative overflow-hidden group"
               >
-                RESERVAR MI PARTICIPACIÓN (ACCESO GRATUITO)
+                {/* Shimmer / Destello Effect */}
+                <div className="absolute inset-0 w-full h-full bg-gradient-to-r from-transparent via-white/35 to-transparent -translate-x-full animate-shimmer pointer-events-none" />
+                
+                <span className="relative z-10">COMPRAR ENTRADA AL WORKSHOP POR SOLO $5 USD</span>
               </button>
             </div>
             
             <p className="text-[10px] text-slate-400">
-              * La clase maestra interactiva se dictará en vivo el Viernes 24 de Julio a las 7:00 PM hora Colombia. Acceso restringido.
+              * El entrenamiento en vivo se dictará de forma virtual el Viernes 24 de Julio a las 7:00 PM hora Colombia. Acceso restringido para compradores.
             </p>
           </div>
         </section>
@@ -613,6 +955,35 @@ export default function App() {
         </footer>
 
       </main>
+
+      {/* FLOATING CHECKOUT CTA BUTTON BAR */}
+      {showFloating && (
+        <div className="fixed bottom-4 left-4 right-4 md:left-auto md:right-1/2 md:translate-x-1/2 z-40 max-w-md w-auto bg-[#0a0f0b]/95 backdrop-blur-xl border border-emerald-500/30 rounded-2xl p-3 shadow-[0_10px_40px_rgba(16,185,129,0.25)] flex items-center justify-between gap-4 animate-fade-in">
+          <div className="hidden sm:flex flex-col text-left pl-2">
+            <span className="text-[9px] text-emerald-400 font-bold uppercase tracking-wider">LANZAMIENTO ESPECIAL</span>
+            <div className="flex items-center space-x-1.5">
+              <span className="text-sm font-extrabold text-white">$5.00 USD</span>
+              <span className="text-[10px] text-slate-500 line-through">$49.00 USD</span>
+            </div>
+          </div>
+          <button
+            id="floating-buy-cta"
+            onClick={() => {
+              const captureEl = document.getElementById("hero-capture-section");
+              if (captureEl) {
+                captureEl.scrollIntoView({ behavior: "smooth" });
+              }
+            }}
+            className="flex-1 py-2 px-4 bg-gradient-to-r from-emerald-500 to-emerald-600 hover:from-emerald-600 hover:to-emerald-750 text-white font-extrabold rounded-xl text-[11px] tracking-wider uppercase transition-all shadow-[0_0_15px_rgba(16,185,129,0.3)] hover:shadow-[0_0_20px_rgba(16,185,129,0.5)] active:scale-95 cursor-pointer flex items-center justify-center space-x-2 relative overflow-hidden group"
+          >
+            {/* Shimmer / Destello Effect */}
+            <div className="absolute inset-0 w-full h-full bg-gradient-to-r from-transparent via-white/35 to-transparent -translate-x-full animate-shimmer pointer-events-none" />
+            
+            <Sparkles className="w-3.5 h-3.5 text-white animate-pulse relative z-10" />
+            <span className="relative z-10">ADQUIRIR ENTRADA</span>
+          </button>
+        </div>
+      )}
 
       {/* ADMIN FLOATING BADGE & CONTROLLER PANEL VIEW */}
       <div className="fixed bottom-4 right-4 z-40 flex items-center space-x-2">

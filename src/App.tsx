@@ -23,6 +23,17 @@ import BannerCounter from "./components/BannerCounter";
 import LeadForm from "./components/LeadForm";
 import { Lead, LaunchConfig } from "./types";
 
+// Import images to allow Vite to bundle them correctly
+import cinematicPortraits from "./assets/images/cinematic_portraits_1783353257734.jpg";
+import aiPromptIcon from "./assets/images/ai_prompt_icon_1783353268310.jpg";
+import connectedTools from "./assets/images/connected_tools_1783353280892.jpg";
+import aiEcosystem from "./assets/images/ai_ecosystem_1783353297106.jpg";
+import promptInputBox from "./assets/images/prompt_input_box_1783353307316.jpg";
+import creativeAssets from "./assets/images/creative_assets_1783353319563.jpg";
+import promptBuilder from "./assets/images/prompt_builder_1783350386392.jpg";
+import libraryPrompts from "./assets/images/library_prompts_1783350401839.jpg";
+import vipCommunity from "./assets/images/vip_community_1783350413454.jpg";
+
 // Default launch setup matching "Growth Spring" and the owner Content Creativo
 const DEFAULT_CONFIG: LaunchConfig = {
   whatsappLink: "https://chat.whatsapp.com/CIRi15gFaaZDueOhDnHK2y",
@@ -553,7 +564,7 @@ export default function App() {
               </div>
               <div className="relative aspect-[16/9] w-full overflow-hidden rounded-xl border border-white/5 bg-black/40">
                 <img 
-                  src="/src/assets/images/cinematic_portraits_1783353257734.jpg" 
+                  src={cinematicPortraits} 
                   alt="Retratos ultrarealistas" 
                   className="w-full h-full object-cover group-hover:scale-[1.03] transition-transform duration-500"
                   referrerPolicy="no-referrer"
@@ -571,7 +582,7 @@ export default function App() {
               </div>
               <div className="relative aspect-square w-full overflow-hidden rounded-xl border border-white/5 bg-black/40 flex items-center justify-center">
                 <img 
-                  src="/src/assets/images/ai_prompt_icon_1783353268310.jpg" 
+                  src={aiPromptIcon} 
                   alt="Prompts e imágenes" 
                   className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
                   referrerPolicy="no-referrer"
@@ -589,7 +600,7 @@ export default function App() {
               </div>
               <div className="relative aspect-square w-full overflow-hidden rounded-xl border border-white/5 bg-black/40 flex items-center justify-center">
                 <img 
-                  src="/src/assets/images/connected_tools_1783353280892.jpg" 
+                  src={connectedTools} 
                   alt="Integraciones de diseño" 
                   className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
                   referrerPolicy="no-referrer"
@@ -607,7 +618,7 @@ export default function App() {
               </div>
               <div className="relative aspect-square w-full overflow-hidden rounded-xl border border-white/5 bg-black/40 flex items-center justify-center">
                 <img 
-                  src="/src/assets/images/ai_ecosystem_1783353297106.jpg" 
+                  src={aiEcosystem} 
                   alt="Ecosistema de I.A.s" 
                   className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
                   referrerPolicy="no-referrer"
@@ -625,7 +636,7 @@ export default function App() {
               </div>
               <div className="relative aspect-square w-full overflow-hidden rounded-xl border border-white/5 bg-black/40 flex items-center justify-center">
                 <img 
-                  src="/src/assets/images/prompt_input_box_1783353307316.jpg" 
+                  src={promptInputBox} 
                   alt="Generación por referencia" 
                   className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
                   referrerPolicy="no-referrer"
@@ -643,7 +654,7 @@ export default function App() {
               </div>
               <div className="relative aspect-[21/9] w-full overflow-hidden rounded-xl border border-white/5 bg-black/40">
                 <img 
-                  src="/src/assets/images/creative_assets_1783353319563.jpg" 
+                  src={creativeAssets} 
                   alt="Diseños de alto impacto" 
                   className="w-full h-full object-cover group-hover:scale-[1.02] transition-transform duration-500"
                   referrerPolicy="no-referrer"
@@ -663,7 +674,7 @@ export default function App() {
               Recibe estos Bonos Exclusivos al Unirte Hoy
             </h3>
             <p className="text-sm sm:text-base text-slate-300">
-              Queremos darte todo el soporte para que implementes la IA de inmediato. Si te inscribes hoy por solo <span className="text-emerald-400 font-extrabold">$5 USD</span>, te llevas todo esto gratis:
+              Queremos darte todo el soporte para que implementes la IA de inmediato. Al unirte hoy de forma <span className="text-emerald-400 font-extrabold">100% gratuita</span>, te llevas todo esto de regalo:
             </p>
           </div>
 
@@ -676,7 +687,7 @@ export default function App() {
                 desc: "Un asistente de IA inteligente pre-configurado para redactar prompts avanzados, específicos y personalizados para tu negocio u oferta comercial en segundos.",
                 icon: Sparkles,
                 badge: "¡GRATIS HOY!",
-                img: "/src/assets/images/prompt_builder_1783350386392.jpg"
+                img: promptBuilder
               },
               {
                 bonus: "BONO #2",
@@ -685,7 +696,7 @@ export default function App() {
                 desc: "Una biblioteca exclusiva con más de 200 copypastes de prompts validados por creadores de marca para automatizar emails, guiones de video y post de venta.",
                 icon: BookOpen,
                 badge: "¡GRATIS HOY!",
-                img: "/src/assets/images/library_prompts_1783350401839.jpg"
+                img: libraryPrompts
               },
               {
                 bonus: "BONO #3",
@@ -694,7 +705,7 @@ export default function App() {
                 desc: "Acceso inmediato al grupo exclusivo silencioso de WhatsApp para descargar las guías PDF, networking, resolver dudas y recibir el enlace privado de Zoom.",
                 icon: Users2,
                 badge: "¡GRATIS HOY!",
-                img: "/src/assets/images/vip_community_1783350413454.jpg"
+                img: vipCommunity
               },
             ].map((bonus, idx) => {
               const Icon = bonus.icon;

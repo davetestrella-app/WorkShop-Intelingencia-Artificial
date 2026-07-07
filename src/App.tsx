@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import { 
   CheckCircle, 
   MessageSquare, 
+  MessageCircle,
   Settings, 
   Calendar, 
   ChevronDown, 
@@ -214,19 +215,19 @@ export default function App() {
   const faqs = [
     {
       q: "¿Tiene algún costo el acceso al Workshop?",
-      a: "Sí, el acceso completo tiene un costo simbólico de solo $5 USD hoy por oferta de lanzamiento especial."
+      a: "No, el acceso completo al workshop en vivo es 100% gratuito por esta ocasión especial."
     },
     {
       q: "¿Cómo recibiré los accesos y bonos?",
-      a: "Inmediatamente después del pago en Hotmart, recibirás por email las credenciales de Zoom y el enlace al Grupo VIP de WhatsApp para descargar las guías PDF."
+      a: "Al unirte directamente a nuestro Grupo VIP de WhatsApp, recibirás todas las credenciales de conexión de Zoom y los enlaces de descarga para la guía interactiva y los bonos."
     },
     {
       q: "¿Qué pasa si no puedo asistir en vivo?",
       a: "No te preocupes. La grabación del entrenamiento completo se compartirá exclusivamente por tiempo limitado dentro del Grupo VIP de WhatsApp."
     },
     {
-      q: "¿Existe alguna garantía de satisfacción?",
-      a: "Por supuesto. Tienes garantía incondicional de 7 días. Si sientes que no aporta valor a tu negocio, te devolvemos el 100% de tu dinero sin preguntas."
+      q: "¿Cómo funciona la garantía de satisfacción?",
+      a: "Aunque el workshop y los bonos son completamente gratuitos, mantenemos nuestro estándar de calidad más alto. Si consideras que el workshop no cumplió tus expectativas de valor, puedes simplemente salir del grupo VIP sin compromisos."
     }
   ];
 
@@ -808,12 +809,12 @@ export default function App() {
 
             {/* Guarantee Info */}
             <div className="md:col-span-9 space-y-3.5 text-center md:text-left">
-              <span className="text-[10px] sm:text-xs font-bold text-emerald-300 tracking-widest uppercase">PAGO 100% GARANTIZADO — CERO RIESGO</span>
+              <span className="text-[10px] sm:text-xs font-bold text-emerald-300 tracking-widest uppercase">ACCESO 100% LIBRE — CERO RIESGO</span>
               <h3 className="text-2xl sm:text-3xl font-extrabold font-display text-white tracking-tight leading-tight">
-                Garantía Incondicional de Satisfacción de 7 Días
+                Garantía Incondicional de Satisfacción y Calidad
               </h3>
               <p className="text-xs sm:text-sm text-slate-350 leading-relaxed">
-                Queremos que tomes esta decisión con absoluta tranquilidad. Inscríbete hoy, accede a la clase maestra en vivo el Viernes 24 de Julio, descarga la Guía PDF y utiliza el Kit de Prompts en tu negocio. Si por cualquier motivo dentro de los primeros 7 días sientes que el workshop no cumplió tus expectativas, solo escríbenos y te devolvemos el 100% de tus $5 USD de forma inmediata. Sin preguntas ni complicaciones.
+                Queremos que te unas con absoluta tranquilidad. Únete hoy, accede a la clase maestra en vivo el Viernes 24 de Julio, descarga la Guía PDF y utiliza el Kit de Prompts en tu negocio. Aunque el workshop es completamente gratis, mantenemos nuestro compromiso de brindarte la máxima calidad. Si en los primeros 7 días sientes que no aportó el valor que esperabas, puedes simplemente salir del grupo VIP de WhatsApp sin ningún tipo de compromiso.
               </p>
             </div>
           </div>
@@ -914,34 +915,32 @@ export default function App() {
           <div className="absolute top-0 left-0 w-32 h-32 bg-emerald-500/10 rounded-full blur-xl"></div>
           
           <div className="relative z-10 max-w-2xl mx-auto space-y-6">
-            <span className="text-[10px] sm:text-xs font-bold text-emerald-300 tracking-widest uppercase">COMPRA TU ENTRADA ANTES DE QUE SE AGOTEN LOS CUPOS</span>
+            <span className="text-[10px] sm:text-xs font-bold text-emerald-300 tracking-widest uppercase">ASEGURA TU CUPO ANTES DE QUE SE AGOTEN LOS ACCESOS</span>
             <h3 className="text-2xl sm:text-4xl font-extrabold font-display leading-tight tracking-tight">
               ¿Listo para dar el siguiente gran salto en tu carrera?
             </h3>
             <p className="text-xs sm:text-sm text-slate-300 leading-relaxed">
-              Adquiere tu Entrada al Workshop de IA por solo $5 USD hoy mismo. Recibe acceso inmediato al Grupo VIP de WhatsApp exclusivo para descargar tu Guía interactiva PDF, el Kit de Prompts y recibir las credenciales de conexión de Zoom para el entrenamiento en vivo.
+              Únete gratis al Workshop de IA hoy mismo. Recibe acceso inmediato al Grupo VIP de WhatsApp exclusivo para descargar tu Guía interactiva PDF, el Kit de Prompts y recibir las credenciales de conexión de Zoom para el entrenamiento en vivo.
             </p>
 
             <div className="pt-2 flex flex-col sm:flex-row gap-3.5 justify-center">
-              <button
-                id="back-to-capture-scroll-btn"
-                onClick={() => {
-                  const captureEl = document.getElementById("hero-capture-section");
-                  if (captureEl) {
-                    captureEl.scrollIntoView({ behavior: "smooth" });
-                  }
-                }}
-                className="px-6 py-3.5 bg-gradient-to-r from-emerald-500 to-emerald-600 hover:from-emerald-600 hover:to-emerald-750 text-white font-extrabold rounded-xl text-xs sm:text-sm transition-all shadow-[0_0_20px_rgba(16,185,129,0.3)] hover:shadow-[0_0_25px_rgba(16,185,129,0.45)] active:scale-98 cursor-pointer relative overflow-hidden group"
+              <a
+                id="whatsapp-cta-direct-btn"
+                href={config.whatsappLink}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="px-8 py-4 bg-gradient-to-r from-green-500 via-emerald-500 to-green-600 hover:from-green-450 hover:via-emerald-400 hover:to-green-550 text-white font-black rounded-xl text-xs sm:text-sm transition-all shadow-[0_0_20px_rgba(34,197,94,0.3)] hover:shadow-[0_0_25px_rgba(34,197,94,0.45)] active:scale-98 cursor-pointer relative overflow-hidden group inline-flex items-center justify-center space-x-2.5"
               >
                 {/* Shimmer / Destello Effect */}
                 <div className="absolute inset-0 w-full h-full bg-gradient-to-r from-transparent via-white/35 to-transparent -translate-x-full animate-shimmer pointer-events-none" />
                 
-                <span className="relative z-10">COMPRAR ENTRADA AL WORKSHOP POR SOLO $5 USD</span>
-              </button>
+                <MessageCircle className="w-5 h-5 animate-pulse relative z-10 fill-white/10 text-white" />
+                <span className="relative z-10 font-black tracking-wide">UNIRSE AL GRUPO DE WHATSAPP</span>
+              </a>
             </div>
             
             <p className="text-[10px] text-slate-400">
-              * El entrenamiento en vivo se dictará de forma virtual el Viernes 24 de Julio a las 7:00 PM hora Colombia. Acceso restringido para compradores.
+              * El entrenamiento en vivo se dictará de forma virtual el Viernes 24 de Julio a las 7:00 PM hora Colombia. Acceso restringido para miembros del grupo VIP.
             </p>
           </div>
         </section>
@@ -960,28 +959,24 @@ export default function App() {
       {showFloating && (
         <div className="fixed bottom-4 left-4 right-4 md:left-auto md:right-1/2 md:translate-x-1/2 z-40 max-w-md w-auto bg-[#0a0f0b]/95 backdrop-blur-xl border border-emerald-500/30 rounded-2xl p-3 shadow-[0_10px_40px_rgba(16,185,129,0.25)] flex items-center justify-between gap-4 animate-fade-in">
           <div className="hidden sm:flex flex-col text-left pl-2">
-            <span className="text-[9px] text-emerald-400 font-bold uppercase tracking-wider">LANZAMIENTO ESPECIAL</span>
+            <span className="text-[9px] text-emerald-400 font-bold uppercase tracking-wider">ACCESO INMEDIATO</span>
             <div className="flex items-center space-x-1.5">
-              <span className="text-sm font-extrabold text-white">$5.00 USD</span>
-              <span className="text-[10px] text-slate-500 line-through">$49.00 USD</span>
+              <span className="text-sm font-extrabold text-white">100% GRATIS</span>
             </div>
           </div>
-          <button
+          <a
             id="floating-buy-cta"
-            onClick={() => {
-              const captureEl = document.getElementById("hero-capture-section");
-              if (captureEl) {
-                captureEl.scrollIntoView({ behavior: "smooth" });
-              }
-            }}
-            className="flex-1 py-2 px-4 bg-gradient-to-r from-emerald-500 to-emerald-600 hover:from-emerald-600 hover:to-emerald-750 text-white font-extrabold rounded-xl text-[11px] tracking-wider uppercase transition-all shadow-[0_0_15px_rgba(16,185,129,0.3)] hover:shadow-[0_0_20px_rgba(16,185,129,0.5)] active:scale-95 cursor-pointer flex items-center justify-center space-x-2 relative overflow-hidden group"
+            href={config.whatsappLink}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="flex-1 py-2.5 px-4 bg-gradient-to-r from-green-500 to-emerald-600 hover:from-emerald-600 hover:to-emerald-750 text-white font-extrabold rounded-xl text-[11px] tracking-wider uppercase transition-all shadow-[0_0_15px_rgba(34,197,94,0.3)] hover:shadow-[0_0_20px_rgba(34,197,94,0.5)] active:scale-95 cursor-pointer flex items-center justify-center space-x-2 relative overflow-hidden group"
           >
             {/* Shimmer / Destello Effect */}
             <div className="absolute inset-0 w-full h-full bg-gradient-to-r from-transparent via-white/35 to-transparent -translate-x-full animate-shimmer pointer-events-none" />
             
-            <Sparkles className="w-3.5 h-3.5 text-white animate-pulse relative z-10" />
-            <span className="relative z-10">ADQUIRIR ENTRADA</span>
-          </button>
+            <MessageCircle className="w-3.5 h-3.5 text-white animate-pulse relative z-10" />
+            <span className="relative z-10">UNIRSE A WHATSAPP</span>
+          </a>
         </div>
       )}
 

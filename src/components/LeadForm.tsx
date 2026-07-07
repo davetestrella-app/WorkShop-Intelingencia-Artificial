@@ -1,5 +1,5 @@
 import React from "react";
-import { ArrowRight, ShieldCheck, Sparkles, Lock, CheckCircle2, Star, Zap } from "lucide-react";
+import { MessageCircle, ShieldCheck, Sparkles, Lock, CheckCircle2, Star, Zap } from "lucide-react";
 import { LaunchConfig } from "../types";
 
 interface LeadFormProps {
@@ -9,7 +9,7 @@ interface LeadFormProps {
 
 export default function LeadForm({ config, registeredCount }: LeadFormProps) {
   const totalAttendees = config.leadCountOffset + registeredCount;
-  const hotmartUrl = config.hotmartLink || "https://pay.hotmart.com/example";
+  const whatsappUrl = config.whatsappLink || "https://chat.whatsapp.com/CIRi15gFaaZDueOhDnHK2y";
 
   return (
     <div className="bg-[#0b120d] backdrop-blur-2xl rounded-2xl border-2 border-emerald-500/30 shadow-[0_0_50px_rgba(16,185,129,0.15)] p-6 sm:p-8 relative overflow-hidden transition-all duration-300 hover:border-emerald-500/50">
@@ -25,37 +25,37 @@ export default function LeadForm({ config, registeredCount }: LeadFormProps) {
         <div className="flex flex-wrap items-center justify-between gap-2">
           <span className="inline-flex items-center space-x-1.5 px-3 py-1 rounded-full text-[10px] sm:text-xs font-bold bg-emerald-500/15 text-emerald-300 border border-emerald-500/30">
             <Sparkles className="w-3.5 h-3.5 text-emerald-400 animate-pulse" />
-            <span>LANZAMIENTO: SOLO $5 USD</span>
+            <span>ACCESO DIRECTO POR WHATSAPP</span>
           </span>
-          <span className="text-[9px] bg-red-500/20 text-red-400 px-2 py-0.5 rounded-md font-bold uppercase animate-pulse border border-red-500/35">
-            Cupos Limitados
+          <span className="text-[9px] bg-emerald-500/20 text-emerald-300 px-2 py-0.5 rounded-md font-bold uppercase animate-pulse border border-emerald-500/35">
+            Grupo VIP Activo
           </span>
         </div>
 
         {/* Pricing Header */}
         <div className="space-y-2">
           <h3 className="text-2xl sm:text-3xl font-extrabold text-white font-display tracking-tight leading-tight">
-            Consigue tu Entrada
+            Únete al Workshop
           </h3>
           <p className="text-xs text-slate-350 leading-relaxed">
-            Asegura tu cupo al Workshop de IA y descarga tus bonos premium en Hotmart de forma 100% segura.
+            Asegura tu cupo al Workshop de IA y descarga tus bonos de inmediato uniéndote al Grupo VIP de WhatsApp de forma directa.
           </p>
         </div>
 
         {/* Big Premium Pricing Badge */}
-        <div className="bg-white/5 rounded-xl border border-white/10 p-4 text-center space-y-1 relative overflow-hidden">
+        <div className="bg-gradient-to-r from-emerald-950/40 via-[#0b120d] to-emerald-950/40 rounded-xl border border-emerald-500/25 p-4 text-center space-y-1 relative overflow-hidden">
           <div className="absolute inset-0 bg-gradient-to-r from-emerald-500/5 to-transparent pointer-events-none"></div>
-          <span className="text-[10px] text-slate-400 font-bold uppercase tracking-wider block">PRECIO ESPECIAL HOY</span>
+          <span className="text-[10px] text-emerald-450 font-bold uppercase tracking-wider block">OFERTA DE LANZAMIENTO</span>
           <div className="flex items-center justify-center space-x-3">
-            <span className="text-4xl sm:text-5xl font-black text-emerald-400 font-display tracking-tight animate-pulse">
-              $5.00 <span className="text-lg font-bold">USD</span>
+            <span className="text-4xl sm:text-5xl font-black text-emerald-450 font-display tracking-tight animate-pulse">
+              100% GRATIS
             </span>
             <span className="text-sm text-slate-500 line-through font-bold">
               $49.00 USD
             </span>
           </div>
           <p className="text-[10px] text-emerald-300/85 font-medium flex items-center justify-center gap-1 mt-1">
-            <Zap className="w-3 h-3 text-emerald-400 fill-emerald-400" /> Ahorras 90% en tu acceso
+            <Zap className="w-3 h-3 text-emerald-400 fill-emerald-400" /> Acceso gratuito por tiempo limitado
           </p>
         </div>
 
@@ -110,19 +110,19 @@ export default function LeadForm({ config, registeredCount }: LeadFormProps) {
           </span>
         </div>
 
-        {/* HUGE HOTMART BUTTON */}
+        {/* HUGE WHATSAPP BUTTON */}
         <a
-          id="hotmart-buy-btn"
-          href={hotmartUrl}
+          id="whatsapp-join-btn"
+          href={whatsappUrl}
           target="_blank"
           rel="noopener noreferrer"
-          className="w-full py-4 bg-gradient-to-r from-emerald-500 to-emerald-600 hover:from-emerald-400 hover:to-emerald-500 text-white font-black rounded-xl shadow-[0_0_25px_rgba(16,185,129,0.35)] hover:shadow-[0_0_35px_rgba(16,185,129,0.55)] transition-all duration-300 flex items-center justify-center space-x-2.5 text-base sm:text-lg transform active:scale-[0.99] cursor-pointer text-center tracking-wide relative overflow-hidden group"
+          className="w-full py-4 bg-gradient-to-r from-green-500 via-emerald-500 to-green-600 hover:from-green-450 hover:via-emerald-400 hover:to-green-550 text-white font-black rounded-xl shadow-[0_0_25px_rgba(34,197,94,0.35)] hover:shadow-[0_0_35px_rgba(34,197,94,0.55)] transition-all duration-300 flex items-center justify-center space-x-2.5 text-base sm:text-lg transform active:scale-[0.99] cursor-pointer text-center tracking-wide relative overflow-hidden group"
         >
           {/* Shimmer / Destello Effect */}
           <div className="absolute inset-0 w-full h-full bg-gradient-to-r from-transparent via-white/35 to-transparent -translate-x-full animate-shimmer pointer-events-none" />
           
-          <span className="relative z-10">ADQUIRIR ENTRADA</span>
-          <ArrowRight className="w-5.5 h-5.5 animate-pulse relative z-10" />
+          <MessageCircle className="w-6 h-6 animate-pulse relative z-10 fill-white/10 text-white" />
+          <span className="relative z-10 font-black tracking-wide">UNIRSE A WHATSAPP</span>
         </a>
 
         {/* Footer/Guarantees details */}

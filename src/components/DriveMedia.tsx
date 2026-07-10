@@ -6,6 +6,7 @@ interface DriveMediaProps {
   title: string;
   aspectRatioClass?: string;
   className?: string;
+  isVideo?: boolean;
 }
 
 export default function DriveMedia({
@@ -13,7 +14,8 @@ export default function DriveMedia({
   localSrc,
   title,
   aspectRatioClass = "aspect-square",
-  className = ""
+  className = "",
+  isVideo = false
 }: DriveMediaProps) {
   const [isLoading, setIsLoading] = useState(true);
   const [hasError, setHasError] = useState(false);
@@ -43,7 +45,16 @@ export default function DriveMedia({
         </div>
       )}
 
-      {imageSrc ? (
+      {isVideo && id ? (
+        <iframe
+          src={`https://drive.google.com/file/d/${id}/preview`}
+          className="w-full h-full border-0 absolute inset-0 z-10"
+          title={title}
+          allow="autoplay; encrypted-media"
+          allowFullScreen
+          onLoad={() => setIsLoading(false)}
+        />
+      ) : imageSrc ? (
         <img
           src={imageSrc}
           alt={title}

@@ -317,6 +317,7 @@ export default function App() {
                   id="1zFv2Y-s5v6MTzfrG6eN6p8FSE1twVC3L" 
                   title="Presentación del entrenamiento" 
                   aspectRatioClass="aspect-video" 
+                  isVideo={true}
                 />
               )}
             </div>
@@ -371,7 +372,7 @@ export default function App() {
             </div>
             
             <div className="space-y-4 bg-white p-4 rounded-3xl border border-slate-200/80 shadow-sm hover:border-blue-200 transition-colors md:translate-y-6">
-              <DriveMedia id="1gBiCZRo9huTea050lMPxRTcpR0LSfJr_" title="Retratos cinemáticos" aspectRatioClass="aspect-[4/5]" />
+              <DriveMedia id="1gBiCZRo9huTea050lMPxRTcpR0LSfJr_" title="Retratos cinemáticos" aspectRatioClass="aspect-[4/5]" isVideo={true} />
               <div className="text-left space-y-1 px-1">
                 <span className="text-[10px] uppercase tracking-widest font-bold text-slate-400 font-mono">Agilidad Extrema</span>
                 <h4 className="text-sm sm:text-base font-extrabold text-slate-900">Creación de Contenido</h4>
@@ -406,7 +407,7 @@ export default function App() {
           <div className="flex flex-col lg:flex-row items-center gap-12 lg:gap-16">
             <div className="w-full lg:w-1/2">
               <div className="bg-white p-3 rounded-3xl border border-slate-200/80 shadow-sm overflow-hidden">
-                <DriveMedia id="1oo0SCbiNiaRnhZUKDWCpXKHo6NbrPHIE" title="Agentes IA y Automatización" aspectRatioClass="aspect-[4/3]" />
+                <DriveMedia id="1oo0SCbiNiaRnhZUKDWCpXKHo6NbrPHIE" title="Agentes IA y Automatización" aspectRatioClass="aspect-[4/3]" isVideo={true} />
               </div>
             </div>
             <div className="w-full lg:w-1/2 space-y-6">
@@ -456,7 +457,7 @@ export default function App() {
           <div className="flex flex-col lg:flex-row-reverse items-center gap-12 lg:gap-16">
             <div className="w-full lg:w-1/2">
               <div className="bg-white p-3 rounded-3xl border border-slate-200/80 shadow-sm overflow-hidden">
-                <DriveMedia id="1q4IZyMko4iAA6a0-UvqvdBT-jax3Lwb4" title="Contenido Viral" aspectRatioClass="aspect-[4/3]" />
+                <DriveMedia id="1q4IZyMko4iAA6a0-UvqvdBT-jax3Lwb4" title="Contenido Viral" aspectRatioClass="aspect-[4/3]" isVideo={true} />
               </div>
             </div>
             <div className="w-full lg:w-1/2 space-y-6">
@@ -506,7 +507,7 @@ export default function App() {
           <div className="flex flex-col lg:flex-row items-center gap-12 lg:gap-16">
             <div className="w-full lg:w-1/2">
               <div className="bg-white p-3 rounded-3xl border border-slate-200/80 shadow-sm overflow-hidden">
-                <DriveMedia id="1Ug0lJJNFK_1e4VxblaN8AxDTHu3Cw_G1" title="Fotografía y Mockups" aspectRatioClass="aspect-[4/3]" />
+                <DriveMedia id="1Ug0lJJNFK_1e4VxblaN8AxDTHu3Cw_G1" title="Fotografía y Mockups" aspectRatioClass="aspect-[4/3]" isVideo={true} />
               </div>
             </div>
             <div className="w-full lg:w-1/2 space-y-6">
@@ -705,57 +706,94 @@ export default function App() {
           </div>
         </section>
 
-        {/* TESTIMONIOS */}
-        <section id="testimonials-section" className="py-12 space-y-12">
+        {/* ACERCA DE MÍ (EXPERTO) */}
+        <section id="about-expert-section" className="py-12 space-y-12">
           <div className="text-center max-w-xl mx-auto space-y-3">
-            <span className="text-xs font-bold uppercase tracking-widest text-blue-600">Resultados Reales</span>
-            <h3 className="text-3xl font-extrabold font-display text-slate-950">Alumnos que ya transformaron sus flujos</h3>
-            <p className="text-sm text-slate-500">La mejor prueba de calidad son las voces de quienes superaron el reto y multiplicaron sus resultados.</p>
+            <span className="text-xs font-bold uppercase tracking-widest text-blue-600">Quién Te Acompaña</span>
+            <h3 className="text-3xl font-extrabold font-display text-slate-950">El Experto Detrás del Workshop</h3>
+            <p className="text-sm text-slate-500">Aprende directamente de un profesional activo en la industria de la Inteligencia Artificial.</p>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-5xl mx-auto">
-            {[
-              {
-                text: "Llevaba meses intentando entender cómo usar la IA de manera práctica en mi negocio. Con este workshop de Content Creativo logré estructurar mis primeros prompts avanzados y delegar la creación mensual en solo una tarde.",
-                name: "Carlos Ruiz",
-                role: "Emprendedor — España",
-                rating: 5
-              },
-              {
-                text: "Increíble la calidad del material. El grupo VIP de WhatsApp es súper directo y silencioso. La guía interactiva de trabajo en PDF tiene los trucos exactos para delegar tareas con IA y ahorrarme horas de diseño.",
-                name: "Laura Martínez",
-                role: "Creadora de Marca Personal — Colombia",
-                rating: 5
-              },
-              {
-                text: "El workshop me abrió los ojos sobre cómo las pequeñas empresas podemos competir usando Inteligencia Artificial. La estructura es amigable y las demostraciones en vivo fueron sumamente reveladoras y prácticas.",
-                name: "Mariano Santos",
-                role: "Consultor de Negocios — México",
-                rating: 5
-              }
-            ].map((testi, i) => (
-              <div key={i} className="bg-white rounded-2xl border border-slate-200 p-6 flex flex-col justify-between shadow-sm hover:shadow-md hover:border-blue-500/30 transition-all">
-                <div className="space-y-4">
-                  <div className="flex gap-1">
-                    {[...Array(testi.rating)].map((_, idx) => (
-                      <Star key={idx} className="w-3.5 h-3.5 fill-amber-400 stroke-amber-400 text-amber-500" />
-                    ))}
-                  </div>
-                  <p className="text-xs sm:text-sm text-slate-600 italic leading-relaxed">
-                    "{testi.text}"
+          <div className="bg-white rounded-3xl border border-slate-200/80 p-6 sm:p-10 md:p-12 max-w-4xl mx-auto shadow-sm hover:shadow-md transition-all duration-300">
+            <div className="flex flex-col lg:flex-row items-center gap-10 lg:gap-14">
+              {/* Photo Container */}
+              <div className="w-full lg:w-1/3 max-w-[280px] lg:max-w-none flex-shrink-0">
+                <div className="relative group">
+                  {/* Decorative backdrop gradients */}
+                  <div className="absolute -inset-1.5 bg-gradient-to-r from-blue-600 to-indigo-600 rounded-2xl blur opacity-25 group-hover:opacity-40 transition duration-1000 group-hover:duration-200"></div>
+                  
+                  {/* The expert photo using DriveMedia */}
+                  <DriveMedia 
+                    id="1Mg2RL1pyKULbApLyTOU-h9EkSA-t-1VW" 
+                    title="Experto en Inteligencia Artificial" 
+                    aspectRatioClass="aspect-[4/5]"
+                    className="relative z-10 rounded-2xl shadow-lg"
+                  />
+
+                  {/* Absolute badges */}
+                  <span className="absolute -bottom-3 -right-3 z-20 inline-flex items-center space-x-1 px-3 py-1 bg-slate-900 text-white rounded-lg text-[10px] font-bold tracking-wider uppercase border border-slate-800 shadow-sm">
+                    <Sparkles className="w-3 h-3 text-blue-400" />
+                    <span>Experto IA</span>
+                  </span>
+                </div>
+              </div>
+
+              {/* Bio & Details Container */}
+              <div className="flex-1 space-y-6">
+                <div className="space-y-2">
+                  <span className="text-[10px] font-bold uppercase tracking-widest text-blue-600 bg-blue-50 px-2.5 py-0.5 rounded border border-blue-100/50 inline-block">
+                    Mentor de Negocios & Creador
+                  </span>
+                  <h4 className="text-2xl sm:text-3xl font-bold font-display text-slate-950 tracking-tight">
+                    Especialista en Inteligencia Artificial y Automatización
+                  </h4>
+                </div>
+
+                <div className="space-y-4 text-slate-600 text-sm sm:text-base leading-relaxed">
+                  <p>
+                    Como <strong>experto en Inteligencia Artificial</strong>, he dedicado mi trayectoria a trabajar codo a codo con diversas marcas, creadores y negocios, ayudándoles a <strong>revolucionar y mejorar la calidad de su contenido</strong>, optimizar sus flujos de trabajo y multiplicar su visibilidad digital.
+                  </p>
+                  <p>
+                    Mi misión es erradicar la complejidad técnica para entregarte soluciones prácticas, directas y automatizadas. Te guiaré paso a paso para que dejes de ser un simple espectador de la tecnología y te conviertas en un líder capaz de delegar procesos operativos, automatizar tus ventas y liberar tu tiempo de manera estratégica.
                   </p>
                 </div>
-                <div className="pt-4 border-t border-slate-100 mt-5 flex items-center space-x-3.5">
-                  <div className="w-9 h-9 bg-slate-50 rounded-full flex items-center justify-center font-bold text-xs text-blue-600 border border-slate-200">
-                    {testi.name.slice(0, 2)}
+
+                {/* Bullets/Highlights */}
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 pt-4 border-t border-slate-150">
+                  <div className="flex items-start space-x-2.5">
+                    <CheckCircle2 className="w-5 h-5 text-blue-600 flex-shrink-0 mt-0.5" />
+                    <div className="space-y-0.5">
+                      <h5 className="text-xs font-bold text-slate-900 uppercase tracking-tight">Consultor Estratégico</h5>
+                      <p className="text-[11px] text-slate-500">Asesor de marcas e implementador de sistemas de IA.</p>
+                    </div>
                   </div>
-                  <div>
-                    <h5 className="text-xs font-bold text-slate-900">{testi.name}</h5>
-                    <p className="text-[10px] text-slate-400 font-medium">{testi.role}</p>
+
+                  <div className="flex items-start space-x-2.5">
+                    <Trophy className="w-5 h-5 text-blue-600 flex-shrink-0 mt-0.5" />
+                    <div className="space-y-0.5">
+                      <h5 className="text-xs font-bold text-slate-900 uppercase tracking-tight">Enfoque 100% Práctico</h5>
+                      <p className="text-[11px] text-slate-500">Estrategias probadas de prompts listos para copiar y pegar.</p>
+                    </div>
+                  </div>
+
+                  <div className="flex items-start space-x-2.5">
+                    <Users2 className="w-5 h-5 text-blue-600 flex-shrink-0 mt-0.5" />
+                    <div className="space-y-0.5">
+                      <h5 className="text-xs font-bold text-slate-900 uppercase tracking-tight">Mentor de Impacto</h5>
+                      <p className="text-[11px] text-slate-500">Guía para emprendedores digitales y pymes de Latam.</p>
+                    </div>
+                  </div>
+
+                  <div className="flex items-start space-x-2.5">
+                    <Zap className="w-5 h-5 text-blue-600 flex-shrink-0 mt-0.5" />
+                    <div className="space-y-0.5">
+                      <h5 className="text-xs font-bold text-slate-900 uppercase tracking-tight">Optimización Radical</h5>
+                      <p className="text-[11px] text-slate-500">Sistemas que liberan hasta el 80% de tus horas manuales.</p>
+                    </div>
                   </div>
                 </div>
               </div>
-            ))}
+            </div>
           </div>
         </section>
 

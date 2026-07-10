@@ -13,7 +13,6 @@ import {
   CheckCircle2, 
   Star, 
   Lock, 
-  Menu, 
   Sparkles, 
   BookOpen, 
   Users2 
@@ -21,7 +20,10 @@ import {
 import AdminPanel from "./components/AdminPanel";
 import BannerCounter from "./components/BannerCounter";
 import LeadForm from "./components/LeadForm";
+import SuccessView from "./components/SuccessView";
+import DriveMedia from "./components/DriveMedia";
 import { Lead, LaunchConfig } from "./types";
+import { challengePhases, faqs } from "./data";
 
 // Import images to allow Vite to bundle them correctly
 import cinematicPortraits from "./assets/images/cinematic_portraits_1783353257734.jpg";
@@ -39,7 +41,7 @@ const DEFAULT_CONFIG: LaunchConfig = {
   whatsappLink: "https://chat.whatsapp.com/CIRi15gFaaZDueOhDnHK2y",
   launchDate: "2026-07-24T19:00", // Viernes 24 de Julio, 7 PM Hora Colombia
   title: "Workshop Clase Maestra: Inteligencia Artificial para Negocios y Marcas Personales",
-  subtitle: "Automatiza tus procesos diarios, delega tareas operativas a la IA y multiplica tu contenido en tiempo récord. Entrada por solo $5 USD.",
+  subtitle: "Automatiza tus procesos diarios, delega tareas operativas a la IA y multiplica tu contenido en tiempo récord. Entrada por solo $9 USD.",
   description: "Adquiere tu cupo hoy y recibe acceso inmediato al entrenamiento por Zoom, el Kit de Prompts y el Grupo VIP de WhatsApp.",
   videoEmbed: "", // Leave blank by default to show the high-converting spring visual infocard
   leadCountOffset: 348,
@@ -84,7 +86,6 @@ export default function App() {
     if (storedConfig) {
       try {
         const parsed = JSON.parse(storedConfig);
-        // Force upgrade if it's the old default date, contains Mentors Expert, old titles, or old WhatsApp link to ensure the user gets his workshop and correct link
         if (
           parsed.launchDate === "2026-07-19T20:00" ||
           parsed.title.includes("Wrowth") ||
@@ -118,7 +119,6 @@ export default function App() {
       localStorage.setItem("wrowth_launch_leads", JSON.stringify(DEFAULT_LEADS));
     }
 
-    // Check if user is already registered in this browser session
     const sessionLead = sessionStorage.getItem("wrowth_registered_lead");
     if (sessionLead) {
       try {
@@ -174,675 +174,549 @@ export default function App() {
     setLeads(updated);
     localStorage.setItem("wrowth_launch_leads", JSON.stringify(updated));
 
-    // Save registration in session to prevent double layout prompt
     setRegisteredLead(newLead);
     sessionStorage.setItem("wrowth_registered_lead", JSON.stringify(newLead));
 
-    // Smooth scroll back to top of capture container
     const captureEl = document.getElementById("capture-card-container");
     if (captureEl) {
       captureEl.scrollIntoView({ behavior: "smooth" });
     }
   };
 
-  const handleResetRegistration = () => {
-    setRegisteredLead(null);
-    sessionStorage.removeItem("wrowth_registered_lead");
-  };
-
-  // Structured timeline weeks
-  const challengePhases = [
-    {
-      week: "BLOQUE 1",
-      title: "Sistemas y Automatización",
-      desc: "Integra asistentes inteligentes para delegar tareas repetitivas y liberar hasta un 70% de tu tiempo operativo.",
-      icon: BookOpen,
-      color: "bg-emerald-50 text-emerald-700 border-emerald-100",
-    },
-    {
-      week: "BLOQUE 2",
-      title: "Contenido de Alto Impacto",
-      desc: "Crea contenido magnético para tus redes sociales en segundos usando Inteligencia Artificial generativa.",
-      icon: Zap,
-      color: "bg-teal-50 text-teal-700 border-teal-100",
-    },
-    {
-      week: "BLOQUE 3",
-      title: "Prospección y Cierre",
-      desc: "Usa agentes para agendar citas, responder dudas frecuentes y cerrar más ventas en piloto automático.",
-      icon: Trophy,
-      color: "bg-amber-50 text-amber-700 border-amber-100",
-    },
-    {
-      week: "BLOQUE 4",
-      title: "Plan de Acción Directo",
-      desc: "Construye tu hoja de ruta personalizada para implantar sistemas de IA en tu negocio desde el día uno.",
-      icon: Users2,
-      color: "bg-indigo-50 text-indigo-700 border-indigo-100",
-    },
-  ];
-
-  // High converting FAQ questions (conciertas y precisas)
-  const faqs = [
-    {
-      q: "¿Tiene algún costo el acceso al Workshop?",
-      a: "No, el acceso completo al workshop en vivo es 100% gratuito por esta ocasión especial."
-    },
-    {
-      q: "¿Cómo recibiré los accesos y bonos?",
-      a: "Al unirte directamente a nuestro Grupo VIP de WhatsApp, recibirás todas las credenciales de conexión de Zoom y los enlaces de descarga para la guía interactiva y los bonos."
-    },
-    {
-      q: "¿Qué pasa si no puedo asistir en vivo?",
-      a: "No te preocupes. La grabación del entrenamiento completo se compartirá exclusivamente por tiempo limitado dentro del Grupo VIP de WhatsApp."
-    },
-    {
-      q: "¿Cómo funciona la garantía de satisfacción?",
-      a: "Aunque el workshop y los bonos son completamente gratuitos, mantenemos nuestro estándar de calidad más alto. Si consideras que el workshop no cumplió tus expectativas de valor, puedes simplemente salir del grupo VIP sin compromisos."
-    }
-  ];
-
   return (
-    <div id="main-landing-app" className="min-h-screen bg-[#0a0f0b] text-slate-100 flex flex-col selection:bg-emerald-500/30 selection:text-emerald-200 relative overflow-hidden">
+    <div id="main-landing-app" className="min-h-screen bg-[#f8fafc] text-slate-900 flex flex-col selection:bg-blue-500/30 selection:text-blue-900 relative overflow-hidden">
       
-      {/* Ambient Glowing Background Elements per Design Theme guidelines */}
+      {/* Ambient glowing pastel watercolor-like backgrounds */}
       <div className="fixed inset-0 overflow-hidden pointer-events-none z-0">
-        <div className="absolute top-[-10%] left-[-10%] w-[60vw] h-[60vw] bg-emerald-600/10 rounded-full blur-[130px]"></div>
-        <div className="absolute bottom-[-10%] right-[-10%] w-[60vw] h-[60vw] bg-emerald-500/5 rounded-full blur-[130px]"></div>
-        <div className="absolute top-[40%] right-[20%] w-[40vw] h-[40vw] bg-blue-600/5 rounded-full blur-[150px]"></div>
+        <div className="absolute top-[-10%] left-[-10%] w-[60vw] h-[60vw] bg-blue-100/40 rounded-full blur-[130px]"></div>
+        <div className="absolute bottom-[-10%] right-[-10%] w-[60vw] h-[60vw] bg-emerald-100/30 rounded-full blur-[130px]"></div>
+        <div className="absolute top-[40%] right-[20%] w-[40vw] h-[40vw] bg-indigo-100/30 rounded-full blur-[150px]"></div>
       </div>
 
-      {/* Sleek Top Invitation Banner */}
-      <div className="w-full bg-gradient-to-r from-emerald-950/80 via-black/80 to-blue-950/80 backdrop-blur-md text-white text-center py-2.5 px-4 text-xs font-semibold tracking-wide flex items-center justify-center space-x-2 border-b border-white/5 relative z-10">
-        <Sparkles className="w-3.5 h-3.5 text-emerald-400 animate-pulse" />
-        <span>WORKSHOP CLASE MAESTRA COMPLETAMENTE EN VIVO — VIERNES 24 DE JULIO, 7:00 PM COLOMBIA</span>
+      {/* Top Urgent Notification Banner */}
+      <div className="w-full bg-slate-950 text-white text-center py-2.5 px-4 text-xs font-semibold tracking-wide flex items-center justify-center space-x-2 relative z-10 shadow-sm border-b border-slate-800">
+        <Sparkles className="w-3.5 h-3.5 text-blue-400 animate-pulse" />
+        <span className="uppercase font-mono text-[10px] sm:text-xs">WORKSHOP CLASE MAESTRA COMPLETAMENTE EN VIVO — ENTRADA POR SOLO $9 USD</span>
       </div>
 
       {/* Main Container */}
-      <main className="flex-1 max-w-7xl mx-auto w-full px-4 sm:px-6 lg:px-8 py-8 sm:py-12 md:py-16 space-y-16 md:space-y-24 relative z-10">
+      <main className="flex-1 max-w-5xl mx-auto w-full px-4 sm:px-6 lg:px-8 py-12 sm:py-20 md:py-24 space-y-24 md:space-y-36 relative z-10">
         
         {/* HEADER BRAND */}
-        <header className="flex flex-col sm:flex-row justify-between items-center pb-6 border-b border-white/10 gap-4">
-          <div className="flex items-center space-x-2.5">
-            <div className="p-2.5 bg-gradient-to-tr from-emerald-500 to-emerald-700 text-white rounded-xl shadow-[0_0_15px_rgba(16,185,129,0.2)]">
+        <header className="flex flex-col sm:flex-row justify-between items-center pb-8 border-b border-slate-200/80 gap-4">
+          <div className="flex items-center space-x-3">
+            <div className="p-2.5 bg-blue-600 text-white rounded-xl shadow-[0_4px_12px_rgba(37,99,235,0.2)]">
               <Trophy className="w-6 h-6" />
             </div>
             <div>
-              <span className="text-[10px] uppercase tracking-widest font-bold text-emerald-400 bg-emerald-500/10 px-2 py-0.5 rounded border border-emerald-500/20">Presentado por Content Creativo</span>
-              <h1 className="text-xl font-bold font-display tracking-tight text-white mt-1">Growth<span className="text-emerald-400 font-extrabold">.Spring</span></h1>
+              <span className="text-[10px] uppercase tracking-widest font-bold text-blue-600 bg-blue-50 px-2.5 py-0.5 rounded border border-blue-100">Presentado por Content Creativo</span>
+              <h1 className="text-xl font-bold font-display tracking-tight text-slate-950 mt-1">Growth<span className="text-blue-600 font-extrabold">.Spring</span></h1>
             </div>
           </div>
 
-          <div className="flex items-center space-x-3 text-xs font-semibold text-slate-300">
-            <span className="flex items-center text-emerald-300 bg-emerald-950/60 backdrop-blur-md px-3 py-1 rounded-full border border-emerald-500/30">
-              <CheckCircle className="w-3.5 h-3.5 mr-1 text-emerald-400 animate-pulse" />
-              100% Confirmado
+          <div className="flex items-center space-x-3 text-xs font-semibold text-slate-600">
+            <span className="flex items-center text-blue-700 bg-blue-50 px-3 py-1 rounded-full border border-blue-100 font-bold">
+              <CheckCircle className="w-3.5 h-3.5 mr-1 text-blue-600" />
+              Cupos Disponibles
             </span>
-            <span className="text-white/10">|</span>
-            <div className="flex items-center text-slate-300">
-              <Calendar className="w-4 h-4 mr-1.5 text-emerald-400" />
+            <span className="text-slate-300">|</span>
+            <div className="flex items-center text-slate-600 font-mono">
+              <Calendar className="w-4 h-4 mr-1.5 text-blue-600" />
               <span>Inicia: {new Date(config.launchDate).toLocaleDateString("es-ES", { month: "long", day: "numeric" })}</span>
             </div>
           </div>
         </header>
 
-        {/* HERO CAPTURE AREA */}
-        <section id="hero-capture-section" className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center">
-          
-          {/* Left Text Column */}
-          <div className="lg:col-span-7 space-y-6 md:pr-4">
-            <span className="inline-flex items-center space-x-1.5 px-3 py-1 rounded-full text-xs font-bold bg-emerald-500/10 text-emerald-300 border border-emerald-500/20">
-              <CheckCircle2 className="w-3.5 h-3.5 text-emerald-400 fill-emerald-500/10" />
-              <span>Clase Maestra Virtual y de Aforo Limitado por Content Creativo</span>
+        {/* 1. HERO SECTION */}
+        <section id="hero-section" className="space-y-12">
+          {/* Tagline */}
+          <div className="flex justify-center">
+            <span className="inline-flex items-center space-x-1.5 px-3.5 py-1.5 rounded-full text-xs font-bold bg-blue-50 text-blue-700 border border-blue-100/80 shadow-sm uppercase tracking-wide">
+              <Sparkles className="w-3.5 h-3.5 text-blue-600 animate-pulse" />
+              <span>Workshop Práctico de IA</span>
             </span>
+          </div>
 
-            <h2 className="text-3xl sm:text-4xl md:text-5xl font-extrabold font-display leading-[1.1] text-white tracking-tight">
-              {config.title}
+          {/* Headline and Subheadline */}
+          <div className="space-y-6 text-center max-w-4xl mx-auto">
+            <h2 className="text-4xl sm:text-5xl lg:text-6xl font-extrabold font-display leading-[1.12] text-slate-950 tracking-tight">
+              Delega el 80% de tu <span className="text-blue-600 relative inline-block">
+                Negocio a la IA
+                <span className="absolute bottom-1.5 left-0 w-full h-1 bg-blue-600/10 rounded"></span>
+              </span> y trabaja de forma inteligente
             </h2>
-
-            <p className="text-base sm:text-lg text-slate-300 leading-relaxed font-normal">
+            <p className="text-base sm:text-lg text-slate-600 max-w-2xl mx-auto leading-relaxed">
               {config.subtitle}
             </p>
+          </div>
 
-            <div className="space-y-3 pt-2">
-              <h4 className="text-xs font-bold text-emerald-450 uppercase tracking-widest">Lo que este Workshop desbloqueará para ti:</h4>
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3.5">
-                {[
-                  "Sistemas de IA para Negocio",
-                  "Automatización de Marca Personal",
-                  "Guía de Prompts Interactiva PDF",
-                  "Acceso Preferente al Programa Completo",
-                ].map((item, i) => (
-                  <div key={i} className="flex items-start space-x-2">
-                    <CheckCircle className="w-4 h-4 text-emerald-400 flex-shrink-0 mt-0.5" />
-                    <span className="text-xs font-semibold text-slate-300">{item}</span>
-                  </div>
-                ))}
-              </div>
-            </div>
-
-            {/* Countdown timer embedded directly inside the content flow */}
-            <div className="pt-6 border-t border-white/10 w-full flex justify-center sm:justify-start">
+          {/* Urgency Counter */}
+          <div className="flex justify-center max-w-md mx-auto">
+            <div className="bg-white/80 backdrop-blur-md rounded-2xl border border-slate-200/80 p-5 shadow-sm w-full flex flex-col items-center">
+              <span className="text-[10px] text-slate-400 font-bold uppercase tracking-widest mb-3">La oferta especial termina en:</span>
               <BannerCounter targetDate={config.launchDate} />
             </div>
           </div>
 
-          {/* Right Squeeze / Action Form Column */}
-          <div id="capture-card-container" className="lg:col-span-5 w-full">
-            <LeadForm 
-              config={config} 
-              registeredCount={leads.length}
-            />
-          </div>
-        </section>
-
-        {/* PAIN POINTS SECTION / "¿TE HAS SENTIDO ASÍ ALGUNA VEZ?" */}
-        <section id="pain-points-section" className="space-y-12">
-          <div className="max-w-3xl mx-auto text-center space-y-3.5">
-            <span className="text-xs font-bold uppercase tracking-widest text-emerald-400">¿El Contexto Actual te Abruma?</span>
-            <h3 className="text-3xl sm:text-4xl font-extrabold font-display text-white tracking-tight">
-              ¿Te has sentido estancado o frustrado así?
-            </h3>
-            <p className="text-sm sm:text-base text-slate-300">
-              La llegada masiva de la Inteligencia Artificial está cambiando el juego. No te quedes atrás en la era digital.
-            </p>
-          </div>
-
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
-            {[
-              {
-                title: "Pierdes tiempo",
-                desc: "Pasas horas redactando correos, estructurando ideas o creando contenido que la IA resolvería en segundos.",
-                color: "border-emerald-500/25 shadow-[0_0_20px_rgba(16,185,129,0.03)]",
-              },
-              {
-                title: "Inseguridad",
-                desc: "Sientes que todos avanzan rápido con la Inteligencia Artificial, pero tú no sabes por dónde arrancar.",
-                color: "border-blue-500/25 shadow-[0_0_20px_rgba(59,130,246,0.03)]",
-              },
-              {
-                title: "Prompts Genéricos",
-                desc: "Te frustra que ChatGPT o Claude te den respuestas genéricas, vacías o inútiles para tu negocio.",
-                color: "border-indigo-500/25 shadow-[0_0_20px_rgba(99,102,241,0.03)]",
-              },
-              {
-                title: "Operación Manual",
-                desc: "Buscas un método directo para delegar tu carga de trabajo y enfocarte en multiplicar tus resultados.",
-                color: "border-teal-500/25 shadow-[0_0_20px_rgba(20,184,166,0.03)]",
-              }
-            ].map((pain, i) => (
-              <div 
-                key={i} 
-                className={`bg-[#0a0d0b]/80 backdrop-blur-md rounded-2xl border ${pain.color} p-5 hover:scale-[1.02] hover:border-emerald-500/50 transition-all group relative overflow-hidden`}
+          {/* Primary CTA and trust badges */}
+          <div className="space-y-6 text-center">
+            <div>
+              <button
+                onClick={() => {
+                  const el = document.getElementById("capture-card-container");
+                  if (el) el.scrollIntoView({ behavior: "smooth" });
+                }}
+                className="px-10 py-5 bg-slate-900 hover:bg-slate-800 text-white font-extrabold rounded-full text-xs sm:text-sm tracking-widest uppercase transition-all shadow-[0_12px_28px_rgba(15,23,42,0.15)] hover:shadow-[0_15px_32px_rgba(15,23,42,0.22)] active:scale-98 cursor-pointer inline-flex items-center space-x-3 group relative overflow-hidden"
               >
-                <div className="absolute -top-3 -right-3 w-10 h-10 bg-white/5 rounded-full flex items-center justify-center font-mono font-bold text-xs text-slate-500 group-hover:text-emerald-400 group-hover:bg-emerald-500/10 transition-all border border-white/5">
-                  0{i+1}
-                </div>
-                <h4 className="font-extrabold text-xs sm:text-sm text-white group-hover:text-emerald-400 transition-colors uppercase tracking-tight">
-                  {pain.title}
-                </h4>
-                <p className="text-[11px] text-slate-350 leading-relaxed mt-2.5">
-                  {pain.desc}
-                </p>
+                <div className="absolute inset-0 bg-white/10 translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-1000 ease-out"></div>
+                <Zap className="w-4 h-4 text-blue-400 animate-pulse" />
+                <span>Inscribirme por solo $9 USD</span>
+              </button>
+            </div>
+
+            {/* Trust elements below CTA */}
+            <div className="flex flex-col items-center space-y-2">
+              <div className="flex -space-x-1.5">
+                {[
+                  "https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=100&h=100&q=80",
+                  "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=100&h=100&q=80",
+                  "https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&w=100&h=100&q=80",
+                  "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&w=100&h=100&q=80"
+                ].map((src, idx) => (
+                  <img key={idx} src={src} className="w-8 h-8 rounded-full border-2 border-white object-cover" alt="Asistente" referrerPolicy="no-referrer" />
+                ))}
               </div>
-            ))}
+              <div className="flex flex-wrap items-center justify-center gap-x-3 gap-y-1 text-slate-500 font-semibold text-xs sm:text-sm">
+                <span className="text-slate-900 font-bold">⭐ 4.9/5 Calificación</span>
+                <span className="text-slate-300">•</span>
+                <span>🔥 +1,500 alumnos inscritos</span>
+                <span className="text-slate-300">•</span>
+                <span className="text-blue-600 font-extrabold flex items-center">
+                  <Star className="w-3.5 h-3.5 fill-blue-600 text-blue-600 mr-1" />
+                  Acceso Vitalicio
+                </span>
+              </div>
+            </div>
           </div>
 
-          <div className="text-center pt-2">
-            <p className="text-xs sm:text-sm text-slate-400 italic">
-              No estás solo en este camino. Es precisamente para ayudarte a erradicar estos bloqueos que creamos el <span className="text-emerald-400 font-bold">Workshop de IA</span>.
-            </p>
-          </div>
-        </section>
-
-        {/* GRAPHICAL VALUE REPRESENTATION / OPTIONAL EMBED VIDEO */}
-        <section id="features-and-video-section" className="py-8 bg-white/5 backdrop-blur-lg rounded-3xl border border-white/10 shadow-[0_0_50px_rgba(16,185,129,0.02)] p-6 sm:p-10 space-y-12">
-          
-          <div className="max-w-3xl mx-auto text-center space-y-3">
-            <span className="text-xs font-bold uppercase tracking-widest text-emerald-400 flex items-center justify-center space-x-1.5">
-              <span>CONTENIDO RELEVANTE EXCLUSIVO</span>
-            </span>
-            <h3 className="text-2xl sm:text-3xl font-bold font-display text-white tracking-tight">
-              ¿Cómo funciona este Workshop y Clase Maestra?
-            </h3>
-            <p className="text-sm sm:text-base text-slate-300">
-              No es otro curso teórico pregrabado. Es una experiencia práctica en vivo donde conocerás herramientas avanzadas de Inteligencia Artificial aplicadas de forma directa y sin tecnicismos complejos para automatizar tu negocio, impulsar tu marca personal y potenciar tus emprendimientos hoy mismo.
-            </p>
-          </div>
-
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
-            
-            {/* Visual Column (either YouTube Embed or high quality promo box) */}
-            <div className="lg:col-span-6 w-full h-full flex flex-col justify-center">
+          {/* Presentational Video Container */}
+          <div className="max-w-4xl mx-auto pt-6">
+            <div className="bg-white p-3 rounded-3xl border border-slate-200/80 shadow-[0_25px_60px_rgba(0,0,0,0.05)] overflow-hidden">
               {config.videoEmbed ? (
-                <div className="aspect-video w-full rounded-2xl overflow-hidden shadow-2xl border border-white/10 bg-neutral-950">
+                <div className="aspect-video w-full rounded-2xl overflow-hidden bg-slate-950 border border-slate-200">
                   <iframe
-                    id="youtube-presentational-video"
                     className="w-full h-full"
                     src={`https://www.youtube.com/embed/${config.videoEmbed.trim()}`}
-                    title="Presentación Desafío Growth Spring"
+                    title="Presentación"
                     allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                     allowFullScreen
                   ></iframe>
                 </div>
               ) : (
-                <div className="bg-gradient-to-br from-emerald-950/40 via-black/40 to-blue-950/30 backdrop-blur-md text-white rounded-2xl border border-white/10 shadow-2xl p-6 sm:p-8 space-y-6 relative overflow-hidden flex flex-col justify-between aspect-video select-none">
-                  <div className="absolute -bottom-10 -right-10 w-44 h-44 bg-emerald-500/15 rounded-full blur-2xl"></div>
-                  
-                  <div className="space-y-2 relative z-10">
-                    <span className="text-[10px] font-bold text-emerald-300 bg-emerald-500/20 border border-emerald-500/30 px-2.5 py-0.5 rounded-full uppercase tracking-wider">
-                      COMUNIDAD DE IMPACTO
-                    </span>
-                    <h4 className="text-xl sm:text-2xl font-extrabold font-display leading-snug">
-                      Growth.Spring: Workshop y Clase Maestra
-                    </h4>
-                    <p className="text-xs sm:text-sm text-slate-300 leading-relaxed">
-                      El nombre "Growth Spring" representa el crecimiento estratégico ('Growth') floreciendo con el dinamismo y vigor de la primavera o resurgimiento ('Spring'). Un paso adelante en tu vida personal y profesional.
-                    </p>
-                  </div>
-
-                  <div className="flex justify-between items-center border-t border-white/10 pt-4 relative z-10 text-xs text-slate-300">
-                    <span className="font-semibold flex items-center">
-                      <Star className="w-3.5 h-3.5 fill-amber-400 stroke-amber-400 mr-1 text-amber-400 animate-pulse" />
-                      Soporte de Content Creativo
-                    </span>
-                    <span className="font-mono text-[11px] text-emerald-400">100% ONLINE</span>
-                  </div>
-                </div>
+                <DriveMedia 
+                  id="1zFv2Y-s5v6MTzfrG6eN6p8FSE1twVC3L" 
+                  title="Presentación del entrenamiento" 
+                  aspectRatioClass="aspect-video" 
+                />
               )}
             </div>
+          </div>
 
-            {/* Core Value points */}
-            <div className="lg:col-span-6 space-y-6">
-              
-              <div className="flex space-x-4">
-                <div className="flex-shrink-0 w-12 h-12 bg-white/5 border border-white/10 rounded-2xl flex items-center justify-center text-emerald-400 shadow-sm">
-                  <Smartphone className="w-6 h-6" />
-                </div>
-                <div className="space-y-1">
-                  <h4 className="font-bold text-white text-sm sm:text-base">Control mediante WhatsApp VIP</h4>
-                  <p className="text-xs sm:text-sm text-slate-300 leading-relaxed">
-                    Evita correos en spam. Al registrarte te unes directamente al grupo exclusivo silencioso. Recibirás recordatorios 1 hora antes de iniciar cada sesión grupal.
-                  </p>
-                </div>
-              </div>
-
-              <div className="flex space-x-4">
-                <div className="flex-shrink-0 w-12 h-12 bg-white/5 border border-white/10 rounded-2xl flex items-center justify-center text-emerald-400 shadow-sm">
-                  <CheckCircle2 className="w-6 h-6" />
-                </div>
-                <div className="space-y-1">
-                  <h4 className="font-bold text-white text-sm sm:text-base">Demostraciones de IA en Vivo y Casos Reales</h4>
-                  <p className="text-xs sm:text-sm text-slate-300 leading-relaxed">
-                    Verás en tiempo real cómo configurar herramientas de IA de última generación para tu negocio, marca personal y proyectos, de la mano de expertos prácticos.
-                  </p>
-                </div>
-              </div>
-
-              <div className="flex space-x-4">
-                <div className="flex-shrink-0 w-12 h-12 bg-white/5 border border-white/10 rounded-2xl flex items-center justify-center text-emerald-400 shadow-sm">
-                  <Trophy className="w-6 h-6" />
-                </div>
-                <div className="space-y-1">
-                  <h4 className="font-bold text-white text-sm sm:text-base">Kit de Prompts y Guía PDF de Trabajo IA</h4>
-                  <p className="text-xs sm:text-sm text-slate-300 leading-relaxed">
-                    Recibirás un cuaderno de trabajo interactivo y un listado de prompts validados listos para copiar, pegar y adaptar a tu propio nicho comercial.
-                  </p>
-                </div>
-              </div>
-
-            </div>
+          {/* Under video CTA */}
+          <div className="flex justify-center pt-2">
+            <button
+              onClick={() => {
+                const el = document.getElementById("capture-card-container");
+                if (el) el.scrollIntoView({ behavior: "smooth" });
+              }}
+              className="px-8 py-4 bg-blue-600 hover:bg-blue-700 text-white font-bold rounded-xl text-xs sm:text-sm transition-all shadow-md active:scale-95 cursor-pointer uppercase tracking-wider inline-flex items-center space-x-2"
+            >
+              <Zap className="w-4 h-4 fill-white" />
+              <span>Asegurar mi cupo al Workshop en Vivo</span>
+            </button>
           </div>
         </section>
 
-        {/* TIMELINE ARCHITECTURE (The 4 Weeks/Phases) */}
-        <section id="chronicle-timeline-section" className="space-y-10">
-          <div className="max-w-2xl mx-auto text-center space-y-3.5">
-            <span className="text-xs font-bold uppercase tracking-widest text-emerald-400">Ruta de Aprendizaje</span>
-            <h3 className="text-3xl font-bold font-display text-white">Ejes Temáticos de la Clase Maestra</h3>
-            <p className="text-sm sm:text-base text-slate-300">
-              Un recorrido dinámico donde reestructuraremos tu flujo de trabajo con Inteligencia Artificial y conocerás nuestra estrategia para marcas o negocios reales.
-            </p>
-          </div>
-
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-            {challengePhases.map((phase, i) => {
-              const Icon = phase.icon;
-              return (
-                <div 
-                  key={i} 
-                  className="bg-white/5 backdrop-blur-md rounded-2xl border border-white/10 shadow-lg p-5.5 hover:border-emerald-500/50 hover:bg-white/10 transition-all group flex flex-col justify-between relative overflow-hidden"
-                >
-                  <div className="absolute top-0 right-0 w-12 h-12 bg-white/5 rounded-bl-3xl flex items-center justify-center border-l border-b border-white/10 font-bold font-display text-xs text-slate-400">
-                    0{i+1}
-                  </div>
-
-                  <div className="space-y-4">
-                    <span className="inline-flex px-3 py-0.5 rounded-full text-[10px] font-bold border border-emerald-500/20 bg-emerald-500/10 text-emerald-300">
-                      {phase.week}
-                    </span>
-                    <div className="space-y-1.5">
-                      <h4 className="text-base font-bold text-white group-hover:text-emerald-400 transition-colors">
-                        {phase.title}
-                      </h4>
-                      <p className="text-xs text-slate-300 leading-relaxed">
-                        {phase.desc}
-                      </p>
-                    </div>
-                  </div>
-
-                  <div className="pt-4 border-t border-white/5 mt-4 flex items-center text-[11px] font-bold text-emerald-400">
-                    <Icon className="w-4 h-4 mr-1.5 text-emerald-400 group-hover:rotate-12 transition-transform" />
-                    <span>Clases en Directo y Guía PDF</span>
-                  </div>
-                </div>
-              );
-            })}
-          </div>
+        {/* 2. PROBLEMA SECTION */}
+        <section id="problem-section" className="py-12 border-y border-slate-200/60 max-w-3xl mx-auto text-center space-y-4">
+          <span className="text-[10px] text-red-500 font-extrabold uppercase tracking-widest block">¿La IA te resulta abrumadora?</span>
+          <h3 className="text-2xl sm:text-3xl font-extrabold font-display text-slate-900 tracking-tight leading-snug">
+            Deja de perder tiempo intentando descifrar tutoriales complejos
+          </h3>
+          <p className="text-sm sm:text-base text-slate-500 leading-relaxed max-w-2xl mx-auto">
+            La avalancha constante de Inteligencia Artificial está cambiando el juego. Mientras tus competidores automatizan su rutina, tú sigues perdiendo horas valiosas atrapado en tareas operativas y manuales repetitivas.
+          </p>
         </section>
 
-        {/* NEW BENTO GRID SHOWCASE LIKE PORTUGUESE DESIGN */}
-        <section id="bento-learning-showcase" className="space-y-10">
-          <div className="max-w-3xl mx-auto text-center space-y-3.5">
-            <span className="text-xs font-bold uppercase tracking-widest text-emerald-400">Habilidades Prácticas de Creación Visual</span>
-            <h3 className="text-3xl font-extrabold font-display text-white tracking-tight">
-              ¿Qué vas a aprender a crear con Inteligencia Artificial?
+        {/* 3. BENEFICIO PRINCIPAL */}
+        <section id="key-benefits-showcase" className="py-12 space-y-16 text-center">
+          <div className="space-y-3">
+            <span className="text-xs font-bold uppercase tracking-widest text-blue-600 block">SISTEMA INTEGRAL DE APRENDIZAJE</span>
+            <h3 className="text-3xl sm:text-4xl font-extrabold font-display text-slate-955 tracking-tight">
+              Esto es todo lo que lograrás después del Workshop
             </h3>
-            <p className="text-sm sm:text-base text-slate-300">
-              Aprende el método paso a paso para dominar la generación visual y la automatización creativa, logrando resultados profesionales desde el primer día.
+            <p className="text-sm text-slate-500 max-w-2xl mx-auto">
+              Visualiza el nivel estético, organizativo y de conversión que implementarás en tu proyecto desde el primer día.
             </p>
           </div>
-
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-            
-            {/* Card 1: Wide portraits */}
-            <div className="bg-gradient-to-br from-[#0c140f] to-[#040805] rounded-2xl border border-emerald-500/15 p-6 hover:border-emerald-500/40 hover:shadow-[0_0_25px_rgba(16,185,129,0.05)] transition-all group relative overflow-hidden flex flex-col justify-between md:col-span-2">
-              <div className="space-y-4 mb-6">
-                <p className="text-sm sm:text-base text-slate-350 leading-relaxed font-sans">
-                  Crear <span className="text-white font-extrabold">retratos y sesiones fotográficas ultrarealistas</span> y transformarlas en composiciones de cine con <span className="text-emerald-400 font-extrabold">calidad surreal</span>.
-                </p>
-              </div>
-              <div className="relative aspect-[16/9] w-full overflow-hidden rounded-xl border border-white/5 bg-black/40">
-                <img 
-                  src={cinematicPortraits} 
-                  alt="Retratos ultrarealistas" 
-                  className="w-full h-full object-cover group-hover:scale-[1.03] transition-transform duration-500"
-                  referrerPolicy="no-referrer"
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-[#040805]/85 via-transparent to-transparent"></div>
-              </div>
-            </div>
-
-            {/* Card 2: Prompts */}
-            <div className="bg-gradient-to-br from-[#0c140f] to-[#040805] rounded-2xl border border-emerald-500/15 p-6 hover:border-emerald-500/40 hover:shadow-[0_0_25px_rgba(16,185,129,0.05)] transition-all group relative overflow-hidden flex flex-col justify-between md:col-span-1">
-              <div className="space-y-4 mb-6">
-                <p className="text-sm sm:text-base text-slate-350 leading-relaxed font-sans">
-                  Utilizar prompts avanzados para generar <span className="text-white font-extrabold">imágenes y recursos visuales</span> de nivel <span className="text-emerald-400 font-extrabold">cinematográfico</span>.
-                </p>
-              </div>
-              <div className="relative aspect-square w-full overflow-hidden rounded-xl border border-white/5 bg-black/40 flex items-center justify-center">
-                <img 
-                  src={aiPromptIcon} 
-                  alt="Prompts e imágenes" 
-                  className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
-                  referrerPolicy="no-referrer"
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-[#040805]/85 via-transparent to-transparent"></div>
-              </div>
-            </div>
-
-            {/* Card 3: Photoshop/Integrations */}
-            <div className="bg-gradient-to-br from-[#0c140f] to-[#040805] rounded-2xl border border-emerald-500/15 p-6 hover:border-emerald-500/40 hover:shadow-[0_0_25px_rgba(16,185,129,0.05)] transition-all group relative overflow-hidden flex flex-col justify-between md:col-span-1">
-              <div className="space-y-4 mb-6">
-                <p className="text-sm sm:text-base text-slate-350 leading-relaxed font-sans">
-                  Cómo <span className="text-white font-extrabold">perfeccionar tus imágenes</span> e integrarlas con herramientas avanzadas para tu negocio.
-                </p>
-              </div>
-              <div className="relative aspect-square w-full overflow-hidden rounded-xl border border-white/5 bg-black/40 flex items-center justify-center">
-                <img 
-                  src={connectedTools} 
-                  alt="Integraciones de diseño" 
-                  className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
-                  referrerPolicy="no-referrer"
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-[#040805]/85 via-transparent to-transparent"></div>
-              </div>
-            </div>
-
-            {/* Card 4: Main IAs */}
-            <div className="bg-gradient-to-br from-[#0c140f] to-[#040805] rounded-2xl border border-emerald-500/15 p-6 hover:border-emerald-500/40 hover:shadow-[0_0_25px_rgba(16,185,129,0.05)] transition-all group relative overflow-hidden flex flex-col justify-between md:col-span-1">
-              <div className="space-y-4 mb-6">
-                <p className="text-sm sm:text-base text-slate-350 leading-relaxed font-sans">
-                  Dominar las <span className="text-white font-extrabold">principales I.A.s</span> de generación visual y automatización aplicadas a <span className="text-emerald-400 font-extrabold">tu rutina</span>.
-                </p>
-              </div>
-              <div className="relative aspect-square w-full overflow-hidden rounded-xl border border-white/5 bg-black/40 flex items-center justify-center">
-                <img 
-                  src={aiEcosystem} 
-                  alt="Ecosistema de I.A.s" 
-                  className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
-                  referrerPolicy="no-referrer"
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-[#040805]/85 via-transparent to-transparent"></div>
-              </div>
-            </div>
-
-            {/* Card 5: Reference and Prompt */}
-            <div className="bg-gradient-to-br from-[#0c140f] to-[#040805] rounded-2xl border border-emerald-500/15 p-6 hover:border-emerald-500/40 hover:shadow-[0_0_25px_rgba(16,185,129,0.05)] transition-all group relative overflow-hidden flex flex-col justify-between md:col-span-1">
-              <div className="space-y-4 mb-6">
-                <p className="text-sm sm:text-base text-slate-350 leading-relaxed font-sans">
-                  Generar <span className="text-white font-extrabold">imágenes y mockups impactantes</span> a partir de imágenes de <span className="text-emerald-400 font-extrabold">referencia y descripciones</span>.
-                </p>
-              </div>
-              <div className="relative aspect-square w-full overflow-hidden rounded-xl border border-white/5 bg-black/40 flex items-center justify-center">
-                <img 
-                  src={promptInputBox} 
-                  alt="Generación por referencia" 
-                  className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
-                  referrerPolicy="no-referrer"
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-[#040805]/85 via-transparent to-transparent"></div>
-              </div>
-            </div>
-
-            {/* Card 6: Creative assets */}
-            <div className="bg-gradient-to-br from-[#0c140f] to-[#040805] rounded-2xl border border-emerald-500/15 p-6 hover:border-emerald-500/40 hover:shadow-[0_0_25px_rgba(16,185,129,0.05)] transition-all group relative overflow-hidden flex flex-col justify-between md:col-span-3">
-              <div className="space-y-4 mb-6">
-                <p className="text-sm sm:text-base text-slate-350 leading-relaxed font-sans">
-                  Crear en la práctica <span className="text-white font-extrabold">creativos visuales de alto impacto</span> para tus redes, anuncios y <span className="text-emerald-400 font-extrabold">páginas web</span>.
-                </p>
-              </div>
-              <div className="relative aspect-[21/9] w-full overflow-hidden rounded-xl border border-white/5 bg-black/40">
-                <img 
-                  src={creativeAssets} 
-                  alt="Diseños de alto impacto" 
-                  className="w-full h-full object-cover group-hover:scale-[1.02] transition-transform duration-500"
-                  referrerPolicy="no-referrer"
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-[#040805]/85 via-transparent to-transparent"></div>
-              </div>
-            </div>
-
-          </div>
-        </section>
-
-        {/* EXCLUSIVE BONUSES SECTION / "BONOS EXCLUSIVOS INCLUIDOS" */}
-        <section id="exclusive-bonuses-section" className="space-y-12">
-          <div className="max-w-2xl mx-auto text-center space-y-3.5">
-            <span className="text-xs font-bold uppercase tracking-widest text-emerald-400">Oferta Especial de Lanzamiento</span>
-            <h3 className="text-3xl font-extrabold font-display text-white tracking-tight">
-              Recibe estos Bonos Exclusivos al Unirte Hoy
-            </h3>
-            <p className="text-sm sm:text-base text-slate-300">
-              Queremos darte todo el soporte para que implementes la IA de inmediato. Al unirte hoy de forma <span className="text-emerald-400 font-extrabold">100% gratuita</span>, te llevas todo esto de regalo:
-            </p>
-          </div>
-
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-            {[
-              {
-                bonus: "BONO #1",
-                title: "Prompt Builder PRO (Agente GPT)",
-                value: "$97.00 USD",
-                desc: "Un asistente de IA inteligente pre-configurado para redactar prompts avanzados, específicos y personalizados para tu negocio u oferta comercial en segundos.",
-                icon: Sparkles,
-                badge: "¡GRATIS HOY!",
-                img: promptBuilder
-              },
-              {
-                bonus: "BONO #2",
-                title: "Central de Prompts Maestros IA",
-                value: "$49.00 USD",
-                desc: "Una biblioteca exclusiva con más de 200 copypastes de prompts validados por creadores de marca para automatizar emails, guiones de video y post de venta.",
-                icon: BookOpen,
-                badge: "¡GRATIS HOY!",
-                img: libraryPrompts
-              },
-              {
-                bonus: "BONO #3",
-                title: "Comunidad VIP y Enlace de Zoom",
-                value: "$49.00 USD",
-                desc: "Acceso inmediato al grupo exclusivo silencioso de WhatsApp para descargar las guías PDF, networking, resolver dudas y recibir el enlace privado de Zoom.",
-                icon: Users2,
-                badge: "¡GRATIS HOY!",
-                img: vipCommunity
-              },
-            ].map((bonus, idx) => {
-              const Icon = bonus.icon;
-              return (
-                <div 
-                  key={idx}
-                  className="bg-gradient-to-br from-[#0c140f] to-[#040805] rounded-2xl border border-emerald-500/15 p-5 hover:border-emerald-500/40 hover:shadow-[0_0_25px_rgba(16,185,129,0.05)] transition-all group relative overflow-hidden flex flex-col justify-between"
-                >
-                  {/* Neon tag */}
-                  <span className="absolute top-4 right-4 z-10 text-[10px] bg-emerald-500/20 text-emerald-300 border border-emerald-500/30 px-2.5 py-0.5 rounded-full font-extrabold tracking-wider">
-                    {bonus.badge}
-                  </span>
-
-                  <div className="space-y-4">
-                    {/* Styled Image Frame */}
-                    {bonus.img && (
-                      <div className="relative aspect-[4/3] w-full overflow-hidden rounded-xl border border-white/10 bg-black/40">
-                        <img 
-                          src={bonus.img} 
-                          alt={bonus.title} 
-                          className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
-                          referrerPolicy="no-referrer"
-                        />
-                        <div className="absolute inset-0 bg-gradient-to-t from-[#040805]/70 via-transparent to-transparent"></div>
-                      </div>
-                    )}
-
-                    <span className="text-xs font-bold text-emerald-400 tracking-wider block">
-                      {bonus.bonus}
-                    </span>
-                    <div className="space-y-2">
-                      <h4 className="text-lg font-bold text-white group-hover:text-emerald-400 transition-colors">
-                        {bonus.title}
-                      </h4>
-                      <p className="text-xs text-slate-350 leading-relaxed">
-                        {bonus.desc}
-                      </p>
-                    </div>
-                  </div>
-
-                  <div className="pt-5 border-t border-white/5 mt-5 flex items-center justify-between">
-                    <div className="flex items-center text-xs font-bold text-slate-400">
-                      <Icon className="w-4 h-4 mr-1.5 text-emerald-400" />
-                      <span>Material Digital</span>
-                    </div>
-                    <span className="text-[11px] font-semibold text-slate-500 line-through">
-                      Valorado en {bonus.value}
-                    </span>
-                  </div>
-                </div>
-              );
-            })}
-          </div>
-        </section>
-
-        {/* 7-DAY UNCONDITIONAL GUARANTEE SECTION */}
-        <section id="unconditional-guarantee-section" className="bg-gradient-to-r from-[#0c130e] to-black rounded-3xl border border-emerald-500/25 p-6 sm:p-10 relative overflow-hidden shadow-xl">
-          <div className="absolute top-1/2 left-0 -translate-y-1/2 w-48 h-48 bg-emerald-500/5 rounded-full blur-3xl pointer-events-none"></div>
           
-          <div className="grid grid-cols-1 md:grid-cols-12 gap-8 items-center relative z-10">
-            {/* Guarantee Badge */}
-            <div className="md:col-span-3 flex justify-center">
-              <div className="relative group cursor-default">
-                {/* Ambient gold glow */}
-                <div className="absolute inset-0 bg-amber-500/20 rounded-full blur-xl group-hover:bg-amber-500/30 transition-all duration-500 pointer-events-none"></div>
-                
-                {/* Golden Stamp Seal */}
-                <div className="w-32 h-32 sm:w-36 sm:h-36 relative flex items-center justify-center">
-                  {/* Scalloped vector-like circle stroke simulating a stamp */}
-                  <svg className="absolute w-full h-full animate-[spin_60s_linear_infinite] text-amber-500" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <defs>
-                      <linearGradient id="gold-stamp-gradient" x1="0%" y1="0%" x2="100%" y2="100%">
-                        <stop offset="0%" stopColor="#fbbf24" />
-                        <stop offset="50%" stopColor="#f59e0b" />
-                        <stop offset="100%" stopColor="#b45309" />
-                      </linearGradient>
-                    </defs>
-                    <circle cx="50" cy="50" r="45" stroke="url(#gold-stamp-gradient)" strokeWidth="2.5" strokeDasharray="5 3" />
-                    <circle cx="50" cy="50" r="41" stroke="url(#gold-stamp-gradient)" strokeWidth="1" opacity="0.6" />
-                  </svg>
-
-                  {/* Inner Golden Seal Plate */}
-                  <div className="w-26 h-26 sm:w-30 sm:h-30 rounded-full bg-gradient-to-b from-[#1e1509] to-[#0a0703] border-2 border-amber-500/50 shadow-[inset_0_0_15px_rgba(245,158,11,0.25)] flex flex-col items-center justify-center p-3 text-center relative z-10">
-                    
-                    {/* Curved Stars at the top */}
-                    <div className="flex items-center gap-0.5 mb-1.5 text-amber-400">
-                      <Star className="w-3 h-3 fill-amber-400 text-amber-400" />
-                      <Star className="w-3.5 h-3.5 fill-amber-400 text-amber-400 -translate-y-0.5" />
-                      <Star className="w-4 h-4 fill-amber-400 text-amber-400 -translate-y-1" />
-                      <Star className="w-3.5 h-3.5 fill-amber-400 text-amber-400 -translate-y-0.5" />
-                      <Star className="w-3 h-3 fill-amber-400 text-amber-400" />
-                    </div>
-
-                    {/* Main Number 7 */}
-                    <span className="text-3xl sm:text-4xl font-extrabold font-display leading-none bg-gradient-to-r from-amber-200 via-yellow-100 to-amber-500 bg-clip-text text-transparent filter drop-shadow-[0_2px_4px_rgba(0,0,0,0.5)]">
-                      7
-                    </span>
-                    
-                    {/* Main text: DÍAS */}
-                    <span className="text-[10px] sm:text-[11px] font-black tracking-widest text-amber-200/90 uppercase leading-none mt-1">
-                      DÍAS
-                    </span>
-
-                    {/* Curved Guarantee banner ribbon style */}
-                    <div className="absolute -bottom-1 px-3.5 py-0.5 bg-gradient-to-r from-amber-600 via-amber-500 to-amber-700 text-black text-[8px] sm:text-[9px] font-black rounded-md shadow-md border border-amber-300/40 tracking-wider uppercase">
-                      GARANTÍA
-                    </div>
-                  </div>
-                </div>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-5xl mx-auto">
+            <div className="space-y-4 bg-white p-4 rounded-3xl border border-slate-200/80 shadow-sm hover:border-blue-200 transition-colors">
+              <DriveMedia localSrc={cinematicPortraits} title="Fotos de alta conversión" aspectRatioClass="aspect-[4/5]" />
+              <div className="text-left space-y-1 px-1">
+                <span className="text-[10px] uppercase tracking-widest font-bold text-slate-400 font-mono">Resultado Visual</span>
+                <h4 className="text-sm sm:text-base font-extrabold text-slate-900">Identidad de Cine</h4>
+                <p className="text-xs text-slate-500">Sesiones y retratos ultrarealistas en minutos.</p>
               </div>
             </div>
-
-            {/* Guarantee Info */}
-            <div className="md:col-span-9 space-y-3.5 text-center md:text-left">
-              <span className="text-[10px] sm:text-xs font-bold text-emerald-300 tracking-widest uppercase">ACCESO 100% LIBRE — CERO RIESGO</span>
-              <h3 className="text-2xl sm:text-3xl font-extrabold font-display text-white tracking-tight leading-tight">
-                Garantía Incondicional de Satisfacción y Calidad
-              </h3>
-              <p className="text-xs sm:text-sm text-slate-350 leading-relaxed">
-                Queremos que te unas con absoluta tranquilidad. Únete hoy, accede a la clase maestra en vivo el Viernes 24 de Julio, descarga la Guía PDF y utiliza el Kit de Prompts en tu negocio. Aunque el workshop es completamente gratis, mantenemos nuestro compromiso de brindarte la máxima calidad. Si en los primeros 7 días sientes que no aportó el valor que esperabas, puedes simplemente salir del grupo VIP de WhatsApp sin ningún tipo de compromiso.
-              </p>
+            
+            <div className="space-y-4 bg-white p-4 rounded-3xl border border-slate-200/80 shadow-sm hover:border-blue-200 transition-colors md:translate-y-6">
+              <DriveMedia id="1gBiCZRo9huTea050lMPxRTcpR0LSfJr_" title="Retratos cinemáticos" aspectRatioClass="aspect-[4/5]" />
+              <div className="text-left space-y-1 px-1">
+                <span className="text-[10px] uppercase tracking-widest font-bold text-slate-400 font-mono">Agilidad Extrema</span>
+                <h4 className="text-sm sm:text-base font-extrabold text-slate-900">Creación de Contenido</h4>
+                <p className="text-xs text-slate-500">Diseños profesionales de anuncios y páginas web.</p>
+              </div>
+            </div>
+            
+            <div className="space-y-4 bg-white p-4 rounded-3xl border border-slate-200/80 shadow-sm hover:border-blue-200 transition-colors">
+              <DriveMedia localSrc={connectedTools} title="Herramientas conectadas" aspectRatioClass="aspect-[4/5]" />
+              <div className="text-left space-y-1 px-1">
+                <span className="text-[10px] uppercase tracking-widest font-bold text-slate-400 font-mono">Infraestructura</span>
+                <h4 className="text-sm sm:text-base font-extrabold text-slate-900">Automatización de Flujos</h4>
+                <p className="text-xs text-slate-500">Configuración de agentes autónomos y chats directos.</p>
+              </div>
             </div>
           </div>
         </section>
 
-        {/* TESTIMONY / SOCIAL PROOF */}
-        <section id="testimonials-section" className="space-y-10">
-          <div className="text-center max-w-xl mx-auto space-y-2">
-            <span className="text-xs font-bold uppercase tracking-widest text-emerald-400">Resultados Duraderos</span>
-            <h3 className="text-3xl font-bold font-display text-white">Alumnos que ya vivieron la experiencia</h3>
-            <p className="text-sm text-slate-300">La mejor prueba son las voces de quienes superaron el reto y alcanzaron metas.</p>
+        {/* 4. QUÉ APRENDERÁS (Bloques Alternados) */}
+        <section id="what-you-will-learn" className="py-12 space-y-28 md:space-y-40">
+          <div className="max-w-3xl mx-auto text-center space-y-3">
+            <span className="text-xs font-bold uppercase tracking-widest text-blue-600 block">Ruta Temática Detallada</span>
+            <h3 className="text-3xl sm:text-4xl font-extrabold font-display text-slate-950 tracking-tight">
+              Todo lo que aprenderás en pocas horas
+            </h3>
+            <p className="text-sm sm:text-base text-slate-500 max-w-2xl mx-auto leading-relaxed">
+              Descubre las cuatro áreas estratégicas diseñadas meticulosamente para maximizar tu productividad, optimizar tus ventas y liberar tu tiempo de una vez por todas.
+            </p>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+          {/* Bloque 1: Automatización y Agentes Inteligentes (Image Left, Content Right) */}
+          <div className="flex flex-col lg:flex-row items-center gap-12 lg:gap-16">
+            <div className="w-full lg:w-1/2">
+              <div className="bg-white p-3 rounded-3xl border border-slate-200/80 shadow-sm overflow-hidden">
+                <DriveMedia id="1oo0SCbiNiaRnhZUKDWCpXKHo6NbrPHIE" title="Agentes IA y Automatización" aspectRatioClass="aspect-[4/3]" />
+              </div>
+            </div>
+            <div className="w-full lg:w-1/2 space-y-6">
+              <span className="inline-flex px-3 py-1 rounded-full text-[10px] font-bold bg-slate-100 text-slate-700 border border-slate-200 uppercase tracking-widest">
+                • Automatización Radical
+              </span>
+              <h4 className="text-2xl sm:text-3xl font-extrabold font-display text-slate-955 tracking-tight leading-snug">
+                Agentes IA para Delegar Procesos
+              </h4>
+              <p className="text-sm text-slate-500 leading-relaxed">
+                Aprende a configurar asistentes inteligentes listos para integrarse en la estructura de tu negocio para procesar datos, responder dudas y liberar hasta el 70% de tus horas operativas.
+              </p>
+
+              <div className="border-t border-slate-200/80 pt-6 space-y-5">
+                {[
+                  {
+                    num: "01",
+                    title: "Creación de Agentes Personalizados",
+                    desc: "Entrena asistentes autónomos diseñados específicamente con los datos, productos y políticas de tu negocio para operar sin supervisión constante."
+                  },
+                  {
+                    num: "02",
+                    title: "Automatización de Tareas Mecánicas",
+                    desc: "Elimina por completo la carga administrativa lenta conectando herramientas de automatización que funcionan en segundo plano 24/7."
+                  },
+                  {
+                    num: "03",
+                    title: "Optimización de Soporte VIP",
+                    desc: "Sustituye la atención manual de primer nivel por IA capaz de filtrar clientes calificados y agendar reuniones automáticas."
+                  }
+                ].map((item, idx) => (
+                  <div key={idx} className="flex gap-4 items-start">
+                    <span className="w-8 h-8 rounded-full bg-slate-900 text-white font-mono font-bold text-xs flex items-center justify-center flex-shrink-0 mt-0.5">
+                      {item.num}
+                    </span>
+                    <div className="space-y-1">
+                      <h5 className="font-bold text-slate-950 text-sm">{item.title}</h5>
+                      <p className="text-xs text-slate-600 leading-relaxed max-w-md">{item.desc}</p>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </div>
+
+          {/* Bloque 2: Creación de Contenido Viral (Image Right, Content Left) */}
+          <div className="flex flex-col lg:flex-row-reverse items-center gap-12 lg:gap-16">
+            <div className="w-full lg:w-1/2">
+              <div className="bg-white p-3 rounded-3xl border border-slate-200/80 shadow-sm overflow-hidden">
+                <DriveMedia id="1q4IZyMko4iAA6a0-UvqvdBT-jax3Lwb4" title="Contenido Viral" aspectRatioClass="aspect-[4/3]" />
+              </div>
+            </div>
+            <div className="w-full lg:w-1/2 space-y-6">
+              <span className="inline-flex px-3 py-1 rounded-full text-[10px] font-bold bg-slate-100 text-slate-700 border border-slate-200 uppercase tracking-widest">
+                • Marketing y Redes
+              </span>
+              <h4 className="text-2xl sm:text-3xl font-extrabold font-display text-slate-955 tracking-tight leading-snug">
+                Creación de Contenido Viral a Escala
+              </h4>
+              <p className="text-sm text-slate-500 leading-relaxed">
+                Diseña estructuras de comunicación y vídeos magnéticos de alta retención que capten la atención de tu audiencia desde el primer segundo sin gastar horas en redacción.
+              </p>
+
+              <div className="border-t border-slate-200/80 pt-6 space-y-5">
+                {[
+                  {
+                    num: "01",
+                    title: "Guionizado Altamente Persuasivo",
+                    desc: "Descubre estructuras ganadoras optimizadas por algoritmos para redactar ganchos e hilos de retención irresistibles."
+                  },
+                  {
+                    num: "02",
+                    title: "Producción de Formato Corto",
+                    desc: "Genera el material necesario para todo tu mes de reels, posts de Instagram, carruseles y copys de venta en una sola tarde de enfoque."
+                  },
+                  {
+                    num: "03",
+                    title: "Sistemas de Distribución Inteligente",
+                    desc: "Programa de forma automatizada y escala tus publicaciones diarias adaptadas con el tono exacto de tu voz personal."
+                  }
+                ].map((item, idx) => (
+                  <div key={idx} className="flex gap-4 items-start">
+                    <span className="w-8 h-8 rounded-full bg-slate-900 text-white font-mono font-bold text-xs flex items-center justify-center flex-shrink-0 mt-0.5">
+                      {item.num}
+                    </span>
+                    <div className="space-y-1">
+                      <h5 className="font-bold text-slate-950 text-sm">{item.title}</h5>
+                      <p className="text-xs text-slate-600 leading-relaxed max-w-md">{item.desc}</p>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </div>
+
+          {/* Bloque 3: Sesiones y Fotos de Cine (Image Left, Content Right) */}
+          <div className="flex flex-col lg:flex-row items-center gap-12 lg:gap-16">
+            <div className="w-full lg:w-1/2">
+              <div className="bg-white p-3 rounded-3xl border border-slate-200/80 shadow-sm overflow-hidden">
+                <DriveMedia id="1Ug0lJJNFK_1e4VxblaN8AxDTHu3Cw_G1" title="Fotografía y Mockups" aspectRatioClass="aspect-[4/3]" />
+              </div>
+            </div>
+            <div className="w-full lg:w-1/2 space-y-6">
+              <span className="inline-flex px-3 py-1 rounded-full text-[10px] font-bold bg-slate-100 text-slate-700 border border-slate-200 uppercase tracking-widest">
+                • Generación Visual
+              </span>
+              <h4 className="text-2xl sm:text-3xl font-extrabold font-display text-slate-955 tracking-tight leading-snug">
+                Fotografía y Mockups Profesionales
+              </h4>
+              <p className="text-sm text-slate-500 leading-relaxed">
+                Obtén retratos fotográficos realistas de tu rostro o tus productos y úsalos en anuncios de alta calidad o dentro de tus páginas web en segundos.
+              </p>
+
+              <div className="border-t border-slate-200/80 pt-6 space-y-5">
+                {[
+                  {
+                    num: "01",
+                    title: "Retratos de Fidelidad Ultrarealista",
+                    desc: "Consigue fotos profesionales en cualquier pose, vestimenta u orientación artística sin cámaras ni costosas contrataciones."
+                  },
+                  {
+                    num: "02",
+                    title: "Mockups Publicitarios Premium",
+                    desc: "Posiciona productos físicos en entornos fotográficos de lujo y catálogo de manera inmediata."
+                  },
+                  {
+                    num: "03",
+                    title: "Diseño Gráfico de Landing Pages",
+                    desc: "Produce banners de alto impacto, recursos vectoriales y fondos estéticos que impulsan y duplican la tasa de clics."
+                  }
+                ].map((item, idx) => (
+                  <div key={idx} className="flex gap-4 items-start">
+                    <span className="w-8 h-8 rounded-full bg-slate-900 text-white font-mono font-bold text-xs flex items-center justify-center flex-shrink-0 mt-0.5">
+                      {item.num}
+                    </span>
+                    <div className="space-y-1">
+                      <h5 className="font-bold text-slate-950 text-sm">{item.title}</h5>
+                      <p className="text-xs text-slate-600 leading-relaxed max-w-md">{item.desc}</p>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </div>
+
+          {/* Bloque 4: Conversión y Embudo de Ventas (Image Right, Content Left) */}
+          <div className="flex flex-col lg:flex-row-reverse items-center gap-12 lg:gap-16">
+            <div className="w-full lg:w-1/2">
+              <div className="bg-white p-3 rounded-3xl border border-slate-200/80 shadow-sm overflow-hidden">
+                <DriveMedia localSrc={creativeAssets} title="Prospección de Clientes" aspectRatioClass="aspect-[4/3]" />
+              </div>
+            </div>
+            <div className="w-full lg:w-1/2 space-y-6">
+              <span className="inline-flex px-3 py-1 rounded-full text-[10px] font-bold bg-slate-100 text-slate-700 border border-slate-200 uppercase tracking-widest">
+                • Conversión de Negocio
+              </span>
+              <h4 className="text-2xl sm:text-3xl font-extrabold font-display text-slate-955 tracking-tight leading-snug">
+                Prospección y Cierre Automático
+              </h4>
+              <p className="text-sm text-slate-500 leading-relaxed">
+                Configura sistemas comerciales inteligentes para guiar de forma interactiva a tus clientes potenciales directo hacia tu botón de pago sin intervención manual.
+              </p>
+
+              <div className="border-t border-slate-200/80 pt-6 space-y-5">
+                {[
+                  {
+                    num: "01",
+                    title: "Calificación Autónoma de Leads",
+                    desc: "Filtra el interés real de posibles clientes en tus canales de chat de forma totalmente automática y sin interrupciones."
+                  },
+                  {
+                    num: "02",
+                    title: "Ecosistemas de Embudos Persuasivos",
+                    desc: "Estructura embudos de conversión ágiles que dirigen el tráfico calificado a tus pasarelas de pago las 24 horas del día."
+                  },
+                  {
+                    num: "03",
+                    title: "Sistemas de Facturación en Continuo",
+                    desc: "Mantén un canal comercial de atracción, prospección y educación de prospectos que genera ingresos de forma autónoma."
+                  }
+                ].map((item, idx) => (
+                  <div key={idx} className="flex gap-4 items-start">
+                    <span className="w-8 h-8 rounded-full bg-slate-900 text-white font-mono font-bold text-xs flex items-center justify-center flex-shrink-0 mt-0.5">
+                      {item.num}
+                    </span>
+                    <div className="space-y-1">
+                      <h5 className="font-bold text-slate-950 text-sm">{item.title}</h5>
+                      <p className="text-xs text-slate-600 leading-relaxed max-w-md">{item.desc}</p>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </div>
+        </section>
+
+        {/* 8. SECCIÓN DESTACADA: CLÓNATE A TI MISMO */}
+        <section id="avatar-showcase" className="py-16 sm:py-20 bg-slate-950 text-white rounded-3xl border border-slate-800 p-8 sm:p-12 text-center space-y-12 relative overflow-hidden">
+          <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-80 h-80 bg-blue-500/10 rounded-full blur-3xl pointer-events-none"></div>
+          
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-4xl mx-auto relative z-10">
+            <div className="rounded-2xl overflow-hidden border border-slate-800 bg-slate-900 shadow-lg animate-fade-in">
+              <img src={promptInputBox} alt="Axe ice" className="w-full h-44 object-cover" referrerPolicy="no-referrer" />
+            </div>
+            <div className="rounded-2xl overflow-hidden border border-slate-800 bg-slate-900 shadow-lg animate-fade-in">
+              <img src={cinematicPortraits} alt="Personal" className="w-full h-44 object-cover" referrerPolicy="no-referrer" />
+            </div>
+            <div className="rounded-2xl overflow-hidden border border-slate-800 bg-slate-900 shadow-lg animate-fade-in">
+              <img src={connectedTools} alt="Systems" className="w-full h-44 object-cover" referrerPolicy="no-referrer" />
+            </div>
+          </div>
+
+          <div className="max-w-2xl mx-auto space-y-5 relative z-10">
+            <span className="text-[10px] text-blue-450 font-bold uppercase tracking-widest block font-mono">Presencia Masiva 24/7</span>
+            <h3 className="text-2xl sm:text-4xl font-extrabold font-display tracking-tight text-white leading-tight">
+              Clónate a ti mismo con tu Avatar de IA
+            </h3>
+            <p className="text-xs sm:text-sm text-slate-300 leading-relaxed max-w-xl mx-auto">
+              Ahorra horas de grabación de contenido presencial y miles de dólares en costosos equipos. Descubre cómo entrenar un avatar inteligente con tu rostro y tono de voz exacto para crear vídeos de ventas y educativos de forma masiva con un solo clic.
+            </p>
+            
+            <div className="pt-4">
+              <button
+                onClick={() => {
+                  const el = document.getElementById("capture-card-container");
+                  if (el) el.scrollIntoView({ behavior: "smooth" });
+                }}
+                className="px-8 py-4 bg-blue-600 hover:bg-blue-700 text-white font-extrabold rounded-xl text-xs sm:text-sm uppercase tracking-wider transition-all shadow-[0_10px_25px_rgba(37,99,235,0.25)] active:scale-95 cursor-pointer"
+              >
+                Acceder al Entrenamiento Ahora
+              </button>
+            </div>
+          </div>
+        </section>
+
+        {/* 9. BONOS SECTION (EXACTLY TWO CARDS) */}
+        <section id="bonuses-section" className="py-12 space-y-16">
+          <div className="max-w-2xl mx-auto text-center space-y-3">
+            <span className="text-xs font-bold uppercase tracking-widest text-blue-600 block">Aditamentos de Crecimiento</span>
+            <h3 className="text-3xl font-extrabold font-display text-slate-950 tracking-tight">
+              Bono Complementario Exclusivo para Alumnos
+            </h3>
+            <p className="text-sm text-slate-500">
+              Inscríbete hoy por solo $9 USD y descarga inmediatamente estos materiales premium valorados en más de $150 USD.
+            </p>
+          </div>
+
+          <div className="max-w-4xl mx-auto space-y-8">
+            {/* Bono 1 */}
+            <div className="bg-white rounded-3xl border border-slate-200/80 p-6 sm:p-8 flex flex-col md:flex-row items-center gap-6 md:gap-10 hover:shadow-md hover:border-blue-200 transition-all group overflow-hidden">
+              <div className="flex-1 space-y-3.5">
+                <span className="text-[10px] uppercase tracking-wider font-extrabold text-blue-600 bg-blue-50 px-2.5 py-1 rounded border border-blue-150 inline-block font-mono">
+                  BONO #1 • DISPONIBLE INMEDIATAMENTE
+                </span>
+                <h4 className="text-xl sm:text-2xl font-bold text-slate-955 group-hover:text-blue-600 transition-colors tracking-tight">
+                  Prompt Builder PRO (Agente GPT de Negocio)
+                </h4>
+                <p className="text-xs sm:text-sm text-slate-600 leading-relaxed">
+                  Consigue acceso exclusivo a nuestro agente inteligente pre-configurado para redactar prompts optimizados, persuasivos y adaptados al sector exacto de tu negocio sin bloqueos creativos.
+                </p>
+              </div>
+              <div className="w-full md:w-[280px] h-[170px] rounded-2xl overflow-hidden border border-slate-100 flex-shrink-0">
+                <img src={promptBuilder} alt="Bono 1" className="w-full h-full object-cover group-hover:scale-103 transition-transform duration-500" referrerPolicy="no-referrer" />
+              </div>
+            </div>
+
+            {/* Bono 2 */}
+            <div className="bg-white rounded-3xl border border-slate-200/80 p-6 sm:p-8 flex flex-col md:flex-row-reverse items-center gap-6 md:gap-10 hover:shadow-md hover:border-blue-200 transition-all group overflow-hidden">
+              <div className="flex-1 space-y-3.5">
+                <span className="text-[10px] uppercase tracking-wider font-extrabold text-blue-600 bg-blue-50 px-2.5 py-1 rounded border border-blue-150 inline-block font-mono">
+                  BONO #2 • ACCESO DE POR VIDA
+                </span>
+                <h4 className="text-xl sm:text-2xl font-bold text-slate-955 group-hover:text-blue-600 transition-colors tracking-tight">
+                  Central de Prompts Maestros IA
+                </h4>
+                <p className="text-xs sm:text-sm text-slate-600 leading-relaxed">
+                  Una biblioteca exhaustiva con copypastes de prompts validados listos para aplicar de inmediato en tu comunicación, correos comerciales, guiones de vídeo y post de conversión.
+                </p>
+              </div>
+              <div className="w-full md:w-[280px] h-[170px] rounded-2xl overflow-hidden border border-slate-100 flex-shrink-0">
+                <img src={libraryPrompts} alt="Bono 2" className="w-full h-full object-cover group-hover:scale-103 transition-transform duration-500" referrerPolicy="no-referrer" />
+              </div>
+            </div>
+          </div>
+
+          <div className="flex justify-center pt-4">
+            <button
+              onClick={() => {
+                const el = document.getElementById("capture-card-container");
+                if (el) el.scrollIntoView({ behavior: "smooth" });
+              }}
+              className="px-8 py-4 bg-slate-900 hover:bg-slate-800 text-white font-bold rounded-xl text-xs uppercase tracking-widest transition-all shadow-md active:scale-95 cursor-pointer"
+            >
+              Asegurar Mis Bonos Exclusivos
+            </button>
+          </div>
+        </section>
+
+        {/* TESTIMONIOS */}
+        <section id="testimonials-section" className="py-12 space-y-12">
+          <div className="text-center max-w-xl mx-auto space-y-3">
+            <span className="text-xs font-bold uppercase tracking-widest text-blue-600">Resultados Reales</span>
+            <h3 className="text-3xl font-extrabold font-display text-slate-950">Alumnos que ya transformaron sus flujos</h3>
+            <p className="text-sm text-slate-500">La mejor prueba de calidad son las voces de quienes superaron el reto y multiplicaron sus resultados.</p>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-5xl mx-auto">
             {[
               {
-                text: "Llevaba meses intentando entender cómo usar la IA en mi marca personal y negocio de servicios. Con este workshop de Content Creativo logré estructurar mis primeros prompts y automatizar la creación de contenido del mes en solo una tarde.",
+                text: "Llevaba meses intentando entender cómo usar la IA de manera práctica en mi negocio. Con este workshop de Content Creativo logré estructurar mis primeros prompts avanzados y delegar la creación mensual en solo una tarde.",
                 name: "Carlos Ruiz",
                 role: "Emprendedor — España",
                 rating: 5
@@ -860,23 +734,23 @@ export default function App() {
                 rating: 5
               }
             ].map((testi, i) => (
-              <div key={i} className="bg-white/5 backdrop-blur-md rounded-2xl border border-white/10 p-5.5 flex flex-col justify-between shadow-lg hover:border-emerald-500/30 transition-all">
-                <div className="space-y-3.5">
+              <div key={i} className="bg-white rounded-2xl border border-slate-200 p-6 flex flex-col justify-between shadow-sm hover:shadow-md hover:border-blue-500/30 transition-all">
+                <div className="space-y-4">
                   <div className="flex gap-1">
                     {[...Array(testi.rating)].map((_, idx) => (
-                      <Star key={idx} className="w-3.5 h-3.5 fill-amber-405 stroke-amber-405 text-amber-500" />
+                      <Star key={idx} className="w-3.5 h-3.5 fill-amber-400 stroke-amber-400 text-amber-500" />
                     ))}
                   </div>
-                  <p className="text-xs text-slate-300 italic leading-relaxed">
+                  <p className="text-xs sm:text-sm text-slate-600 italic leading-relaxed">
                     "{testi.text}"
                   </p>
                 </div>
-                <div className="pt-4 border-t border-white/5 mt-4 flex items-center space-x-3.5">
-                  <div className="w-9 h-9 bg-white/5 rounded-full flex items-center justify-center font-bold text-xs text-emerald-300 border border-white/10">
+                <div className="pt-4 border-t border-slate-100 mt-5 flex items-center space-x-3.5">
+                  <div className="w-9 h-9 bg-slate-50 rounded-full flex items-center justify-center font-bold text-xs text-blue-600 border border-slate-200">
                     {testi.name.slice(0, 2)}
                   </div>
                   <div>
-                    <h5 className="text-xs font-bold text-white">{testi.name}</h5>
+                    <h5 className="text-xs font-bold text-slate-900">{testi.name}</h5>
                     <p className="text-[10px] text-slate-400 font-medium">{testi.role}</p>
                   </div>
                 </div>
@@ -885,12 +759,61 @@ export default function App() {
           </div>
         </section>
 
-        {/* ACCORDION FAQ */}
-        <section id="faq-accordions-section" className="max-w-3xl mx-auto space-y-8">
+        {/* 7-DAY UNCONDITIONAL GUARANTEE SECTION */}
+        <section id="unconditional-guarantee-section" className="bg-amber-50/50 rounded-3xl border border-amber-200 p-6 sm:p-10 relative overflow-hidden shadow-sm max-w-4xl mx-auto">
+          <div className="absolute top-1/2 left-0 -translate-y-1/2 w-48 h-48 bg-amber-500/5 rounded-full blur-3xl pointer-events-none"></div>
+          
+          <div className="grid grid-cols-1 md:grid-cols-12 gap-8 items-center relative z-10">
+            {/* Guarantee Badge */}
+            <div className="md:col-span-3 flex justify-center">
+              <div className="relative group cursor-default">
+                <div className="absolute inset-0 bg-amber-500/10 rounded-full blur-xl pointer-events-none"></div>
+                
+                {/* Golden Stamp Seal */}
+                <div className="w-32 h-32 relative flex items-center justify-center">
+                  <svg className="absolute w-full h-full animate-[spin_60s_linear_infinite] text-amber-500" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <circle cx="50" cy="50" r="45" stroke="currentColor" strokeWidth="2.5" strokeDasharray="5 3" />
+                  </svg>
+
+                  <div className="w-26 h-26 rounded-full bg-gradient-to-b from-white to-slate-50 border-2 border-amber-500/50 shadow-[inset_0_0_15px_rgba(245,158,11,0.1)] flex flex-col items-center justify-center p-3 text-center relative z-10">
+                    <div className="flex items-center gap-0.5 mb-1 text-amber-500">
+                      <Star className="w-3.5 h-3.5 fill-amber-500 text-amber-500" />
+                    </div>
+
+                    <span className="text-3xl font-extrabold font-display leading-none text-slate-900">
+                      7
+                    </span>
+                    <span className="text-[10px] font-black tracking-widest text-slate-750 uppercase leading-none mt-1">
+                      DÍAS
+                    </span>
+
+                    <div className="absolute -bottom-1 px-3.5 py-0.5 bg-amber-500 text-white text-[8px] sm:text-[9px] font-black rounded-md shadow-sm border border-amber-400 tracking-wider uppercase">
+                      GARANTÍA
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            {/* Guarantee Info */}
+            <div className="md:col-span-9 space-y-3 text-center md:text-left">
+              <span className="text-[10px] font-bold text-amber-700 tracking-widest uppercase block">PAGO 100% SEGURO — GARANTÍA ABSOLUTA</span>
+              <h3 className="text-xl sm:text-2xl font-extrabold font-display text-slate-950 tracking-tight leading-tight">
+                Garantía Incondicional de Satisfacción y Calidad de 7 Días
+              </h3>
+              <p className="text-xs sm:text-sm text-slate-600 leading-relaxed">
+                Queremos que te unas con absoluta tranquilidad. Inscríbete hoy, accede a la clase maestra en vivo el Viernes 24 de Julio, descarga la Guía PDF y utiliza el Kit de Prompts en tu negocio. Si en los primeros 7 días sientes que no aportó el valor que esperabas, puedes solicitar un reembolso directo del 100% de tu pago sin preguntas a través de Hotmart.
+              </p>
+            </div>
+          </div>
+        </section>
+
+        {/* FAQ SECTION */}
+        <section id="faq-accordions-section" className="max-w-3xl mx-auto space-y-10 py-6">
           <div className="text-center space-y-2">
-            <span className="text-xs font-bold uppercase tracking-widest text-emerald-400">Resolviendo Inquietudes</span>
-            <h3 className="text-2xl sm:text-3xl font-bold font-display text-white">Preguntas Frecuentes</h3>
-            <p className="text-sm text-slate-300">¿Tienes dudas adicionales sobre el Workshop Growth Spring? Despliega para informarte.</p>
+            <span className="text-xs font-bold uppercase tracking-widest text-blue-600">Resolviendo Inquietudes</span>
+            <h3 className="text-2xl sm:text-3xl font-bold font-display text-slate-900">Preguntas Frecuentes</h3>
+            <p className="text-sm text-slate-500">¿Tienes dudas sobre el Workshop? Despliega para informarte de cada detalle.</p>
           </div>
 
           <div className="space-y-4">
@@ -899,19 +822,19 @@ export default function App() {
               return (
                 <div 
                   key={idx} 
-                  className="bg-white/5 backdrop-blur-md rounded-xl border border-white/10 shadow-md overflow-hidden transition-all duration-300"
+                  className="bg-white rounded-xl border border-slate-200 shadow-sm overflow-hidden transition-all duration-300"
                 >
                   <button
                     id={`faq-toggle-${idx}`}
                     onClick={() => setActiveFaq(isOpen ? null : idx)}
-                    className="w-full px-5 py-4 flex items-center justify-between text-left font-semibold text-white hover:text-emerald-300 hover:bg-white/2 transition-colors text-sm"
+                    className="w-full px-5 py-4 flex items-center justify-between text-left font-semibold text-slate-800 hover:text-blue-600 hover:bg-slate-50/50 transition-colors text-sm"
                   >
                     <span>{faq.q}</span>
-                    <ChevronDown className={`w-4 h-4 text-emerald-400 transition-transform duration-300 flex-shrink-0 ml-4 ${isOpen ? "rotate-180" : ""}`} />
+                    <ChevronDown className={`w-4 h-4 text-blue-600 transition-transform duration-300 flex-shrink-0 ml-4 ${isOpen ? "rotate-180" : ""}`} />
                   </button>
                   
                   {isOpen && (
-                    <div id={`faq-answer-${idx}`} className="px-5 pb-4.5 pt-1 text-xs text-slate-300 leading-relaxed border-t border-white/5 bg-black/10 animate-fade-in">
+                    <div id={`faq-answer-${idx}`} className="px-5 pb-4.5 pt-1 text-xs text-slate-600 leading-relaxed border-t border-slate-100 bg-slate-50/30">
                       {faq.a}
                     </div>
                   )}
@@ -921,45 +844,61 @@ export default function App() {
           </div>
         </section>
 
-        {/* CALL TO ACTION BOTTOM CAPTURE FLUID */}
-        <section id="final-call-to-action" className="bg-gradient-to-tr from-emerald-950/40 via-black/40 to-blue-950/30 backdrop-blur-lg text-white rounded-3xl p-6 sm:p-10 text-center relative overflow-hidden shadow-2xl border border-white/10">
-          <div className="absolute top-0 left-0 w-32 h-32 bg-emerald-500/10 rounded-full blur-xl"></div>
+        {/* 10. CALL TO ACTION BOTTOM / CHECKOUT INTEGRATION */}
+        <section id="final-call-to-action" className="bg-gradient-to-tr from-blue-50/50 via-slate-50/80 to-indigo-50/50 backdrop-blur-lg rounded-3xl p-6 sm:p-12 text-center relative overflow-hidden shadow-sm border border-slate-200/80 max-w-4xl mx-auto space-y-10">
+          <div className="absolute top-0 left-0 w-32 h-32 bg-blue-500/5 rounded-full blur-xl"></div>
           
-          <div className="relative z-10 max-w-2xl mx-auto space-y-6">
-            <span className="text-[10px] sm:text-xs font-bold text-emerald-300 tracking-widest uppercase">ASEGURA TU CUPO ANTES DE QUE SE AGOTEN LOS ACCESOS</span>
-            <h3 className="text-2xl sm:text-4xl font-extrabold font-display leading-tight tracking-tight">
-              ¿Listo para dar el siguiente gran salto en tu carrera?
+          <div className="relative z-10 max-w-2xl mx-auto space-y-4">
+            <span className="text-[10px] text-blue-600 font-bold tracking-widest uppercase block">La mejor inversión para tu futuro</span>
+            <h3 className="text-3xl sm:text-4xl font-extrabold font-display leading-tight tracking-tight text-slate-950">
+              ¿Listo para dar el siguiente gran paso?
             </h3>
-            <p className="text-xs sm:text-sm text-slate-300 leading-relaxed">
-              Únete gratis al Workshop de IA hoy mismo. Recibe acceso inmediato al Grupo VIP de WhatsApp exclusivo para descargar tu Guía interactiva PDF, el Kit de Prompts y recibir las credenciales de conexión de Zoom para el entrenamiento en vivo.
-            </p>
-
-            <div className="pt-2 flex flex-col sm:flex-row gap-3.5 justify-center">
-              <a
-                id="whatsapp-cta-direct-btn"
-                href={config.whatsappLink}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="px-8 py-4 bg-gradient-to-r from-green-500 via-emerald-500 to-green-600 hover:from-green-450 hover:via-emerald-400 hover:to-green-550 text-white font-black rounded-xl text-xs sm:text-sm transition-all shadow-[0_0_20px_rgba(34,197,94,0.3)] hover:shadow-[0_0_25px_rgba(34,197,94,0.45)] active:scale-98 cursor-pointer relative overflow-hidden group inline-flex items-center justify-center space-x-2.5"
-              >
-                {/* Shimmer / Destello Effect */}
-                <div className="absolute inset-0 w-full h-full bg-gradient-to-r from-transparent via-white/35 to-transparent -translate-x-full animate-shimmer pointer-events-none" />
-                
-                <MessageCircle className="w-5 h-5 animate-pulse relative z-10 fill-white/10 text-white" />
-                <span className="relative z-10 font-black tracking-wide">UNIRSE AL GRUPO DE WHATSAPP</span>
-              </a>
-            </div>
-            
-            <p className="text-[10px] text-slate-400">
-              * El entrenamiento en vivo se dictará de forma virtual el Viernes 24 de Julio a las 7:00 PM hora Colombia. Acceso restringido para miembros del grupo VIP.
+            <p className="text-xs sm:text-sm text-slate-600 leading-relaxed">
+              Inscríbete hoy al Workshop Clase Maestra de IA por tan solo $9 USD. Recibe acceso inmediato, la guía interactiva PDF y el Kit de Prompts de regalo.
             </p>
           </div>
+
+          {/* Recordatorio de las condiciones */}
+          <div className="grid grid-cols-3 gap-4 max-w-lg mx-auto bg-white/80 border border-slate-200 rounded-2xl p-4 text-xs font-bold text-slate-800 shadow-sm">
+            <div className="space-y-1 border-r border-slate-100">
+              <span className="text-[9px] text-slate-400 block uppercase">ENTRENAMIENTO</span>
+              <span>Workshop IA</span>
+            </div>
+            <div className="space-y-1 border-r border-slate-100">
+              <span className="text-[9px] text-slate-400 block uppercase">FECHA</span>
+              <span>24 de Julio</span>
+            </div>
+            <div className="space-y-1">
+              <span className="text-[9px] text-slate-400 block uppercase">INVERSIÓN</span>
+              <span className="text-blue-600 font-black">$9.00 USD</span>
+            </div>
+          </div>
+
+          {/* Checkout LeadForm embedded for direct purchase/registration! */}
+          <div id="capture-card-container" className="max-w-md mx-auto relative z-10 text-left pt-2">
+            {registeredLead ? (
+              <SuccessView 
+                name={registeredLead.name} 
+                whatsappLink={config.whatsappLink} 
+              />
+            ) : (
+              <LeadForm 
+                config={config} 
+                registeredCount={leads.length}
+                onSignUp={handleNewSignUp}
+              />
+            )}
+          </div>
+          
+          <p className="text-[10px] text-slate-500 max-w-md mx-auto leading-relaxed">
+            * El entrenamiento en vivo se dictará de forma virtual el Viernes 24 de Julio a las 7:00 PM hora Colombia. Acceso restringido para alumnos registrados.
+          </p>
         </section>
 
-        {/* BOTTOM METADATA & SUPPORT INFO */}
-        <footer className="text-center py-4 border-t border-white/10 text-xs text-slate-450 space-y-2">
+        {/* BOTTOM FOOTER */}
+        <footer className="text-center py-6 border-t border-slate-200 text-[11px] text-slate-500 space-y-3 pt-8">
           <p>© 2026 Growth Spring & Content Creativo. Todos los derechos reservados.</p>
-          <p className="max-w-2xl mx-auto text-[11px] leading-relaxed text-slate-500">
+          <p className="max-w-2xl mx-auto leading-relaxed text-slate-400 text-[10px]">
             Este sitio web no forma parte de WhatsApp, Facebook ni Meta Inc. Además, este sitio NO está respaldado por WhatsApp ni Meta de ninguna manera. WHATSAPP es una marca registrada de WhatsApp Inc.
           </p>
         </footer>
@@ -968,43 +907,40 @@ export default function App() {
 
       {/* FLOATING CHECKOUT CTA BUTTON BAR */}
       {showFloating && (
-        <div className="fixed bottom-4 left-4 right-4 md:left-auto md:right-1/2 md:translate-x-1/2 z-40 max-w-md w-auto bg-[#0a0f0b]/95 backdrop-blur-xl border border-emerald-500/30 rounded-2xl p-3 shadow-[0_10px_40px_rgba(16,185,129,0.25)] flex items-center justify-between gap-4 animate-fade-in">
+        <div className="fixed bottom-4 left-4 right-4 md:left-auto md:right-1/2 md:translate-x-1/2 z-40 max-w-md w-auto bg-white/95 backdrop-blur-xl border border-slate-200 rounded-2xl p-3 shadow-[0_10px_30px_rgba(0,0,0,0.08)] flex items-center justify-between gap-4 animate-fade-in">
           <div className="hidden sm:flex flex-col text-left pl-2">
-            <span className="text-[9px] text-emerald-400 font-bold uppercase tracking-wider">ACCESO INMEDIATO</span>
+            <span className="text-[9px] text-blue-600 font-bold uppercase tracking-wider">PRECIO DE PRE-VENTA</span>
             <div className="flex items-center space-x-1.5">
-              <span className="text-sm font-extrabold text-white">100% GRATIS</span>
+              <span className="text-sm font-extrabold text-slate-900">$9.00 USD</span>
             </div>
           </div>
-          <a
-            id="floating-buy-cta"
-            href={config.whatsappLink}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="flex-1 py-2.5 px-4 bg-gradient-to-r from-green-500 to-emerald-600 hover:from-emerald-600 hover:to-emerald-750 text-white font-extrabold rounded-xl text-[11px] tracking-wider uppercase transition-all shadow-[0_0_15px_rgba(34,197,94,0.3)] hover:shadow-[0_0_20px_rgba(34,197,94,0.5)] active:scale-95 cursor-pointer flex items-center justify-center space-x-2 relative overflow-hidden group"
+          <button
+            onClick={() => {
+              const el = document.getElementById("capture-card-container");
+              if (el) el.scrollIntoView({ behavior: "smooth" });
+            }}
+            className="flex-1 py-2.5 px-4 bg-blue-600 hover:bg-blue-700 text-white font-extrabold rounded-xl text-[11px] tracking-wider uppercase transition-all shadow-md hover:shadow-lg active:scale-95 cursor-pointer flex items-center justify-center space-x-2 relative overflow-hidden group"
           >
-            {/* Shimmer / Destello Effect */}
-            <div className="absolute inset-0 w-full h-full bg-gradient-to-r from-transparent via-white/35 to-transparent -translate-x-full animate-shimmer pointer-events-none" />
-            
-            <MessageCircle className="w-3.5 h-3.5 text-white animate-pulse relative z-10" />
-            <span className="relative z-10">UNIRSE A WHATSAPP</span>
-          </a>
+            <Zap className="w-3.5 h-3.5 text-white animate-pulse" />
+            <span>Asegurar Mi Cupo ($9)</span>
+          </button>
         </div>
       )}
 
-      {/* ADMIN FLOATING BADGE & CONTROLLER PANEL VIEW */}
+      {/* ADMIN FLOATING BADGE */}
       <div className="fixed bottom-4 right-4 z-40 flex items-center space-x-2">
         <button
           id="toggle-admin-btn"
           onClick={() => setIsAdminOpen(true)}
-          className="px-4 py-2.5 bg-[#0e1610]/95 hover:bg-emerald-950 text-white rounded-full shadow-2xl flex items-center space-x-2 text-xs font-bold border border-white/10 hover:border-emerald-500 transition-all group scale-95 sm:scale-100 cursor-pointer backdrop-blur-md"
+          className="px-4 py-2.5 bg-white hover:bg-slate-50 text-slate-800 rounded-full shadow-lg flex items-center space-x-2 text-xs font-bold border border-slate-200 transition-all group scale-95 sm:scale-100 cursor-pointer backdrop-blur-md"
           title="Abrir Panel del Propietario (Lanzador)"
         >
-          <Settings className="w-4 h-4 text-emerald-450 group-hover:rotate-45 transition-transform" />
+          <Settings className="w-4 h-4 text-blue-650 group-hover:rotate-45 transition-transform" />
           <span>⚙️ Panel del Lanzador</span>
         </button>
       </div>
 
-      {/* Admin Panel Drawer Modal */}
+      {/* Admin Panel Modal */}
       <AdminPanel
         config={config}
         onUpdateConfig={handleUpdateConfig}

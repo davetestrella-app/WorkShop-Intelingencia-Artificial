@@ -47,8 +47,8 @@ export default function BannerCounter({ targetDate }: BannerCounterProps) {
 
   if (timeLeft.isCompleted) {
     return (
-      <div className="flex items-center justify-center space-x-2.5 py-4 px-6 bg-amber-500/10 rounded-2xl border border-amber-500/20 shadow-lg text-amber-300 text-center animate-pulse">
-        <Clock className="w-5 h-5 text-amber-500 animate-spin-slow" />
+      <div className="flex items-center justify-center space-x-2.5 py-4 px-6 bg-amber-50 rounded-2xl border border-amber-200 shadow-sm text-amber-800 text-center animate-pulse">
+        <Clock className="w-5 h-5 text-amber-600 animate-spin-slow" />
         <span className="font-display font-semibold text-sm sm:text-base">
           💥 ¡EL LANZAMIENTO HA COMENZADO! ¡Grupo VIP de Whatsapp abierto!
         </span>
@@ -65,21 +65,21 @@ export default function BannerCounter({ targetDate }: BannerCounterProps) {
 
   return (
     <div className="flex flex-col items-center sm:items-start">
-      <div className="flex items-center space-x-1.5 text-xs text-slate-300 font-semibold tracking-wider uppercase mb-3.5">
-        <Clock className="w-4 h-4 text-emerald-400 animate-pulse" />
-        <span>El grupo VIP se cierra antes del Lanzamiento oficial:</span>
+      <div className="flex items-center space-x-1.5 text-xs text-slate-500 font-semibold tracking-wider uppercase mb-3.5">
+        <Clock className="w-4 h-4 text-blue-600 animate-pulse" />
+        <span>Las inscripciones cierran pronto:</span>
       </div>
       <div className="flex space-x-2 sm:space-x-4">
         {items.map((item, i) => (
           <div
             key={i}
-            className="flex flex-col items-center justify-center bg-white/5 backdrop-blur-md rounded-xl sm:rounded-2xl border border-white/10 shadow-lg w-16 h-18 sm:w-20 sm:h-22 p-2 relative overflow-hidden group hover:border-emerald-500/40 hover:bg-white/10 transition-all"
+            className="flex flex-col items-center justify-center bg-white rounded-xl sm:rounded-2xl border border-slate-200 shadow-sm w-16 h-18 sm:w-20 sm:h-22 p-2 relative overflow-hidden group hover:border-blue-500 hover:shadow-md transition-all"
           >
-            <div className="absolute top-0 inset-x-0 h-1 bg-emerald-500/60 shadow-[0_0_8px_#10b981]"></div>
-            <span className="text-xl sm:text-2xl font-bold text-white font-mono tracking-tight group-hover:scale-105 transition-transform">
+            <div className="absolute top-0 inset-x-0 h-1 bg-blue-600"></div>
+            <span className="text-xl sm:text-2xl font-bold text-slate-900 font-mono tracking-tight group-hover:scale-105 transition-transform">
               {String(item.value).padStart(2, "0")}
             </span>
-            <span className="text-[9px] sm:text-[10px] font-bold text-slate-400 tracking-wider mt-1 uppercase">
+            <span className="text-[9px] sm:text-[10px] font-bold text-slate-550 tracking-wider mt-1 uppercase">
               {item.label}
             </span>
           </div>

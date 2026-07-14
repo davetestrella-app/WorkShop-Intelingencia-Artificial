@@ -47,7 +47,7 @@ const DEFAULT_CONFIG: LaunchConfig = {
   leadCountOffset: 348,
   emailRequired: true,
   phoneRequired: true,
-  hotmartLink: "https://pay.hotmart.com/example", // Default Hotmart URL
+  hotmartLink: "https://pay.hotmart.com/V72895738D?checkoutMode=10", // Default Hotmart URL
 };
 
 const DEFAULT_LEADS: Lead[] = [
@@ -101,7 +101,8 @@ export default function App() {
           parsed.title.includes("Desafío Wrowth") ||
           !parsed.title.includes("Inteligencia Artificial") ||
           JSON.stringify(parsed).includes("Mentors Expert") ||
-          parsed.whatsappLink?.includes("GisL9bJDvW83bF6E8ZgH9J")
+          parsed.whatsappLink?.includes("GisL9bJDvW83bF6E8ZgH9J") ||
+          !parsed.subtitle?.includes("27 USD")
         ) {
           localStorage.setItem("wrowth_launch_config", JSON.stringify(DEFAULT_CONFIG));
           initialConfig = DEFAULT_CONFIG;
@@ -270,17 +271,16 @@ export default function App() {
           {/* Primary CTA and trust badges */}
           <div className="space-y-6 text-center">
             <div>
-              <button
-                onClick={() => {
-                  const el = document.getElementById("capture-card-container");
-                  if (el) el.scrollIntoView({ behavior: "smooth" });
-                }}
+              <a
+                href={config.hotmartLink || "https://pay.hotmart.com/V72895738D?checkoutMode=10"}
+                target="_blank"
+                rel="noopener noreferrer"
                 className="px-10 py-5 bg-slate-900 hover:bg-slate-800 text-white font-extrabold rounded-full text-xs sm:text-sm tracking-widest uppercase transition-all shadow-[0_12px_28px_rgba(15,23,42,0.15)] hover:shadow-[0_15px_32px_rgba(15,23,42,0.22)] active:scale-98 cursor-pointer inline-flex items-center space-x-3 group relative overflow-hidden"
               >
                 <div className="absolute inset-0 bg-white/10 translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-1000 ease-out"></div>
                 <Zap className="w-4 h-4 text-blue-400 animate-pulse" />
                 <span>Inscribirme por solo $27 USD</span>
-              </button>
+              </a>
             </div>
 
             {/* Trust elements below CTA */}
@@ -335,16 +335,15 @@ export default function App() {
 
           {/* Under video CTA */}
           <div className="flex justify-center pt-2">
-            <button
-              onClick={() => {
-                const el = document.getElementById("capture-card-container");
-                if (el) el.scrollIntoView({ behavior: "smooth" });
-              }}
+            <a
+              href={config.hotmartLink || "https://pay.hotmart.com/V72895738D?checkoutMode=10"}
+              target="_blank"
+              rel="noopener noreferrer"
               className="px-8 py-4 bg-blue-600 hover:bg-blue-700 text-white font-bold rounded-xl text-xs sm:text-sm transition-all shadow-md active:scale-95 cursor-pointer uppercase tracking-wider inline-flex items-center space-x-2"
             >
               <Zap className="w-4 h-4 fill-white" />
               <span>Asegurar mi cupo al Workshop en Vivo</span>
-            </button>
+            </a>
           </div>
         </section>
 
@@ -673,15 +672,14 @@ export default function App() {
             </p>
             
             <div className="pt-4">
-              <button
-                onClick={() => {
-                  const el = document.getElementById("capture-card-container");
-                  if (el) el.scrollIntoView({ behavior: "smooth" });
-                }}
-                className="px-8 py-4 bg-blue-600 hover:bg-blue-700 text-white font-extrabold rounded-xl text-xs sm:text-sm uppercase tracking-wider transition-all shadow-[0_10px_25px_rgba(37,99,235,0.25)] active:scale-95 cursor-pointer"
+              <a
+                href={config.hotmartLink || "https://pay.hotmart.com/V72895738D?checkoutMode=10"}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="px-8 py-4 bg-blue-600 hover:bg-blue-700 text-white font-extrabold rounded-xl text-xs sm:text-sm uppercase tracking-wider transition-all shadow-[0_10px_25px_rgba(37,99,235,0.25)] active:scale-95 cursor-pointer inline-flex items-center justify-center"
               >
                 Acceder al Entrenamiento Ahora
-              </button>
+              </a>
             </div>
           </div>
         </section>
@@ -737,15 +735,14 @@ export default function App() {
           </div>
 
           <div className="flex justify-center pt-4">
-            <button
-              onClick={() => {
-                const el = document.getElementById("capture-card-container");
-                if (el) el.scrollIntoView({ behavior: "smooth" });
-              }}
-              className="px-8 py-4 bg-slate-900 hover:bg-slate-800 text-white font-bold rounded-xl text-xs uppercase tracking-widest transition-all shadow-md active:scale-95 cursor-pointer"
+            <a
+              href={config.hotmartLink || "https://pay.hotmart.com/V72895738D?checkoutMode=10"}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="px-8 py-4 bg-slate-900 hover:bg-slate-800 text-white font-bold rounded-xl text-xs uppercase tracking-widest transition-all shadow-md active:scale-95 cursor-pointer inline-flex items-center justify-center"
             >
               Asegurar Mis Bonos Exclusivos
-            </button>
+            </a>
           </div>
         </section>
 
@@ -955,20 +952,101 @@ export default function App() {
             </div>
           </div>
 
-          {/* Checkout LeadForm embedded for direct purchase/registration! */}
-          <div id="capture-card-container" className="max-w-md mx-auto relative z-10 text-left pt-2">
-            {registeredLead ? (
-              <SuccessView 
-                name={registeredLead.name} 
-                whatsappLink={config.whatsappLink} 
-              />
-            ) : (
-              <LeadForm 
-                config={config} 
-                registeredCount={leads.length}
-                onSignUp={handleNewSignUp}
-              />
-            )}
+          {/* Resumen de la oferta / Mockups y Botón de compra */}
+          <div id="capture-card-container" className="max-w-xl mx-auto bg-white rounded-3xl border border-slate-200/80 shadow-[0_20px_50px_rgba(0,0,0,0.05)] p-6 sm:p-8 relative overflow-hidden text-left z-10 space-y-6">
+            <div className="absolute top-0 left-0 w-full h-1.5 bg-gradient-to-r from-blue-600 via-indigo-500 to-blue-500"></div>
+            
+            <div className="space-y-2">
+              <span className="inline-flex items-center space-x-1.5 px-2.5 py-1 rounded-full text-[10px] font-bold bg-blue-50 text-blue-700 border border-blue-150">
+                <Sparkles className="w-3 h-3 text-blue-600 animate-pulse" />
+                <span>PAQUETE COMPLETO DE ACCESO</span>
+              </span>
+              <h4 className="text-xl font-extrabold text-slate-950 font-display">Resumen del Workshop & Bonos</h4>
+              <p className="text-xs text-slate-500">Todo lo que recibirás de manera inmediata al asegurar tu entrada hoy:</p>
+            </div>
+
+            {/* Mockup Elements List */}
+            <div className="space-y-3">
+              <div className="flex items-start gap-3 p-3 rounded-2xl bg-slate-50 border border-slate-100 transition-colors hover:bg-slate-100/50">
+                <div className="p-2 bg-blue-100 text-blue-700 rounded-lg">
+                  <BookOpen className="w-4 h-4" />
+                </div>
+                <div className="space-y-0.5">
+                  <h5 className="text-xs font-bold text-slate-900">1. Clase Maestra en Vivo por Zoom (3 Horas)</h5>
+                  <p className="text-[11px] text-slate-600">Aprende automatización, clonación con avatares IA y embudos de ventas en vivo.</p>
+                </div>
+              </div>
+
+              <div className="flex items-start gap-3 p-3 rounded-2xl bg-slate-50 border border-slate-100 transition-colors hover:bg-slate-100/50">
+                <div className="p-2 bg-indigo-100 text-indigo-700 rounded-lg">
+                  <CheckCircle2 className="w-4 h-4" />
+                </div>
+                <div className="space-y-0.5">
+                  <h5 className="text-xs font-bold text-slate-900">2. Guía Práctica de Trabajo (PDF Descargable)</h5>
+                  <p className="text-[11px] text-slate-600">Plantillas y hojas de ruta paso a paso para aplicar lo aprendido sin complicaciones.</p>
+                </div>
+              </div>
+
+              <div className="flex items-start gap-3 p-3 rounded-2xl bg-slate-50 border border-slate-100 transition-colors hover:bg-slate-100/50">
+                <div className="p-2 bg-blue-100 text-blue-700 rounded-lg">
+                  <Zap className="w-4 h-4" />
+                </div>
+                <div className="space-y-0.5">
+                  <h5 className="text-xs font-bold text-slate-900">3. Prompt Builder PRO (Agente GPT)</h5>
+                  <p className="text-[11px] text-slate-600">Acceso inmediato al asistente que crea copys persuasivos en segundos.</p>
+                </div>
+              </div>
+
+              <div className="flex items-start gap-3 p-3 rounded-2xl bg-slate-50 border border-slate-100 transition-colors hover:bg-slate-100/50">
+                <div className="p-2 bg-purple-100 text-purple-700 rounded-lg">
+                  <Star className="w-4 h-4" />
+                </div>
+                <div className="space-y-0.5">
+                  <h5 className="text-xs font-bold text-slate-900">4. Central de Prompts Maestros IA</h5>
+                  <p className="text-[11px] text-slate-600">Copypastes validados listos para ventas, contenido y prospección.</p>
+                </div>
+              </div>
+
+              <div className="flex items-start gap-3 p-3 rounded-2xl bg-slate-50 border border-slate-100 transition-colors hover:bg-slate-100/50">
+                <div className="p-2 bg-emerald-100 text-emerald-700 rounded-lg">
+                  <MessageCircle className="w-4 h-4" />
+                </div>
+                <div className="space-y-0.5">
+                  <h5 className="text-xs font-bold text-slate-900">5. Grupo y Soporte VIP de Alumnos</h5>
+                  <p className="text-[11px] text-slate-600">Acceso al canal exclusivo en WhatsApp de por vida para resolver tus dudas.</p>
+                </div>
+              </div>
+            </div>
+
+            {/* Giant Checkout Pricing & Button */}
+            <div className="pt-4 border-t border-slate-100 space-y-4">
+              <div className="flex justify-between items-center bg-blue-50/50 p-4 rounded-2xl border border-blue-100">
+                <div>
+                  <span className="text-[9px] font-bold text-blue-600 block uppercase tracking-wider">PAGO ÚNICO SEGURO</span>
+                  <span className="text-2xl font-black text-slate-950">$27.00 USD</span>
+                </div>
+                <div className="text-right">
+                  <span className="text-[10px] text-slate-400 line-through font-bold block">$49.00 USD</span>
+                  <span className="text-[10px] text-emerald-600 font-bold uppercase tracking-wide">Ahorra 45% hoy</span>
+                </div>
+              </div>
+
+              <a
+                href={config.hotmartLink || "https://pay.hotmart.com/V72895738D?checkoutMode=10"}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="w-full py-4.5 bg-blue-600 hover:bg-blue-700 text-white font-extrabold rounded-2xl text-xs tracking-wider uppercase transition-all shadow-[0_12px_24px_rgba(37,99,235,0.25)] hover:shadow-[0_15px_30px_rgba(37,99,235,0.35)] active:scale-98 cursor-pointer flex items-center justify-center space-x-2.5 relative overflow-hidden group"
+              >
+                <div className="absolute inset-0 bg-white/10 translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-1000 ease-out"></div>
+                <Zap className="w-4 h-4 text-white fill-white animate-pulse" />
+                <span>COMPRAR ACCESO INMEDIATO</span>
+              </a>
+
+              <div className="flex items-center justify-center gap-1.5 text-[10px] text-slate-400 font-semibold text-center">
+                <Lock className="w-3.5 h-3.5 text-slate-400" />
+                <span>Transacción segura de extremo a extremo a través de Hotmart®</span>
+              </div>
+            </div>
           </div>
           
           <p className="text-[10px] text-slate-500 max-w-md mx-auto leading-relaxed">
@@ -995,16 +1073,15 @@ export default function App() {
               <span className="text-sm font-extrabold text-slate-900">$27.00 USD</span>
             </div>
           </div>
-          <button
-            onClick={() => {
-              const el = document.getElementById("capture-card-container");
-              if (el) el.scrollIntoView({ behavior: "smooth" });
-            }}
+          <a
+            href={config.hotmartLink || "https://pay.hotmart.com/V72895738D?checkoutMode=10"}
+            target="_blank"
+            rel="noopener noreferrer"
             className="flex-1 py-2.5 px-4 bg-blue-600 hover:bg-blue-700 text-white font-extrabold rounded-xl text-[11px] tracking-wider uppercase transition-all shadow-md hover:shadow-lg active:scale-95 cursor-pointer flex items-center justify-center space-x-2 relative overflow-hidden group"
           >
             <Zap className="w-3.5 h-3.5 text-white animate-pulse" />
             <span>Asegurar Mi Cupo ($27)</span>
-          </button>
+          </a>
         </div>
       )}
 

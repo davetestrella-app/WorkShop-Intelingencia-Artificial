@@ -209,7 +209,7 @@ export default function App() {
       </div>
 
       {/* Main Container */}
-      <main className="flex-1 max-w-5xl mx-auto w-full px-4 sm:px-6 lg:px-8 py-12 sm:py-20 md:py-24 space-y-24 md:space-y-36 relative z-10">
+      <main className="flex-1 max-w-5xl mx-auto w-full px-4 sm:px-6 lg:px-8 py-8 sm:py-20 md:py-24 space-y-12 sm:space-y-24 md:space-y-36 relative z-10">
         
         {/* HEADER BRAND */}
         <header className="flex flex-col sm:flex-row justify-between items-center pb-8 border-b border-slate-200/80 gap-4">
@@ -321,7 +321,7 @@ export default function App() {
                 {showVideo && (
                   <iframe
                     className="w-full h-full absolute inset-0 z-10"
-                    src="https://www.youtube.com/embed/scWg-C2MDds?autoplay=1&amp;controls=0"
+                    src="https://www.youtube.com/embed/scWg-C2MDds?autoplay=1&amp;controls=0&amp;loop=1&amp;playlist=scWg-C2MDds"
                     title="YouTube video player"
                     frameBorder="0"
                     allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
@@ -360,7 +360,7 @@ export default function App() {
         </section>
 
         {/* 3. BENEFICIO PRINCIPAL */}
-        <section id="key-benefits-showcase" className="py-12 space-y-16 text-center">
+        <section id="key-benefits-showcase" className="py-6 sm:py-12 space-y-8 sm:space-y-16 text-center">
           <div className="space-y-3">
             <span className="text-xs font-bold uppercase tracking-widest text-blue-600 block">SISTEMA INTEGRAL DE APRENDIZAJE</span>
             <h3 className="text-3xl sm:text-4xl font-extrabold font-display text-slate-955 tracking-tight">
@@ -371,7 +371,7 @@ export default function App() {
             </p>
           </div>
           
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-5xl mx-auto">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-5 md:gap-8 max-w-5xl mx-auto">
             <div className="space-y-4 bg-white p-4 rounded-3xl border border-slate-200/80 shadow-sm hover:border-blue-200 transition-colors">
               <DriveMedia id="1xb4XkXLwTk8FYDUvVicGDWgk1fhb5eBD" title="Fotos de alta conversión" aspectRatioClass="aspect-[4/5]" />
               <div className="text-left space-y-1 px-1">
@@ -382,7 +382,15 @@ export default function App() {
             </div>
             
             <div className="space-y-4 bg-white p-4 rounded-3xl border border-slate-200/80 shadow-sm hover:border-blue-200 transition-colors md:translate-y-6">
-              <DriveMedia id="1gBiCZRo9huTea050lMPxRTcpR0LSfJr_" title="Retratos cinemáticos" aspectRatioClass="aspect-[4/5]" isVideo={true} />
+              <div className="relative w-full overflow-hidden rounded-xl bg-slate-950 border border-slate-200/60 shadow-inner aspect-[4/5]">
+                <iframe
+                  className="w-full h-full border-0 absolute inset-0 z-10"
+                  src="https://www.youtube.com/embed/UQ7WTG3fgoE?autoplay=1&amp;mute=1&amp;controls=0&amp;loop=1&amp;playlist=UQ7WTG3fgoE"
+                  title="Retratos cinemáticos"
+                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                  allowFullScreen
+                ></iframe>
+              </div>
               <div className="text-left space-y-1 px-1">
                 <span className="text-[10px] uppercase tracking-widest font-bold text-slate-400 font-mono">Agilidad Extrema</span>
                 <h4 className="text-sm sm:text-base font-extrabold text-slate-900">Creación de Contenido</h4>
@@ -402,7 +410,7 @@ export default function App() {
         </section>
 
         {/* 4. QUÉ APRENDERÁS (Bloques Alternados) */}
-        <section id="what-you-will-learn" className="py-12 space-y-28 md:space-y-40">
+        <section id="what-you-will-learn" className="py-6 sm:py-12 space-y-16 sm:space-y-28 md:space-y-40">
           <div className="max-w-3xl mx-auto text-center space-y-3">
             <span className="text-xs font-bold uppercase tracking-widest text-blue-600 block">Ruta Temática Detallada</span>
             <h3 className="text-3xl sm:text-4xl font-extrabold font-display text-slate-950 tracking-tight">
@@ -414,7 +422,7 @@ export default function App() {
           </div>
 
           {/* Bloque 1: Automatización y Agentes Inteligentes (Image Left, Content Right) */}
-          <div className="flex flex-col lg:flex-row items-center gap-12 lg:gap-16">
+          <div className="flex flex-col lg:flex-row items-center gap-6 sm:gap-12 lg:gap-16">
             <div className="w-full lg:w-1/2">
               <div className="bg-white p-3 rounded-3xl border border-slate-200/80 shadow-sm overflow-hidden">
                 <DriveMedia id="1enSIjOedqz_v7qHlGMeMeIg6hTGRk8mw" title="Agentes IA y Automatización" aspectRatioClass="aspect-[4/3]" />
@@ -464,10 +472,18 @@ export default function App() {
           </div>
 
           {/* Bloque 2: Creación de Contenido Viral (Image Right, Content Left) */}
-          <div className="flex flex-col lg:flex-row-reverse items-center gap-12 lg:gap-16">
+          <div className="flex flex-col lg:flex-row-reverse items-center gap-6 sm:gap-12 lg:gap-16">
             <div className="w-full lg:w-1/2">
-              <div className="bg-white p-3 rounded-3xl border border-slate-200/80 shadow-sm overflow-hidden">
-                <DriveMedia id="1q4IZyMko4iAA6a0-UvqvdBT-jax3Lwb4" title="Contenido Viral" aspectRatioClass="aspect-[4/3]" isVideo={true} />
+              <div className="bg-white p-3 rounded-3xl border border-slate-200/80 shadow-sm overflow-hidden flex justify-center">
+                <div className="relative w-full max-w-[280px] sm:max-w-[320px] overflow-hidden rounded-2xl bg-slate-950 border border-slate-200/60 shadow-inner aspect-[9/16]">
+                  <iframe
+                    className="w-full h-full border-0 absolute inset-0 z-10"
+                    src="https://www.youtube.com/embed/cxGKAMPheV4?autoplay=1&amp;mute=1&amp;controls=0&amp;loop=1&amp;playlist=cxGKAMPheV4"
+                    title="Contenido Viral"
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                    allowFullScreen
+                  ></iframe>
+                </div>
               </div>
             </div>
             <div className="w-full lg:w-1/2 space-y-6">
@@ -514,10 +530,18 @@ export default function App() {
           </div>
 
           {/* Bloque 3: Sesiones y Fotos de Cine (Image Left, Content Right) */}
-          <div className="flex flex-col lg:flex-row items-center gap-12 lg:gap-16">
+          <div className="flex flex-col lg:flex-row items-center gap-6 sm:gap-12 lg:gap-16">
             <div className="w-full lg:w-1/2">
               <div className="bg-white p-3 rounded-3xl border border-slate-200/80 shadow-sm overflow-hidden">
-                <DriveMedia id="1Ug0lJJNFK_1e4VxblaN8AxDTHu3Cw_G1" title="Fotografía y Mockups" aspectRatioClass="aspect-[4/3]" isVideo={true} />
+                <div className="relative w-full overflow-hidden rounded-xl bg-slate-950 border border-slate-200/60 shadow-inner aspect-[4/3]">
+                  <iframe
+                    className="w-full h-full border-0 absolute inset-0 z-10"
+                    src="https://www.youtube.com/embed/Qthtsn1Sod4?autoplay=1&amp;mute=1&amp;controls=0&amp;loop=1&amp;playlist=Qthtsn1Sod4"
+                    title="Fotografía y Mockups"
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                    allowFullScreen
+                  ></iframe>
+                </div>
               </div>
             </div>
             <div className="w-full lg:w-1/2 space-y-6">
@@ -564,7 +588,7 @@ export default function App() {
           </div>
 
           {/* Bloque 4: Conversión y Embudo de Ventas (Image Right, Content Left) */}
-          <div className="flex flex-col lg:flex-row-reverse items-center gap-12 lg:gap-16">
+          <div className="flex flex-col lg:flex-row-reverse items-center gap-6 sm:gap-12 lg:gap-16">
             <div className="w-full lg:w-1/2">
               <div className="bg-white p-3 rounded-3xl border border-slate-200/80 shadow-sm overflow-hidden">
                 <DriveMedia id="1WnpbBYjoHMljHZbn-GKZNxjeFYD3Hfi-" title="Prospección de Clientes" aspectRatioClass="aspect-[4/3]" />
@@ -615,7 +639,7 @@ export default function App() {
         </section>
 
         {/* 8. SECCIÓN DESTACADA: CLÓNATE A TI MISMO */}
-        <section id="avatar-showcase" className="py-16 sm:py-20 bg-slate-950 text-white rounded-3xl border border-slate-800 p-8 sm:p-12 text-center space-y-12 relative overflow-hidden">
+        <section id="avatar-showcase" className="py-10 sm:py-20 bg-slate-950 text-white rounded-3xl border border-slate-800 p-6 sm:p-12 text-center space-y-8 sm:space-y-12 relative overflow-hidden">
           <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-80 h-80 bg-blue-500/10 rounded-full blur-3xl pointer-events-none"></div>
           
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-4xl mx-auto relative z-10">
@@ -663,7 +687,7 @@ export default function App() {
         </section>
 
         {/* 9. BONOS SECTION (EXACTLY TWO CARDS) */}
-        <section id="bonuses-section" className="py-12 space-y-16">
+        <section id="bonuses-section" className="py-6 sm:py-12 space-y-10 sm:space-y-16">
           <div className="max-w-2xl mx-auto text-center space-y-3">
             <span className="text-xs font-bold uppercase tracking-widest text-blue-600 block">Aditamentos de Crecimiento</span>
             <h3 className="text-3xl font-extrabold font-display text-slate-955 tracking-tight">
@@ -726,7 +750,7 @@ export default function App() {
         </section>
 
         {/* ACERCA DE MÍ (EXPERTO) */}
-        <section id="about-expert-section" className="py-12 space-y-12">
+        <section id="about-expert-section" className="py-6 sm:py-12 space-y-8 sm:space-y-12">
           <div className="text-center max-w-xl mx-auto space-y-3">
             <span className="text-xs font-bold uppercase tracking-widest text-blue-600">Quién Te Acompaña</span>
             <h3 className="text-3xl font-extrabold font-display text-slate-950">El Experto Detrás del Workshop</h3>
@@ -866,7 +890,7 @@ export default function App() {
         </section>
 
         {/* FAQ SECTION */}
-        <section id="faq-accordions-section" className="max-w-3xl mx-auto space-y-10 py-6">
+        <section id="faq-accordions-section" className="max-w-3xl mx-auto space-y-6 sm:space-y-10 py-3 sm:py-6">
           <div className="text-center space-y-2">
             <span className="text-xs font-bold uppercase tracking-widest text-blue-600">Resolviendo Inquietudes</span>
             <h3 className="text-2xl sm:text-3xl font-bold font-display text-slate-900">Preguntas Frecuentes</h3>

@@ -65,6 +65,15 @@ export default function App() {
   const [isAdminOpen, setIsAdminOpen] = useState(false);
   const [activeFaq, setActiveFaq] = useState<number | null>(null);
   const [showFloating, setShowFloating] = useState(false);
+  const [showVideo, setShowVideo] = useState(false);
+
+  // Prevent double audio on mount by delaying iframe loading slightly
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setShowVideo(true);
+    }, 150);
+    return () => clearTimeout(timer);
+  }, []);
 
   // Scroll detection for floating buy button
   useEffect(() => {
@@ -309,15 +318,17 @@ export default function App() {
               <div className="absolute inset-0 w-full h-full bg-gradient-to-r from-transparent via-white/30 to-transparent -translate-x-full group-hover:animate-shimmer pointer-events-none z-20" />
               
               <div className="aspect-video w-full rounded-2xl overflow-hidden bg-slate-950 border border-slate-200 shadow-inner relative">
-                <iframe
-                  className="w-full h-full absolute inset-0 z-10"
-                  src="https://www.youtube.com/embed/scWg-C2MDds?autoplay=1&amp;controls=0"
-                  title="YouTube video player"
-                  frameBorder="0"
-                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-                  referrerPolicy="strict-origin-when-cross-origin"
-                  allowFullScreen
-                ></iframe>
+                {showVideo && (
+                  <iframe
+                    className="w-full h-full absolute inset-0 z-10"
+                    src="https://www.youtube.com/embed/scWg-C2MDds?autoplay=1&amp;controls=0"
+                    title="YouTube video player"
+                    frameBorder="0"
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                    referrerPolicy="strict-origin-when-cross-origin"
+                    allowFullScreen
+                  ></iframe>
+                )}
               </div>
             </div>
           </div>

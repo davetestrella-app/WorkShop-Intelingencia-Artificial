@@ -300,26 +300,25 @@ export default function App() {
           </div>
 
           {/* Presentational Video Container */}
-          <div className="max-w-4xl mx-auto pt-6">
-            <div className="bg-white p-3 rounded-3xl border border-slate-200/80 shadow-[0_25px_60px_rgba(0,0,0,0.05)] overflow-hidden">
-              {config.videoEmbed ? (
-                <div className="aspect-video w-full rounded-2xl overflow-hidden bg-slate-950 border border-slate-200">
-                  <iframe
-                    className="w-full h-full"
-                    src={`https://www.youtube.com/embed/${config.videoEmbed.trim()}`}
-                    title="Presentación"
-                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                    allowFullScreen
-                  ></iframe>
-                </div>
-              ) : (
-                <DriveMedia 
-                  id="1zFv2Y-s5v6MTzfrG6eN6p8FSE1twVC3L" 
-                  title="Presentación del entrenamiento" 
-                  aspectRatioClass="aspect-video" 
-                  isVideo={true}
-                />
-              )}
+          <div className="max-w-4xl mx-auto pt-6 relative group">
+            {/* Ambient background glow (Destello/Glow) */}
+            <div className="absolute -inset-1 bg-gradient-to-r from-blue-600 to-indigo-500 rounded-[32px] blur-xl opacity-30 group-hover:opacity-45 transition duration-1000 group-hover:duration-200 animate-pulse pointer-events-none"></div>
+            
+            <div className="relative bg-white p-3 rounded-3xl border border-blue-100/80 shadow-[0_20px_50px_rgba(37,99,235,0.1)] overflow-hidden z-10">
+              {/* Sliding reflection glint (Destello de luz) */}
+              <div className="absolute inset-0 w-full h-full bg-gradient-to-r from-transparent via-white/30 to-transparent -translate-x-full group-hover:animate-shimmer pointer-events-none z-20" />
+              
+              <div className="aspect-video w-full rounded-2xl overflow-hidden bg-slate-950 border border-slate-200 shadow-inner relative">
+                <iframe
+                  className="w-full h-full absolute inset-0 z-10"
+                  src="https://www.youtube.com/embed/scWg-C2MDds?autoplay=1&amp;controls=0"
+                  title="YouTube video player"
+                  frameBorder="0"
+                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                  referrerPolicy="strict-origin-when-cross-origin"
+                  allowFullScreen
+                ></iframe>
+              </div>
             </div>
           </div>
 
@@ -609,15 +608,24 @@ export default function App() {
           <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-80 h-80 bg-blue-500/10 rounded-full blur-3xl pointer-events-none"></div>
           
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-4xl mx-auto relative z-10">
-            <div className="rounded-2xl overflow-hidden border border-slate-800 bg-slate-900 shadow-lg animate-fade-in">
-              <img src={promptInputBox} alt="Axe ice" className="w-full h-44 object-cover" referrerPolicy="no-referrer" />
-            </div>
-            <div className="rounded-2xl overflow-hidden border border-slate-800 bg-slate-900 shadow-lg animate-fade-in">
-              <img src={cinematicPortraits} alt="Personal" className="w-full h-44 object-cover" referrerPolicy="no-referrer" />
-            </div>
-            <div className="rounded-2xl overflow-hidden border border-slate-800 bg-slate-900 shadow-lg animate-fade-in">
-              <img src={connectedTools} alt="Systems" className="w-full h-44 object-cover" referrerPolicy="no-referrer" />
-            </div>
+            <DriveMedia 
+              id="1KOuBoLRTltw699n14DLNFoW2dEFSgW98" 
+              title="Clónate a ti mismo - Paso 1" 
+              aspectRatioClass="aspect-[16/10]" 
+              className="rounded-2xl border border-slate-800 bg-slate-900 shadow-lg"
+            />
+            <DriveMedia 
+              id="1NxnUQXsuSTy8pevWdAyFfsl_qDZdc7u4" 
+              title="Clónate a ti mismo - Paso 2" 
+              aspectRatioClass="aspect-[16/10]" 
+              className="rounded-2xl border border-slate-800 bg-slate-900 shadow-lg"
+            />
+            <DriveMedia 
+              id="1e04gXpsxc2uQ61XAuwhv1LPYNFiD44Su" 
+              title="Clónate a ti mismo - Paso 3" 
+              aspectRatioClass="aspect-[16/10]" 
+              className="rounded-2xl border border-slate-800 bg-slate-900 shadow-lg"
+            />
           </div>
 
           <div className="max-w-2xl mx-auto space-y-5 relative z-10">

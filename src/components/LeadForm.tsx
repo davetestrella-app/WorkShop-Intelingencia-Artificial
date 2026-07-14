@@ -71,7 +71,7 @@ export default function LeadForm({ config, registeredCount, onSignUp }: LeadForm
           <span className="text-[10px] text-blue-600 font-bold uppercase tracking-wider block">PRECIO ESPECIAL DE PRE-VENTA</span>
           <div className="flex items-center justify-center space-x-3">
             <span className="text-4xl sm:text-5xl font-black text-slate-900 font-display tracking-tight">
-              $9.00 USD
+              $27.00 USD
             </span>
             <span className="text-sm text-slate-400 line-through font-bold">
               $49.00 USD
@@ -156,7 +156,7 @@ export default function LeadForm({ config, registeredCount, onSignUp }: LeadForm
             <div className="absolute inset-0 w-full h-full bg-gradient-to-r from-transparent via-white/20 to-transparent -translate-x-full animate-shimmer pointer-events-none" />
             
             <span className="relative z-10 font-bold uppercase tracking-wide">
-              {isSubmitting ? "Redirigiendo a Hotmart..." : "Asegurar Mi Entrada — $9 USD"}
+              {isSubmitting ? "Redirigiendo a Hotmart..." : "Asegurar Mi Entrada — $27 USD"}
             </span>
           </button>
         </form>

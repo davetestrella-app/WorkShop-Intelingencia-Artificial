@@ -34,7 +34,7 @@ export const challengePhases = [
 export const faqs = [
   {
     q: "¿Cuánto cuesta el acceso al Workshop?",
-    a: "El acceso completo al workshop en vivo tiene un costo de preventa exclusivo de tan solo $9 USD."
+    a: "El acceso completo al workshop en vivo tiene un costo de preventa exclusivo de tan solo $27 USD."
   },
   {
     q: "¿Cómo recibiré los accesos y bonos?",

@@ -41,7 +41,7 @@ const DEFAULT_CONFIG: LaunchConfig = {
   whatsappLink: "https://chat.whatsapp.com/CIRi15gFaaZDueOhDnHK2y",
   launchDate: "2026-07-24T19:00", // Viernes 24 de Julio, 7 PM Hora Colombia
   title: "Workshop Clase Maestra: Inteligencia Artificial para Negocios y Marcas Personales",
-  subtitle: "Automatiza tus procesos diarios, delega tareas operativas a la IA y multiplica tu contenido en tiempo récord. Entrada por solo $9 USD.",
+  subtitle: "Automatiza tus procesos diarios, delega tareas operativas a la IA y multiplica tu contenido en tiempo récord. Entrada por solo $27 USD.",
   description: "Adquiere tu cupo hoy y recibe acceso inmediato al entrenamiento por Zoom, el Kit de Prompts y el Grupo VIP de WhatsApp.",
   videoEmbed: "", // Leave blank by default to show the high-converting spring visual infocard
   leadCountOffset: 348,
@@ -196,7 +196,7 @@ export default function App() {
       {/* Top Urgent Notification Banner */}
       <div className="w-full bg-slate-950 text-white text-center py-2.5 px-4 text-xs font-semibold tracking-wide flex items-center justify-center space-x-2 relative z-10 shadow-sm border-b border-slate-800">
         <Sparkles className="w-3.5 h-3.5 text-blue-400 animate-pulse" />
-        <span className="uppercase font-mono text-[10px] sm:text-xs">WORKSHOP CLASE MAESTRA COMPLETAMENTE EN VIVO — ENTRADA POR SOLO $9 USD</span>
+        <span className="uppercase font-mono text-[10px] sm:text-xs">WORKSHOP CLASE MAESTRA COMPLETAMENTE EN VIVO — ENTRADA POR SOLO $27 USD</span>
       </div>
 
       {/* Main Container */}
@@ -270,7 +270,7 @@ export default function App() {
               >
                 <div className="absolute inset-0 bg-white/10 translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-1000 ease-out"></div>
                 <Zap className="w-4 h-4 text-blue-400 animate-pulse" />
-                <span>Inscribirme por solo $9 USD</span>
+                <span>Inscribirme por solo $27 USD</span>
               </button>
             </div>
 
@@ -363,7 +363,7 @@ export default function App() {
           
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-5xl mx-auto">
             <div className="space-y-4 bg-white p-4 rounded-3xl border border-slate-200/80 shadow-sm hover:border-blue-200 transition-colors">
-              <DriveMedia localSrc={cinematicPortraits} title="Fotos de alta conversión" aspectRatioClass="aspect-[4/5]" />
+              <DriveMedia id="1xb4XkXLwTk8FYDUvVicGDWgk1fhb5eBD" title="Fotos de alta conversión" aspectRatioClass="aspect-[4/5]" />
               <div className="text-left space-y-1 px-1">
                 <span className="text-[10px] uppercase tracking-widest font-bold text-slate-400 font-mono">Resultado Visual</span>
                 <h4 className="text-sm sm:text-base font-extrabold text-slate-900">Identidad de Cine</h4>
@@ -381,7 +381,7 @@ export default function App() {
             </div>
             
             <div className="space-y-4 bg-white p-4 rounded-3xl border border-slate-200/80 shadow-sm hover:border-blue-200 transition-colors">
-              <DriveMedia localSrc={connectedTools} title="Herramientas conectadas" aspectRatioClass="aspect-[4/5]" />
+              <DriveMedia id="1BCynUuYEUcKllgqGAS4wv8fK1-iNvCu8" title="Herramientas conectadas" aspectRatioClass="aspect-[4/5]" />
               <div className="text-left space-y-1 px-1">
                 <span className="text-[10px] uppercase tracking-widest font-bold text-slate-400 font-mono">Infraestructura</span>
                 <h4 className="text-sm sm:text-base font-extrabold text-slate-900">Automatización de Flujos</h4>
@@ -407,7 +407,7 @@ export default function App() {
           <div className="flex flex-col lg:flex-row items-center gap-12 lg:gap-16">
             <div className="w-full lg:w-1/2">
               <div className="bg-white p-3 rounded-3xl border border-slate-200/80 shadow-sm overflow-hidden">
-                <DriveMedia id="1oo0SCbiNiaRnhZUKDWCpXKHo6NbrPHIE" title="Agentes IA y Automatización" aspectRatioClass="aspect-[4/3]" isVideo={true} />
+                <DriveMedia id="1enSIjOedqz_v7qHlGMeMeIg6hTGRk8mw" title="Agentes IA y Automatización" aspectRatioClass="aspect-[4/3]" />
               </div>
             </div>
             <div className="w-full lg:w-1/2 space-y-6">
@@ -557,7 +557,7 @@ export default function App() {
           <div className="flex flex-col lg:flex-row-reverse items-center gap-12 lg:gap-16">
             <div className="w-full lg:w-1/2">
               <div className="bg-white p-3 rounded-3xl border border-slate-200/80 shadow-sm overflow-hidden">
-                <DriveMedia localSrc={creativeAssets} title="Prospección de Clientes" aspectRatioClass="aspect-[4/3]" />
+                <DriveMedia id="1WnpbBYjoHMljHZbn-GKZNxjeFYD3Hfi-" title="Prospección de Clientes" aspectRatioClass="aspect-[4/3]" />
               </div>
             </div>
             <div className="w-full lg:w-1/2 space-y-6">
@@ -647,11 +647,11 @@ export default function App() {
         <section id="bonuses-section" className="py-12 space-y-16">
           <div className="max-w-2xl mx-auto text-center space-y-3">
             <span className="text-xs font-bold uppercase tracking-widest text-blue-600 block">Aditamentos de Crecimiento</span>
-            <h3 className="text-3xl font-extrabold font-display text-slate-950 tracking-tight">
+            <h3 className="text-3xl font-extrabold font-display text-slate-955 tracking-tight">
               Bono Complementario Exclusivo para Alumnos
             </h3>
             <p className="text-sm text-slate-500">
-              Inscríbete hoy por solo $9 USD y descarga inmediatamente estos materiales premium valorados en más de $150 USD.
+              Inscríbete hoy por solo $27 USD y descarga inmediatamente estos materiales premium valorados en más de $150 USD.
             </p>
           </div>
 
@@ -670,7 +670,7 @@ export default function App() {
                 </p>
               </div>
               <div className="w-full md:w-[280px] h-[170px] rounded-2xl overflow-hidden border border-slate-100 flex-shrink-0">
-                <img src={promptBuilder} alt="Bono 1" className="w-full h-full object-cover group-hover:scale-103 transition-transform duration-500" referrerPolicy="no-referrer" />
+                <DriveMedia id="1eWwD3c4qS6tOVjrd-z9pbwIgnrPM4HeG" title="Prompt Builder PRO" aspectRatioClass="h-full w-full" className="h-full w-full rounded-2xl" />
               </div>
             </div>
 
@@ -688,7 +688,7 @@ export default function App() {
                 </p>
               </div>
               <div className="w-full md:w-[280px] h-[170px] rounded-2xl overflow-hidden border border-slate-100 flex-shrink-0">
-                <img src={libraryPrompts} alt="Bono 2" className="w-full h-full object-cover group-hover:scale-103 transition-transform duration-500" referrerPolicy="no-referrer" />
+                <DriveMedia id="1LF2WpQc3xlH0re3Ynb7BW3QmM3KencWK" title="Central de Prompts Maestros IA" aspectRatioClass="h-full w-full" className="h-full w-full rounded-2xl" />
               </div>
             </div>
           </div>
@@ -892,7 +892,7 @@ export default function App() {
               ¿Listo para dar el siguiente gran paso?
             </h3>
             <p className="text-xs sm:text-sm text-slate-600 leading-relaxed">
-              Inscríbete hoy al Workshop Clase Maestra de IA por tan solo $9 USD. Recibe acceso inmediato, la guía interactiva PDF y el Kit de Prompts de regalo.
+              Inscríbete hoy al Workshop Clase Maestra de IA por tan solo $27 USD. Recibe acceso inmediato, la guía interactiva PDF y el Kit de Prompts de regalo.
             </p>
           </div>
 
@@ -908,7 +908,7 @@ export default function App() {
             </div>
             <div className="space-y-1">
               <span className="text-[9px] text-slate-400 block uppercase">INVERSIÓN</span>
-              <span className="text-blue-600 font-black">$9.00 USD</span>
+              <span className="text-blue-600 font-black">$27.00 USD</span>
             </div>
           </div>
 
@@ -949,7 +949,7 @@ export default function App() {
           <div className="hidden sm:flex flex-col text-left pl-2">
             <span className="text-[9px] text-blue-600 font-bold uppercase tracking-wider">PRECIO DE PRE-VENTA</span>
             <div className="flex items-center space-x-1.5">
-              <span className="text-sm font-extrabold text-slate-900">$9.00 USD</span>
+              <span className="text-sm font-extrabold text-slate-900">$27.00 USD</span>
             </div>
           </div>
           <button
@@ -960,7 +960,7 @@ export default function App() {
             className="flex-1 py-2.5 px-4 bg-blue-600 hover:bg-blue-700 text-white font-extrabold rounded-xl text-[11px] tracking-wider uppercase transition-all shadow-md hover:shadow-lg active:scale-95 cursor-pointer flex items-center justify-center space-x-2 relative overflow-hidden group"
           >
             <Zap className="w-3.5 h-3.5 text-white animate-pulse" />
-            <span>Asegurar Mi Cupo ($9)</span>
+            <span>Asegurar Mi Cupo ($27)</span>
           </button>
         </div>
       )}

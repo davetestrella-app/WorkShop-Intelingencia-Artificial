@@ -7,6 +7,7 @@ interface DriveMediaProps {
   aspectRatioClass?: string;
   className?: string;
   isVideo?: boolean;
+  maxWidth?: number; // Optional prop to specify maximum width for image optimization
 }
 
 export default function DriveMedia({
@@ -15,18 +16,19 @@ export default function DriveMedia({
   title,
   aspectRatioClass = "aspect-square",
   className = "",
-  isVideo = false
+  isVideo = false,
+  maxWidth = 800 // Default optimized width
 }: DriveMediaProps) {
   const [isLoading, setIsLoading] = useState(true);
   const [hasError, setHasError] = useState(false);
 
   // Fallback chain for Google Drive images:
-  // Primary: lh3.googleusercontent.com/d/ID
+  // Primary: lh3.googleusercontent.com/d/ID=wMAX_WIDTH (Optimized & compressed)
   // Secondary (on error): docs.google.com/uc?export=view&id=ID
   const getGoogleDriveUrl = (fileId: string, fallback = false) => {
     return fallback 
       ? `https://docs.google.com/uc?export=view&id=${fileId}`
-      : `https://lh3.googleusercontent.com/d/${fileId}`;
+      : `https://lh3.googleusercontent.com/d/${fileId}${maxWidth ? `=w${maxWidth}` : ""}`;
   };
 
   const imageSrc = localSrc 

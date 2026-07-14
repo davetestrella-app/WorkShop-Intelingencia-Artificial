@@ -210,7 +210,7 @@ export default function App() {
       </div>
 
       {/* Main Container */}
-      <main className="flex-1 max-w-5xl mx-auto w-full px-4 sm:px-6 lg:px-8 py-8 sm:py-20 md:py-24 space-y-12 sm:space-y-24 md:space-y-36 relative z-10">
+      <main className="flex-1 max-w-5xl mx-auto w-full px-4 sm:px-6 lg:px-8 py-4 sm:py-20 md:py-24 space-y-8 sm:space-y-24 md:space-y-36 relative z-10">
         
         {/* HEADER BRAND */}
         <header className="flex flex-col sm:flex-row justify-between items-center pb-8 border-b border-slate-200/80 gap-4">
@@ -238,7 +238,7 @@ export default function App() {
         </header>
 
         {/* 1. HERO SECTION */}
-        <section id="hero-section" className="space-y-12">
+        <section id="hero-section" className="space-y-6 sm:space-y-12">
           {/* Tagline */}
           <div className="flex justify-center">
             <span className="inline-flex items-center space-x-1.5 px-3.5 py-1.5 rounded-full text-xs font-bold bg-blue-50 text-blue-700 border border-blue-100/80 shadow-sm uppercase tracking-wide">
@@ -248,7 +248,7 @@ export default function App() {
           </div>
 
           {/* Headline and Subheadline */}
-          <div className="space-y-6 text-center max-w-4xl mx-auto">
+          <div className="space-y-4 sm:space-y-6 text-center max-w-4xl mx-auto">
             <h2 className="text-4xl sm:text-5xl lg:text-6xl font-extrabold font-display leading-[1.12] text-slate-950 tracking-tight">
               Delega el 80% de tu <span className="text-blue-600 relative inline-block">
                 Negocio a la IA
@@ -359,7 +359,7 @@ export default function App() {
         </section>
 
         {/* 3. BENEFICIO PRINCIPAL */}
-        <section id="key-benefits-showcase" className="py-6 sm:py-12 space-y-8 sm:space-y-16 text-center">
+        <section id="key-benefits-showcase" className="py-4 sm:py-12 space-y-6 sm:space-y-16 text-center">
           <div className="space-y-3">
             <span className="text-xs font-bold uppercase tracking-widest text-blue-600 block">SISTEMA INTEGRAL DE APRENDIZAJE</span>
             <h3 className="text-3xl sm:text-4xl font-extrabold font-display text-slate-955 tracking-tight">
@@ -409,7 +409,7 @@ export default function App() {
         </section>
 
         {/* 4. QUÉ APRENDERÁS (Bloques Alternados) */}
-        <section id="what-you-will-learn" className="py-6 sm:py-12 space-y-16 sm:space-y-28 md:space-y-40">
+        <section id="what-you-will-learn" className="py-4 sm:py-12 space-y-10 sm:space-y-28 md:space-y-40">
           <div className="max-w-3xl mx-auto text-center space-y-3">
             <span className="text-xs font-bold uppercase tracking-widest text-blue-600 block">Ruta Temática Detallada</span>
             <h3 className="text-3xl sm:text-4xl font-extrabold font-display text-slate-950 tracking-tight">
@@ -638,7 +638,7 @@ export default function App() {
         </section>
 
         {/* 8. SECCIÓN DESTACADA: CLÓNATE A TI MISMO */}
-        <section id="avatar-showcase" className="py-10 sm:py-20 bg-slate-950 text-white rounded-3xl border border-slate-800 p-6 sm:p-12 text-center space-y-8 sm:space-y-12 relative overflow-hidden">
+        <section id="avatar-showcase" className="py-6 sm:py-20 bg-slate-950 text-white rounded-3xl border border-slate-800 p-4 sm:p-12 text-center space-y-6 sm:space-y-12 relative overflow-hidden">
           <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-80 h-80 bg-blue-500/10 rounded-full blur-3xl pointer-events-none"></div>
           
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-4xl mx-auto relative z-10">
@@ -685,7 +685,7 @@ export default function App() {
         </section>
 
         {/* 9. BONOS SECTION (EXACTLY TWO CARDS) */}
-        <section id="bonuses-section" className="py-6 sm:py-12 space-y-10 sm:space-y-16">
+        <section id="bonuses-section" className="py-4 sm:py-12 space-y-6 sm:space-y-16">
           <div className="max-w-2xl mx-auto text-center space-y-3">
             <span className="text-xs font-bold uppercase tracking-widest text-blue-600 block">Aditamentos de Crecimiento</span>
             <h3 className="text-3xl font-extrabold font-display text-slate-955 tracking-tight">
@@ -698,7 +698,7 @@ export default function App() {
 
           <div className="max-w-4xl mx-auto space-y-8">
             {/* Bono 1 */}
-            <div className="bg-white rounded-3xl border border-slate-200/80 p-6 sm:p-8 flex flex-col md:flex-row items-center gap-6 md:gap-10 hover:shadow-md hover:border-blue-200 transition-all group overflow-hidden">
+            <div className="bg-white rounded-3xl border border-slate-200/80 p-4 sm:p-8 flex flex-col md:flex-row items-center gap-4 md:gap-10 hover:shadow-md hover:border-blue-200 transition-all group overflow-hidden">
               <div className="flex-1 space-y-3.5">
                 <span className="text-[10px] uppercase tracking-wider font-extrabold text-blue-600 bg-blue-50 px-2.5 py-1 rounded border border-blue-150 inline-block font-mono">
                   BONO #1 • DISPONIBLE INMEDIATAMENTE
@@ -716,7 +716,7 @@ export default function App() {
             </div>
 
             {/* Bono 2 */}
-            <div className="bg-white rounded-3xl border border-slate-200/80 p-6 sm:p-8 flex flex-col md:flex-row-reverse items-center gap-6 md:gap-10 hover:shadow-md hover:border-blue-200 transition-all group overflow-hidden">
+            <div className="bg-white rounded-3xl border border-slate-200/80 p-4 sm:p-8 flex flex-col md:flex-row-reverse items-center gap-4 md:gap-10 hover:shadow-md hover:border-blue-200 transition-all group overflow-hidden">
               <div className="flex-1 space-y-3.5">
                 <span className="text-[10px] uppercase tracking-wider font-extrabold text-blue-600 bg-blue-50 px-2.5 py-1 rounded border border-blue-150 inline-block font-mono">
                   BONO #2 • ACCESO DE POR VIDA
@@ -747,14 +747,14 @@ export default function App() {
         </section>
 
         {/* ACERCA DE MÍ (EXPERTO) */}
-        <section id="about-expert-section" className="py-6 sm:py-12 space-y-8 sm:space-y-12">
+        <section id="about-expert-section" className="py-4 sm:py-12 space-y-6 sm:space-y-12">
           <div className="text-center max-w-xl mx-auto space-y-3">
             <span className="text-xs font-bold uppercase tracking-widest text-blue-600">Quién Te Acompaña</span>
             <h3 className="text-3xl font-extrabold font-display text-slate-950">El Experto Detrás del Workshop</h3>
             <p className="text-sm text-slate-500">Aprende directamente de un profesional activo en la industria de la Inteligencia Artificial.</p>
           </div>
 
-          <div className="bg-white rounded-3xl border border-slate-200/80 p-6 sm:p-10 md:p-12 max-w-4xl mx-auto shadow-sm hover:shadow-md transition-all duration-300">
+          <div className="bg-white rounded-3xl border border-slate-200/80 p-4 sm:p-10 md:p-12 max-w-4xl mx-auto shadow-sm hover:shadow-md transition-all duration-300">
             <div className="flex flex-col lg:flex-row items-center gap-10 lg:gap-14">
               {/* Photo Container */}
               <div className="w-full lg:w-1/3 max-w-[280px] lg:max-w-none flex-shrink-0">
@@ -838,7 +838,7 @@ export default function App() {
         </section>
 
         {/* 7-DAY UNCONDITIONAL GUARANTEE SECTION */}
-        <section id="unconditional-guarantee-section" className="bg-amber-50/50 rounded-3xl border border-amber-200 p-6 sm:p-10 relative overflow-hidden shadow-sm max-w-4xl mx-auto">
+        <section id="unconditional-guarantee-section" className="bg-amber-50/50 rounded-3xl border border-amber-200 p-4 sm:p-10 relative overflow-hidden shadow-sm max-w-4xl mx-auto">
           <div className="absolute top-1/2 left-0 -translate-y-1/2 w-48 h-48 bg-amber-500/5 rounded-full blur-3xl pointer-events-none"></div>
           
           <div className="grid grid-cols-1 md:grid-cols-12 gap-8 items-center relative z-10">
@@ -887,7 +887,7 @@ export default function App() {
         </section>
 
         {/* FAQ SECTION */}
-        <section id="faq-accordions-section" className="max-w-3xl mx-auto space-y-6 sm:space-y-10 py-3 sm:py-6">
+        <section id="faq-accordions-section" className="max-w-3xl mx-auto space-y-4 sm:space-y-10 py-2 sm:py-6">
           <div className="text-center space-y-2">
             <span className="text-xs font-bold uppercase tracking-widest text-blue-600">Resolviendo Inquietudes</span>
             <h3 className="text-2xl sm:text-3xl font-bold font-display text-slate-900">Preguntas Frecuentes</h3>
@@ -923,7 +923,7 @@ export default function App() {
         </section>
 
         {/* 10. CALL TO ACTION BOTTOM / CHECKOUT INTEGRATION */}
-        <section id="final-call-to-action" className="bg-gradient-to-tr from-blue-50/50 via-slate-50/80 to-indigo-50/50 backdrop-blur-lg rounded-3xl p-6 sm:p-12 text-center relative overflow-hidden shadow-sm border border-slate-200/80 max-w-4xl mx-auto space-y-10">
+        <section id="final-call-to-action" className="bg-gradient-to-tr from-blue-50/50 via-slate-50/80 to-indigo-50/50 backdrop-blur-lg rounded-3xl p-4 sm:p-12 text-center relative overflow-hidden shadow-sm border border-slate-200/80 max-w-4xl mx-auto space-y-6 sm:space-y-10">
           <div className="absolute top-0 left-0 w-32 h-32 bg-blue-500/5 rounded-full blur-xl"></div>
           
           <div className="relative z-10 max-w-2xl mx-auto space-y-4">
@@ -937,7 +937,7 @@ export default function App() {
           </div>
 
           {/* Recordatorio de las condiciones */}
-          <div className="grid grid-cols-3 gap-4 max-w-lg mx-auto bg-white/80 border border-slate-200 rounded-2xl p-4 text-xs font-bold text-slate-800 shadow-sm">
+          <div className="grid grid-cols-3 gap-2 sm:gap-4 max-w-lg mx-auto bg-white/80 border border-slate-200 rounded-2xl p-3 sm:p-4 text-[11px] sm:text-xs font-bold text-slate-800 shadow-sm">
             <div className="space-y-1 border-r border-slate-100">
               <span className="text-[9px] text-slate-400 block uppercase">ENTRENAMIENTO</span>
               <span>Workshop IA</span>
@@ -953,7 +953,7 @@ export default function App() {
           </div>
 
           {/* Resumen de la oferta / Mockups y Botón de compra */}
-          <div id="capture-card-container" className="max-w-xl mx-auto bg-white rounded-3xl border border-slate-200/80 shadow-[0_20px_50px_rgba(0,0,0,0.05)] p-6 sm:p-8 relative overflow-hidden text-left z-10 space-y-6">
+          <div id="capture-card-container" className="max-w-xl mx-auto bg-white rounded-3xl border border-slate-200/80 shadow-[0_20px_50px_rgba(0,0,0,0.05)] p-4 sm:p-8 relative overflow-hidden text-left z-10 space-y-4 sm:space-y-6">
             <div className="absolute top-0 left-0 w-full h-1.5 bg-gradient-to-r from-blue-600 via-indigo-500 to-blue-500"></div>
             
             <div className="space-y-2">
@@ -1085,18 +1085,7 @@ export default function App() {
         </div>
       )}
 
-      {/* ADMIN FLOATING BADGE */}
-      <div className="fixed bottom-4 right-4 z-40 flex items-center space-x-2">
-        <button
-          id="toggle-admin-btn"
-          onClick={() => setIsAdminOpen(true)}
-          className="px-4 py-2.5 bg-white hover:bg-slate-50 text-slate-800 rounded-full shadow-lg flex items-center space-x-2 text-xs font-bold border border-slate-200 transition-all group scale-95 sm:scale-100 cursor-pointer backdrop-blur-md"
-          title="Abrir Panel del Propietario (Lanzador)"
-        >
-          <Settings className="w-4 h-4 text-blue-650 group-hover:rotate-45 transition-transform" />
-          <span>⚙️ Panel del Lanzador</span>
-        </button>
-      </div>
+      {/* ADMIN FLOATING BADGE REMOVED */}
 
       {/* Admin Panel Modal */}
       <AdminPanel
